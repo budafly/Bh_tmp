@@ -1,0 +1,25 @@
+/*
+Theme Name: TEMPLATE_NAME
+Theme URI: http://vallgroup.com
+Author: Vallgroup LLC
+Author URI: http://vallgroup.com/
+Description: 
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: responsive-layout, full-width-template, theme-options
+*/
+
+/* Nav */
+.mobile .nav{
+    display:none;
+}
+
+.mobile .nav-toggle{
+    margin:10px 0;
+    padding:3px;
+    font-size:20px;
+    line-height:20px;
+    text-align:center;
+    cursor:pointer;
+}

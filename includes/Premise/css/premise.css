@@ -1,0 +1,484 @@
+/* Premise Classes */
+*{margin:0;padding:0;}
+input,textarea{outline:0 !important;}
+img{border:0;}/* For IE -- Fuck IE!! */
+.row {
+    display:block;
+    overflow:hidden;
+    margin-left:-1%;
+    margin-right:-1%;
+}
+
+.row > [class^="span"],.row > [class*=" span"],.row > [class^="col"],.row > [class*=" col"] {
+    float:left;
+    margin:10px 1%;
+}
+
+.clear {
+    display:block;
+    clear:both;
+    width:100%;
+    height:0;
+    overflow:hidden;
+}
+
+.inline > [class^="span"],.inline > [class*=" span"],.inline > [class^="col"],.inline > [class*=" col"],ul.inline > li {
+    display:inline-block;
+}
+
+.vertical-middle {
+    vertical-align:middle;
+}
+
+.vertical-top {
+    vertical-align:top;
+}
+
+.vertical-bottom {
+    vertical-align:bottom;
+}
+.half{
+    width:50%;
+}
+.col2 {
+    width:48%;
+    margin:1%;
+}
+
+.col3 {
+    width:31%;
+    margin:1%;
+}
+
+.col4 {
+    width:23%;
+    margin:1%;
+}
+
+.col5 {
+    width:18%;
+    margin:1%;
+}
+
+.col6 {
+    width:14.6%;
+    margin:1%;
+}
+
+.float-right {
+    float:right;
+}
+
+.float-left {
+    float:left;
+}
+
+.center {
+    text-align:center;
+}
+
+.left {
+    text-align:left;
+}
+
+.right {
+    text-align:right;
+}
+
+.justify {
+    text-align:justify;
+}
+.span1 {
+    width:6.3%;
+}
+
+.span2 {
+    width:14.6%;
+}
+
+.span3 {
+    width:23%;
+}
+
+.span4 {
+    width:31.3%;
+}
+
+.span5 {
+    width:39.6%;
+}
+
+.span6 {
+    width:48%;
+}
+
+.span7 {
+    width:56.3%;
+}
+
+.span8 {
+    width:64.6%;
+}
+
+.span9 {
+    width:73%;
+}
+
+.span10 {
+    width:81.3%;
+}
+
+.span11 {
+    width:89.6%;
+}
+
+.span12 {
+    width:98%;
+}
+
+.block {
+    display:block;
+}
+
+.relative{
+    position: relative;
+}
+
+.absolute{
+    position: absolute;
+}
+
+.fixed{
+    position:fixed;
+}
+.responsive-img,
+img.responsive,
+.img-responsive {
+    max-width:100%;height:auto;
+}
+
+.btn{outline:0;border:0;}
+.btn-primary{background:#27b4b4;color:#fff;padding:10px 15px;cursor:pointer;font-family: 'DistrictPro', arial, sans-serif;font-size:14px;font-weight:300;-webkit-appearance: none;}
+.btn-primary:hover{background:#555;color:#fff;}
+.btn-submit{border:0;padding:15px 30px;color:#fff;background:#27b4b4;margin:20px auto;display:block;font-size:18px;min-width:300px;cursor:pointer;font-family: 'DistrictPro', arial, sans-serif;font-weight:300;-webkit-appearance: none;}
+
+.hidden {
+    display:none;
+    visibility:none;
+}
+
+.transition {
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.transition5 {
+    transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+}
+
+/* Form elements */
+.field {
+    display:block;
+    margin:0 0 20px 0;
+}
+
+.field > label {
+    display:block;
+    font-size:18px;
+    font-family:inherit;
+    font-weight:inherit;
+    margin:10px 0 5px 0;
+    cursor:pointer;
+}
+
+.field input[type="text"]:focus,.field textarea:focus {
+    outline:0 !important;
+}
+
+/* Text Fields */
+.field .text {
+    display:block;
+    position:relative;
+    border-bottom:1px solid #ccc;
+    padding:0;
+}
+
+.field .text input[type="text"] {
+    display:block;
+    width:100% !important;
+    border:0 !important;
+    background: transparent !important;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:inherit;
+    color:#333;
+    padding:5px 0;
+    line-height:16px;
+}
+
+/* Textarea Fields */
+.field .textarea {
+    display:block;
+    position:relative;
+}
+
+.field .textarea textarea {
+    display:block;
+    width:100% !important;
+    height:200px;
+    border:0 !important;
+    background: transparent !important;
+    padding:0;
+    margin:0;
+    font-weight:inherit;
+    font-family:inherit;
+    font-size:inherit;
+    line-height:20px;
+}
+
+/* File Upload */
+.field .file {
+    display:block;
+    position: relative;
+    border-bottom:1px solid #ccc;
+    padding:0;
+}
+
+.field .file input[type="text"] {
+    display:block;
+    width:100% !important;
+    border:0 !important;
+    background: transparent !important;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:inherit;
+    color:#333;
+    padding:5px 0;
+    line-height:16px;
+}
+
+.field .file .upload-file,.field .file .remove-file {
+    display:block;
+    position:absolute;
+    top:0;
+    width:26px;
+    height:26px;
+    text-align:center;
+    line-height:30px;
+}
+
+.field .file .upload-file {
+    float:left;
+    background: #27b4b4;
+    color:#fff;
+    font-size:1.5em;
+    right:26px;
+}
+
+.field .file .remove-file {
+    float:right;
+    background:#eee;
+    color:#27b4b4;
+    font-size:1.5em;
+    right:0;
+}
+
+/* Select Dropdown */
+.field .select{
+    display:block;
+    position:relative;
+}
+
+.field .select select {
+    /*display:none;*/
+}
+
+.field .select .options {
+    display:block;
+    overflow:hidden;
+}
+
+.field .select .options li{
+    list-style:none;
+    overflow:hidden;
+}
+
+.field .select .option {
+    display: none;
+}
+
+.field .select .option.selected {
+    display:block;
+}
+
+.field .select .option a {
+    display:block;
+    padding:5px;
+    font-weight:inherit;
+    font-family:inherit;
+    font-size: inherit;
+    line-height:20px;
+    border: 1px solid #27b4b4;
+    margin:5px 0;
+    position: relative;
+}
+
+.field .select .option.selected a,.field .select .option a:hover {
+    background:#27b4b4;
+    color:#fff;
+}
+
+.field .select .option.selected a:after{
+    font-family:'FontAwesome';
+    font-weight:inherit;
+    font-size:inherit;
+    content: "\f0a6";
+    position:absolute;
+    top:5px;
+    right:10px;
+}
+
+/* Color Picker Fields */
+.field .color {
+    display:block;
+    position:relative;
+    height:30px;
+    border:1px solid #eee
+}
+
+.field .color .minicolors {
+    width:100%;
+}
+
+.field .color .minicolors .minicolors-swatch {
+    top:0;
+    left:0;
+    border:0;
+    height:30px;
+    width:30px;
+}
+
+.field .color input[type="text"] {
+    display:block;
+    width:100%;
+    background: #fff;
+    border:0 !important;
+    color:#333;
+    text-indent:35px;
+    padding:0;
+    margin:0;
+    height:30px;
+    line-height:30px;
+    text-transform:uppercase;
+}
+
+.field .color input[type="text"]:focus {
+    color:inherit;
+}
+
+/* Counter Fields */
+.field .dropdown {
+    position: relative;
+    display:block;
+    
+}
+
+.field .dropdown .options {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    background:#fff;
+    height:auto;
+    overflow:hidden;
+    border:1px solid #27b4b4;
+}
+
+.field .dropdown .options li {
+    line-height:20px;
+    display:none;
+    list-style:none !important;
+    width:100%;
+}
+
+.field .dropdown .options li.selected {
+    display:block;
+}
+
+.field .dropdown .options li a {
+    display:block;
+    padding:5px;
+    border-bottom:1px solid #eee;
+}
+
+.field .dropdown .options li.selected a {
+    display:block;
+    border-bottom:0;
+}
+
+.field .dropdown .options li.selected a,.field .dropdown .options li a:hover {
+    background:#27b4b4;
+    color:#fff;
+    position:relative;
+}
+
+.field .dropdown .options li.selected a:after {
+    font-family:'FontAwesome';
+    font-weight:inherit;
+    font-size:inherit;
+    content: "\f133";
+    position:absolute;
+    top:5px;
+    right:10px; 
+}
+
+/* Number Field */
+.field .number {
+    position:relative;
+    display:block;
+    border:1px solid #eee;
+    padding:5px;
+    overflow:hidden;
+}
+
+.field .number input[type="number"] {
+    position:relative;
+    left:-10%;
+    border:0 !important;
+    display:block;
+    width:120% !important;
+    line-height:20px;
+    font-size:inherit;
+    font-family:inherit;
+    font-weight:inherit;
+    text-align:center;
+    background:transparent !important;
+}
+
+/* Responsive Resets */
+@media screen and (max-width:769px) {
+    .row > .span1,.row > .span2,.row > .span3,.row > .span4,.row > [class^="col"],.row > [class*=" col"] {
+        width:48%;
+        margin:10px 1%;
+    }
+    
+    .row > .span8,.row > .span9,.row > .span10,.row > .span11 {
+        width:98%;
+        margin:10px 1%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .row > [class^="span"],.row > [class*=" span"],.row > [class^="col"],.row > [class*=" col"] {
+        width:98%;
+        margin:10px 1%;
+    }
+}
