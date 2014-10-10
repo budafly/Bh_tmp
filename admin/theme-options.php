@@ -1,138 +1,100 @@
-<?php 
+<div id="vg-theme-options-page" class="vg">
+	<!-- Start Form -->
+	<form method="post" action="options.php" enctype="multipart/form-data">	
+			<?php settings_fields( 'vg_theme_options' ); ?>
+			<?php do_settings_sections( 'vg_theme_options' ); ?>
 
-
-function vg_build_options_page() {
-wp_enqueue_media(); ?>
-	<div id="vg-theme-options-page" class="vg">
-		<!-- Start Form -->
-		<form method="post" action="options.php" enctype="multipart/form-data">	
-				<?php settings_fields( 'vg_theme_options' ); ?>
-				<?php do_settings_sections( 'vg_theme_options' ); ?>
-
-			<!-- Head -->
-			<div class="row">
-				<div class="span3 center vg-logo">
-					<a href="htvg://vallgroup.com" target="_blank" class="block">
-						<img src="<?php echo get_template_directory_uri(); ?>/admin/img/vg_icon100.png" class="responsive" alt="Vallgroup">
-					</a>
+		<!-- Head -->
+		<div class="row">
+			<div class="span3 center vg-logo">
+				<a href="htvg://vallgroup.com" target="_blank" class="block">
+					<img src="<?php echo get_template_directory_uri(); ?>/admin/img/vg_icon100.png" class="responsive" alt="Vallgroup">
+				</a>
+			</div>
+			<div class="span9 vg-head">
+				<div class="span9 vg-title">
+					<h1>Theme Options</h1>
 				</div>
-				<div class="span9 vg-head">
-					<div class="span9 vg-title">
-						<h1>Theme Options</h1>
-					</div>
-					<div class="vg-btn-white float-right">
-						<?php submit_button(); ?>
-					</div>
+				<div class="vg-btn-white float-right">
+					<?php submit_button(); ?>
 				</div>
-			</div><!-- /Head -->
-			
-			<!-- Body -->
-			<div class="row">
-				<!-- Left Column -->
-				<div class="span3 vg-left-col">
-					<div class="vg-nav">
-						<ul>
-							<li class="active animate">
-								<a href="#vg-general" class="block animate">
-									<i class="fa fa-fw fa-lg fa-wrench"></i> <span class="hide-tablet">General</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-header" class="block animate">
-									<i class="fa fa-fw fa-lg fa-list-alt"></i> <span class="hide-tablet">Header</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-splash" class="block animate">
-									<i class="fa fa-fw fa-lg fa-question"></i> <span class="hide-tablet">Splash</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-home" class="block animate">
-									<i class="fa fa-fw fa-lg fa-home"></i> <span class="hide-tablet">Home</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-team" class="block animate">
-									<i class="fa fa-fw fa-lg fa-group"></i> <span class="hide-tablet">Team Page</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-portfolio" class="block animate">
-									<i class="fa fa-fw fa-lg fa-briefcase"></i> <span class="hide-tablet">Portfolio</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-blog" class="block animate">
-									<i class="fa fa-fw fa-lg fa-pencil"></i> <span class="hide-tablet">Blog</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-tracking" class="block animate">
-									<i class="fa fa-fw fa-lg fa-search"></i> <span class="hide-tablet">Tracking</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-header" class="block animate">
-									<i class="fa fa-fw fa-lg fa-th-large"></i> <span class="hide-tablet">Layout</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-footer" class="block animate">
-									<i class="fa fa-fw fa-lg fa-gears"></i> <span class="hide-tablet">Advanced</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-design" class="block animate">
-									<i class="fa fa-fw fa-lg fa-tint"></i> <span class="hide-tablet">Design</span>
-								</a>
-							</li>
-							<li class="animate">
-								<a href="#vg-404" class="block animate">
-									<i class="fa fa-fw fa-lg fa-warning"></i> <span class="hide-tablet">404</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div><!-- /Left Column -->
-				<!-- content -->
-				<div class="span9 vg-theme-options">
-					
-					<?php include_once('vg-general-settings.php'); ?>
+			</div>
+		</div><!-- /Head -->
+		
+		<!-- Body -->
+		<div class="row">
+			<!-- Left Column -->
+			<div class="span3 vg-left-col">
+				<div class="vg-nav">
+					<ul>
+						<li class="active animate">
+							<a href="#vg-general" class="block animate">
+								<i class="fa fa-fw fa-lg fa-wrench"></i> <span class="hide-tablet">General</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-header" class="block animate">
+								<i class="fa fa-fw fa-lg fa-list-alt"></i> <span class="hide-tablet">Header</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-home" class="block animate">
+								<i class="fa fa-fw fa-lg fa-home"></i> <span class="hide-tablet">Home</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-team" class="block animate">
+								<i class="fa fa-fw fa-lg fa-group"></i> <span class="hide-tablet">Team Page</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-portfolio" class="block animate">
+								<i class="fa fa-fw fa-lg fa-briefcase"></i> <span class="hide-tablet">Portfolio</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-blog" class="block animate">
+								<i class="fa fa-fw fa-lg fa-pencil"></i> <span class="hide-tablet">Blog</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-tracking" class="block animate">
+								<i class="fa fa-fw fa-lg fa-search"></i> <span class="hide-tablet">Tracking</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-header" class="block animate">
+								<i class="fa fa-fw fa-lg fa-th-large"></i> <span class="hide-tablet">Layout</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-footer" class="block animate">
+								<i class="fa fa-fw fa-lg fa-gears"></i> <span class="hide-tablet">Advanced</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-design" class="block animate">
+								<i class="fa fa-fw fa-lg fa-tint"></i> <span class="hide-tablet">Design</span>
+							</a>
+						</li>
+						<li class="animate">
+							<a href="#vg-404" class="block animate">
+								<i class="fa fa-fw fa-lg fa-warning"></i> <span class="hide-tablet">404</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div><!-- /Left Column -->
+			<!-- content -->
+			<div class="span9 vg-theme-options">
 
-					<?php include_once('vg-team-settings.php'); ?>
-					
-					<?php include_once('vg-portfolio-settings.php'); ?>
-					
-					<?php include_once('vg-blog-settings.php'); ?>
-					
-					<?php include_once('vg-header-settings.php'); ?>
+			</div><!-- /Content -->
+		</div><!-- /Body -->
+		
+	</form><!-- /Form -->
+</div><!-- /Theme Options Page -->
 
-					<?php include_once('vg-home-settings.php'); ?>
-
-					<?php include_once('vg-splash-settings.php'); ?>
-					
-				</div><!-- /Content -->
-			</div><!-- /Body -->
-			
-		</form><!-- /Form -->
-		<script>
-		jQuery(document).ready(function($){
-			$('.field .toggle').on('change', function(){
-				if($(this).is('select')){
-					var a = $(this).find('option:selected'),
-						b = a.attr('data-toggle');
-					
-					$('.vg-form-toggle').hide('slow');		
-					$(b).show('slow');
-				}
-				
-			});
-		});
-		</script>
-	</div><!-- /Theme Options Page --> <?php
-}
-
+<?php
 //Register Settings
 function register_vg_settings () {
 	register_setting('vg_theme_options', 'vg_header');
@@ -141,48 +103,4 @@ function register_vg_settings () {
 	register_setting('vg_theme_options', 'vg_header_pattern');
 	register_setting('vg_theme_options', 'vg_header_image');
 	register_setting('vg_theme_options', 'vg_header_border');
-
-	register_setting('vg_theme_options', 'vg_mobile_nav');
-
-	register_setting('vg_theme_options', 'vg_home');
-
-	register_setting('vg_theme_options', 'vg_splash');
-	register_setting('vg_theme_options', 'vg_splash_bgcolor');
-	register_setting('vg_theme_options', 'vg_splash_gradient');
-	register_setting('vg_theme_options', 'vg_splash_pattern');
-	register_setting('vg_theme_options', 'vg_splash_image');
-
-	// register_setting('vg_theme_options', 'vg_favicon');
-	// register_setting('vg_theme_options', 'vg_logo');
-	
-	register_setting('vg_theme_options', 'vg_home_layout');
-	register_setting('vg_theme_options', 'vg_admin_logo');	
-	register_setting('vg_theme_options', 'vg_icon_touch');
-	register_setting('vg_theme_options', 'vg_startup_image');
-	register_setting('vg_theme_options', 'vg_fb');
-	register_setting('vg_theme_options', 'vg_tt');
-	register_setting('vg_theme_options', 'vg_gplus');
-	register_setting('vg_theme_options', 'vg_yt');
-	register_setting('vg_theme_options', 'vg_ig');
-	register_setting('vg_theme_options', 'vg_pt');
-	register_setting('vg_theme_options', 'tp_tel');
-	register_setting('vg_theme_options', 'tp_email');
-	register_setting('vg_theme_options', 'vg_team_search');
-	register_setting('vg_theme_options', 'vg_team_width');
-	register_setting('vg_theme_options', 'vg_team_layout');
-	register_setting('vg_theme_options', 'vg_team_cols');
-	register_setting('vg_theme_options', 'vg_team_avatar');
-	register_setting('vg_theme_options', 'vg_team_photo');
-	register_setting('vg_theme_options', 'vg_team_social');
-	register_setting('vg_theme_options', 'vg_team_phone');
-	register_setting('vg_theme_options', 'vg_team_email');
-	register_setting('vg_theme_options', 'vg_team_desc');
-	register_setting('vg_theme_options', 'vg_team_level');
-	register_setting('vg_theme_options', 'vg_team_link');
-	register_setting('vg_theme_options', 'vg_team_display_members');	
-	register_setting('vg_theme_options', 'vg_team_image_round');
-	
-	
-	// register_setting('vg_theme_options', '');
-	// register_setting('vg_theme_options', '');
 }

@@ -1,1 +1,0 @@
-[02-Jul-2014 22:58:50 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home3/vg/public_html/medriguez/wp-content/themes/vallgroup/admin/theme-options.php on line 163

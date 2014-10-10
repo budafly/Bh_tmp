@@ -1,12 +1,8 @@
 <?php 
 //Get Header Layout
-
 $layout = vg_get_header_layout();
-$splash = get_option( 'vg_splash' );
-$splash_image = get_option( 'vg_splash_image' );
-$splash_gradient = get_option( 'vg_splash_gradient' );
+$splash = get_option('vg_splash'); ?>
 
-?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -25,12 +21,12 @@ $splash_gradient = get_option( 'vg_splash_gradient' );
 
 <body <?php body_class('site'); ?>>
 
-<section id="home-splash">
+<section id="home-splash" class="block relative center">
 	<div class="container">
-
+		
 		<div class="splash-logo block center">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<img src="<?php echo $splash['logo'] ? $splash['logo'] : get_option('vg_logo'); ?>" class="responsive">
+			<img src="<?php echo $splash['logo'] ? $splash['logo'] : get_option('vg_logo'); ?>" class="responsive">
 			</a>
 		</div>
 
