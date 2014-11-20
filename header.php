@@ -21,32 +21,25 @@ $layout = vg_get_header_layout(); ?>
 <body <?php body_class('site'); ?>>
 
 
-<header id="header" class="block <?php vg_header_class(); ?>" <?php echo vg_header_style(); ?>>
+<header id="header" class="block <?php vg_header_class(); ?>">
 	<div class="header-inner">
 		<div class="container">
 
-			<div class="row">
-				<div class="<?php echo $layout[0]; ?> logo center">
+			<div class="inline">
+				<div class="span4 logo left">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 						<img src="<?php echo get_option('vg_logo'); ?>" class="responsive">
 					</a>
 				</div><!-- /logo -->
 				
-				<div id="main-nav" class="<?php echo $layout[1]; ?>">
+				<div class="span8 main-nav right">
 					
 					<?php vg_do_nav(); ?>
 					
 				</div><!-- /nav -->
-				
-				<?php if ($layout[2]) : ?>
-				<div class="<?php echo $layout[2]; ?>">
-						<div class="block">
-							<?php dynamic_sidebar('header-widget'); ?>
-						</div>
-				</div>
-				<?php endif; ?>
 			</div>
 		
 		</div>
 	</div>
 </header>
+<div class="header-bump"></div>

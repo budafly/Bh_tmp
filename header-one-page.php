@@ -1,8 +1,12 @@
 <?php 
 //Get Header Layout
-$layout = vg_get_header_layout();
-$splash = get_option('vg_splash'); ?>
 
+$layout = vg_get_header_layout();
+$splash = get_option( 'vg_splash' );
+$splash_image = get_option( 'vg_splash_image' );
+$splash_gradient = get_option( 'vg_splash_gradient' );
+
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -21,44 +25,49 @@ $splash = get_option('vg_splash'); ?>
 
 <body <?php body_class('site'); ?>>
 
-<section id="home-splash" class="block relative center">
-	<div class="container">
-		
+<section id="home-splash" <?php vg_splash_classes_and_styles(); ?>>
+	<div class="container center">
+
 		<div class="splash-logo block center">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-			<img src="<?php echo $splash['logo'] ? $splash['logo'] : get_option('vg_logo'); ?>" class="responsive">
+				<img src="<?php echo $splash['logo'] ? $splash['logo'] : get_option('vg_logo'); ?>" class="inline-block responsive">
 			</a>
 		</div>
 
+		<div class="home-splash-navigation block center">
+			<?php vg_do_nav( 1, 'splash' ); ?>
+		</div>
+
+		<div class="splash-tag-line block center">
+			<?php echo $splash['tag-line']; ?>
+		</div>
+
+		<div class="splash-cta block center">
+			<a href="<?php vg_splash_cta_url(); ?>" class="inline-block btn btn-round btn-splash-cta"><?php echo $splash['cta']; ?></a>
+		</div>
+		
 	</div>
 </section>
 
-<header id="header" class="block <?php vg_header_class(); ?>" <?php echo vg_header_style(); ?>>
+<header id="header" class="block <?php vg_header_class(); ?>">
 	<div class="header-inner">
 		<div class="container">
 
-			<div class="row">
-				<div class="<?php echo $layout[0]; ?> logo center">
+			<div class="inline">
+				<div class="span4 logo left">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 						<img src="<?php echo get_option('vg_logo'); ?>" class="responsive">
 					</a>
 				</div><!-- /logo -->
 				
-				<div id="main-nav" class="<?php echo $layout[1]; ?>">
+				<div class="span8 main-nav right">
 					
 					<?php vg_do_nav(); ?>
 					
 				</div><!-- /nav -->
-				
-				<?php if ($layout[2]) : ?>
-				<div class="<?php echo $layout[2]; ?>">
-						<div class="block">
-							<?php dynamic_sidebar('header-widget'); ?>
-						</div>
-				</div>
-				<?php endif; ?>
 			</div>
 		
 		</div>
 	</div>
 </header>
+<div class="header-bump"></div>

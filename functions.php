@@ -1,222 +1,141 @@
 <?php
-/*
-*	On Theme activation
-*
-*	This function runs  only when the theme is activated.
-*	It sets defaults, flushes rewrite rules, and redirects
-*	the user to the theme options page.
-*
-**/
+function vg_print_r($var){
+	echo '<pre>';
+	print_r($var);
+	echo '</pre>';
+}
+/**
+ * Upon theme activation
+ */
 if ( !function_exists( 'vg_theme_activation' ) ) {
 	function vg_theme_activation() {
 		$defaults = array(
 			'vg_fb' => '#Facebook', 
-			'vg_tt' => '#Twitter', 
+			'vg_tt' => '#Twitter',
+			'vg_one_page_nav' => array(
+				'ignore-sticky' => '1',
+			),
+			'vg_splash' => array(
+				'logo' => get_stylesheet_directory().'/img/defaults/logo-splash.png',
+			),
 		);
-		$options = wp_parse_args( $options, $defaults );
+		
+		//redirect to theme options page
+		$url = admin_url().'/themes.php?page=bloodhound_theme_options';
+		wp_redirect( $url );
 	}
-
-	$url = admin_url( 'themes.php?page=TEMPLATE_NAME_theme_options' );
-	//wp_redirect( $url ); exit;
 }
 add_action('switch_theme', 'vg_theme_activation');
 
-/*
-*	Load Admin Scripts
-*
-*	@return: Loads admin scripts and stylesheets
-*
-**/
-if( !function_exists('vg_enqueue_admin_scripts') ) {
-	function vg_enqueue_admin_scripts() {
-		
-		if( is_admin()){
-
-		}
+/**
+ * Setup Wordpress
+ */
+if ( !function_exists( 'vg_setup_wp' ) ) {
+	function vg_setup_wp() {
+		add_theme_support('post-thumbnails', array( 'page', 'post', 'teammember' ) );
+		//register Navs
+		register_nav_menus( array( 'primary' => 'Primary Menu', 'second' => 'Secondary Menu' ) );
 	}
-		function my_enqueue($hook) {
-	    if ( 'edit.php' != $hook ) {
-	        return;
-	    }
-
-	    wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'myscript.js' );
-	}
-	add_action( 'admin_enqueue_scripts', 'my_enqueue' );
 }
+add_action( 'init', 'vg_setup_wp' );
 
-/*
-*	Load Scripts
-*
-*	@return: Loads front-end scripts and stylesheets
-*
-**/
+/**
+ * Site scripts
+ */
 if( !function_exists('vg_enqueue_scripts') ) {
 	function vg_enqueue_scripts() {
-		
+		//register stylesheets
+		wp_register_style( 'googlefonts', 'http://fonts.googleapis.com/css?family=Oswald:400,300,700|Nunito:400,300,700' );
+		wp_register_style( 'fontawesome', get_template_directory_uri().'/includes/font-awesome-4.2.0/css/font-awesome.css', array( 'googlefonts' ) );//'//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'
+		wp_register_style( 'premise', get_template_directory_uri().'/includes/Premise/css/premise.css', array( 'fontawesome' ) );
+		wp_register_style( 'vg_style', get_template_directory_uri().'/style.css', array( 'premise' ) );
+		wp_register_style( 'vg_responsive', get_template_directory_uri().'/css/responsive.css', array( 'vg_style' ) );
+		//register scripts
+		wp_register_script('premise', get_template_directory_uri().'/includes/Premise/js/premise.js', array( 'jquery' ) );
+		wp_register_script('vg_main_js', get_template_directory_uri().'/js/main.js', array( 'premise' ) );
+		//enqueue styles and scripts
 		if( !is_admin()){
-
+			wp_enqueue_style('vg_responsive');
+			wp_enqueue_script('vg_main_js');
 		}
 	}
 }
 add_action('wp_enqueue_scripts', 'vg_enqueue_scripts');
 
-/*
-*	Theme Essentials
-*
-*	Register Navs, sidebars, and add support for Wordpress functionalities
-*
-**/
-add_theme_support('post-thumbnails', array('page', 'post'));
-
-//register Navs
-register_nav_menu('primary', 'Primary Menu');
-
-//register header widget
-$header = array( 	'name'          => __( 'Header Widget' ),
-					'id'            => 'header-widget',
-					'description'   => 'Widget to display in the header',
-				    'class'         => 'header-widget');
-register_sidebar( $header );
-
-/*
-*	Theme Options Page
-*
-*	Register and create theme options page
-*
-**/
+/**
+ * Create theme options page
+ */
 function vg_add_theme_options_page() {
 	$vg_theme_page = add_theme_page('Theme Options', 'Theme Options', 'edit_theme_options', 'bloodhound_theme_options', 'vg_build_options_page');
-	add_action('admin_init', 'register_vg_settings');
-	add_action('load-'.$vg_theme_page, 'vg_load_scripts');
+	add_action('admin_init', 'vg_register_theme_settings');
+	//add_action('admiin_print_scripts-'.$vg_theme_page, 'vg_load_admin_scripts');
 }
 add_action('admin_menu', 'vg_add_theme_options_page');
-function vg_build_options_page() {
-	wp_enqueue_media();
-	require_once( 'theme-options.php' );
+
+/**
+ * Admin scripts
+ */
+if( !function_exists('vg_enqueue_admin_scripts') ) {
+	function vg_enqueue_admin_scripts() {
+		//register admin style
+		wp_register_style( 'fontawesome', get_template_directory_uri().'/includes/font-awesome-4.2.0/css/font-awesome.css' );//'//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
+		wp_register_style( 'premise', get_template_directory_uri().'/includes/Premise/css/premise.css', array( 'fontawesome' ) );
+		wp_register_style('minicolors-css', get_template_directory_uri().'/includes/admin/css/jquery.minicolors.css');
+		wp_register_style('vg_admin_css', get_template_directory_uri().'/includes/admin/css/vg-admin.css', array('premise', 'minicolors-css'));
+		//register scripts
+		wp_register_script('minicolors', get_template_directory_uri().'/includes/admin/js/jquery.minicolors.min.js');
+		wp_register_script( 'premise', get_template_directory_uri().'/includes/Premise/js/premise.js' );
+		wp_register_script('vg_admin_js', get_template_directory_uri().'/includes/admin/js/vg-admin.js', array('jquery', 'minicolors', 'premise' ) );
+		//enqueue admin style and script
+		if( is_admin()){
+			wp_enqueue_style('vg_admin_css');	
+			wp_enqueue_script('vg_admin_js');
+		}
+	}
 }
-//Load Scripts for theme options
-function vg_load_scripts() {
+add_action( 'admin_enqueue_scripts', 'vg_enqueue_admin_scripts' );
+
+/**
+ * Load admin scripts
+ */
+function vg_load_admin_scripts() {
 	add_action('admin_enqueue_scripts', 'vg_enqueue_admin_scripts');
 }
 
-/*======================================================================================*/
-function vg_get_header_layout() {
-	$layout = get_option('vg_header_layout');
-	
-	switch( $layout ) {
-		
-		case '3-6-3' : 
-			$span = array('span3', 'span6', 'span3');
-		break;
-		
-		case '4-4-4' : 
-			$span = array('span4', 'span4', 'span4');
-		break;
-		
-		case '6-6' :
-			$span = array('span6', 'span6');
-		break;
-		
-		case '3-9' :
-			$span = array('span3', 'span9');
-		break;
-	}
-	return $span;
+/**
+ * Build theme options page
+ */
+function vg_build_options_page() {
+	wp_enqueue_media();
+	//create theme options page
+	require_once( TEMPLATEPATH . '/includes/admin/theme-options/theme-options.php' );
 }
 
-function vg_header_class() {
-	//get mobile nav options
-	$force_mobile = get_option('vg_force_mobile');
-	$nav_animation = get_option('vg_mobile_nav_animation');
-	$btn_position = get_option('vg_mobile_nav_btn');
-	
-	echo $force_mobile.' '.$nav_animation.' '.$btn_position.' '.$btn_bg.' '.$btn_color.' '.$nav_theme;
+/**
+ * register theme settings
+ */
+if ( !function_exists( 'vg_register_theme_settings' ) ) {
+	function vg_register_theme_settings () {
+		register_setting( 'vg_theme_options', 'vg_home' );
+		register_setting( 'vg_theme_options', 'vg_one_page_nav' );
+		register_setting( 'vg_theme_options', 'vg_splash' );
+		register_setting( 'vg_theme_options', 'vg_header' );
+		register_setting( 'vg_theme_options', 'vg_logo' );
+
+		register_setting( 'vg_theme_options', 'vg_enable_one_page' );
+	}
 }
 
-//vg background composer
+/**
+ * Includes
+ */
+require_once( 'includes/includes.php' );
 
-function vg_header_style( $s="" ) {
-	//get main header styles
-	$header = get_option('vg_header');
-	$header_border = get_option('vg_header_border');
 
-	$style = 'style="';
-
-	if($header['sticky'] && '1' == $header['sticky']){
-		$position = 'position:fixed;top:0;left:0;width:100%;z-index:99;';
-		$style .= $position;
+function vg_home_splash_nav_class($classes, $item){
+	if(is_single() && $item->title == "Blog"){ //Notice you can change the conditional from is_single() and $item->title
+		$classes[] = "special-class";
 	}
-
-	if($header_border) {
-		$style .= "border-bottom:".$header_border['px']." ".$header_border['style']." ".$header_border['color'].";";
-	}
-	
-	//color, gradient, pattern, or image
-	switch ( $header['bg'] ) {
-		case 'color':
-			$style .= 'background:'.get_option( 'vg_header_bgcolor' ).';';
-			break;
-		
-		case 'gradient':
-			$style .= "";
-			break;
-
-		case 'pattern':
-			$style .= "background: url(".get_option( 'vg_header_pattern' ).") repeat scroll top left transparent;";
-			break;
-
-		case 'image':
-			$image = get_option( 'vg_header_image' );
-			$style .= "background: url( ".$image['image']." ) ".$image['repeat']." ".$image['attach']." ".$image['position-x']." ".$image['position-y']." transparent;";
-			break;
-
-		default:
-			$style .= 'background:'.get_option( 'vg_header_bgcolor' ).';';
-			break;
-	}
-	
-	$style .= ''.$s.'"';
-	
-	echo $style;
+	return $classes;
 }
-
-function vg_output_css( ) {
-	$gradient = get_option('vg_header_gradient');
-
-	$style = "<style>
-		#header {";
-	if('radial' == $gradient['dir']){
-		$style .= "
-			background-color: ".$gradient['start'].";
-			background: -webkit-gradient(radial, center center, 0, center center, 460, from(".$gradient['start']."), to(".$gradient['finish']."));
-			background: -webkit-radial-gradient(circle, ".$gradient['start'].", ".$gradient['finish'].");
-			background: -moz-radial-gradient(circle, ".$gradient['start'].", ".$gradient['finish'].");
-			background: -ms-radial-gradient(circle, ".$gradient['start'].", ".$gradient['finish'].");";
-	}
-	else{
-		if('linear' == $gradient){
-			if('ttb' == $gradient['linear']){
-				$style .= "
-					background-color: ".$gradient['start'].";
-					background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(".$gradient['start']."), to(".$gradient['finish']."));
-					background: -webkit-linear-gradient(top, ".$gradient['start'].", ".$gradient['finish'].");
-					background: -moz-linear-gradient(top, ".$gradient['start'].", ".$gradient['finish'].");
-					background: -ms-linear-gradient(top, ".$gradient['start'].", ".$gradient['finish'].");
-					background: -o-linear-gradient(top, ".$gradient['start'].", ".$gradient['finish'].");";
-			}
-			else{
-				$style .= "
-					background-color: ".$gradient['start'].";
-					background: -webkit-gradient(linear, left top, right top, from(".$gradient['start']."), to(".$gradient['finish']."));
-					background: -webkit-linear-gradient(left, ".$gradient['start'].", ".$gradient['finish'].");
-					background: -moz-linear-gradient(left, ".$gradient['start'].", ".$gradient['finish'].");
-					background: -ms-linear-gradient(left, ".$gradient['start'].", ".$gradient['finish'].");
-					background: -o-linear-gradient(left, ".$gradient['start'].", ".$gradient['finish'].");";
-			}
-		}
-	}
-	
-	$style .= "}
-		</style>";
-	echo $style;
-}
+add_filter('nav_menu_css_class' , 'vg_home_splash_nav_class' , 10 , 2);

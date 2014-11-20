@@ -1,25 +1,196 @@
 /*
-Theme Name: TEMPLATE_NAME
+Theme Name: Bloodhound
 Theme URI: http://vallgroup.com
 Author: Vallgroup LLC
 Author URI: http://vallgroup.com/
-Description: 
+Description: Bloodhound is a beatiful responsive theme
 Version: 1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: responsive-layout, full-width-template, theme-options
 */
+*{
+    box-sizing:border-box;
+}
+/* Typography */
+p{}
+a{
+    text-decoration: none;
+    cursor:pointer;
+}
+a:hover{
+
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    text-transform:uppercase;
+}
+h5,
+h6 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+}
+
+.tag-line {
+    font-size:2em;
+    font-family: 'Oswald', sans-serif;
+    font-weight:300;
+}
+
+body{
+    font-family: 'Nunito', sans-serif;
+    font-weight:300;
+    font-size:1em;
+    line-height:150%;
+}
+
+/* Layout */
+.container {
+    display:block;
+    width:90%;
+    margin: 0 auto;
+    max-width:1200px;
+}
+
+/* Header */
+#header {
+    width:100%;
+    top:0;
+    left:0;
+    z-index:99999;
+}
+#header .logo {
+    padding:10px;
+}
+#header .logo,
+#header .main-nav {
+    vertical-align:bottom;
+}
 
 /* Nav */
-.mobile .nav{
+#header nav.nav {
+    display:block;
+    position:relative;
+}
+#header nav.nav .nav-menu a {
+    display:block;
+    padding:20px;
+    border-radius: 20px 20px 0 0;
+    -webkit-border-radius: 20px 20px 0 0;
+    -moz-border-radius: 20px 20px 0 0;
+    -ms-border-radius: 20px 20px 0 0;
+    -o-border-radius: 20px 20px 0 0;
+}
+.nav-toggle {
+    display:inline-block;
+    padding:15px;
+    border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    -ms-border-radius: 10px 10px 0 0;
+    -o-border-radius: 10px 10px 0 0;
+}
+#home-splash .nav-toggle {
     display:none;
 }
 
-.mobile .nav-toggle{
-    margin:10px 0;
-    padding:3px;
-    font-size:20px;
-    line-height:20px;
+/* one page nav CSS */
+article.one-page-section {
+    display:block;
+    padding: 80px 0;
+}
+
+/* Blog */
+article .post-title {
+    display:block;
+    margin-bottom:80px;
+    position:relative;
+}
+article .post-title .title-bar {
+    width:70%;
+    height:2px;
+    margin:10px 0 10px 10px;
+}
+article .post-title h1,
+article .post-title h2,
+article .post-title .title-bar {
+    display:inline-block;
+    vertical-align:middle;
+    float:right;
+}
+article .post-title h1,
+article .post-title h2 {
+    font-size: 2.2em;
+    color:inherit;
+}
+.main .post-thumbnail {
+    display:inline-block;
+    padding:10px;
+    border:1px solid #ccc;
+    margin-right:20px;
+    margin-bottom: 10px;
+}
+
+/* Home Splash */
+#home-splash {
+    display:block;
+    padding-bottom:20px;
+}
+#home-splash .splash-logo {
+    margin-bottom: 80px;    
+}
+#home-splash .splash-logo a {
+    display:inline-block;
+}
+
+/* splash nav */
+.home-splash-navigation {
+    margin-bottom:40px;
+}
+.home-splash-navigation .nav{
+    display:block;
     text-align:center;
+}
+.home-splash-navigation .nav li{    
+    list-style:none;
+    display:inline-block;
+    margin:10px;
+    text-align:center;
+    min-width:90px
+}
+.home-splash-navigation .nav li a {
+    position:relative;
+}
+.home-splash-navigation .nav li a * {
+    pointer-events:none;
+}
+.home-splash-navigation .nav li span.splash-nav-icon {
+    display:block;
+    height:90px;
+    width:90px;
+    line-height:90px;
+    border-radius:45px;
+    -webkit-border-radius:45px;
+    -moz-border-radius:45px;
+    -ms-border-radius:45px;
+    -o-border-radius:45px;
+    font-size:40px;
     cursor:pointer;
+}
+
+.splash-tag-line {
+    text-align:center;    
+    margin-bottom: 40px
+}
+.splash-cta .btn {
+    padding:10px 30px;
+    color:#fff;
+    font-size:inherit;
+    border:1px solid #fff;
+    border-radius:30px;    
 }

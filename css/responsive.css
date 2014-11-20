@@ -1,0 +1,44 @@
+@media screen and (min-width:1200px){
+	#header nav.nav .nav-menu li{
+		margin-left:-5px;
+	}
+	.nav-toggle{
+		display:none;
+	}
+}
+
+@media screen and (max-width: 1200px){
+	#header nav.nav .nav-menu {
+		position:absolute;
+		top:100%;
+		left:0;
+		z-index:99999;
+		width:100%;
+		display:none;
+		border-radius: 0 0 20px 20px;
+		-webkit-border-radius: 0 0 20px 20px;
+		-moz-border-radius: 0 0 20px 20px;
+		-ms-border-radius: 0 0 20px 20px;
+		-o-border-radius: 0 0 20px 20px;
+		overflow:hidden;
+		box-shadow:0 1px 5px;
+		-webkit-box-shadow:0 1px 5px;
+		-moz-box-shadow:0 1px 5px;
+		-ms-box-shadow:0 1px 5px;
+		-o-box-shadow:0 1px 5px;
+	}
+	#header nav.nav .nav-menu li{
+		display:block;
+		text-align:center;
+		margin:0;
+	}
+	#header nav.nav .nav-menu a {
+		display:block;
+		padding:15px;
+		border-radius: 0;
+		-webkit-border-radius: 0;
+		-moz-border-radius: 0;
+		-ms-border-radius: 0;
+		-o-border-radius: 0;
+	}
+}
