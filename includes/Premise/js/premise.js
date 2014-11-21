@@ -4,21 +4,34 @@ jQuery(function(){
 
 });
 
-var premSameHeightTallest = 0;
+
 function premSameHeight( el ) {
 	el = el || jQuery( '.same-height' )
 	
+	var heightTallest = 0,setHeight;
+
 	var setUp = el.each(function(){
-		var h = jQuery(this).height()
-		if( h > premSameHeightTallest ){
-			premSameHeightTallest = h
+		if( setHeight )
+			return false
+
+		setHeight = jQuery(this).attr('data-height')
+
+		if( setHeight ){
+			heightTallest = setHeight
+			console.log(setHeight, heightTallest)
+			return false
+		}
+
+		var h = jQuery(this).outerHeight()
+		if( h > heightTallest ){
+			heightTallest = h
 		}
 	});
 
-	var fixHeight = el.css( 'min-height', premSameHeightTallest )
+	var fixHeight = el.css( 'min-height', heightTallest )
 
 	jQuery.when( setUp ).done( fixHeight )
-
+	console.log(el)
 	return false
 }
 
