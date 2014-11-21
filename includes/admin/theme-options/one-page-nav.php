@@ -423,12 +423,22 @@ function vg_splash_cta_url() {
 	echo $output;
 }
 
-function vg_the_title( $post ) {
+function vg_the_title( $post, $span = true, $echo = true ) {
 	$page = get_post_meta( $post->ID, 'vg_add_post', true );
+	
 	if( !$page['title-color'] )
 		$page['title-color'] = '#333333';
-	echo '<div class="post-title">
-			<span class="title-bar" style="background:'.$page['title-color'].'"></span>
-				<h2 style="color:'.$page['title-color'].'">'.get_the_title().'</h2></div>';
+	
+	$html = '<div class="post-title">';
+	
+	if( $span )
+		$html .= '<span class="title-bar" style="background:'.$page['title-color'].'"></span>';
+	
+	$html .= '<h2 style="color:'.$page['title-color'].'">'.get_the_title().'</h2></div>';
+
+	if($echo)
+		echo $html;
+
+	return $html;
 }
 ?>
