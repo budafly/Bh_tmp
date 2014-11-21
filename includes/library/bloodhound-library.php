@@ -4,6 +4,33 @@
  * @package Bloodhound
  */
 
+function bloodhound_get_page_options() {
+	global $post;
+	return $page = get_post_meta( $post->ID, 'vg_add_post', true );
+}
+
+function bloodhound_the_page_styles( $style = array() ) {
+	if( !is_array( $style ) )
+		return false;
+	$_styles = bloodhound_get_page_options();
+	$html = 'style="';
+	switch ( $_styles['style'] ) {
+		case 'top':
+			$html .= 'border-top:20px solid '.$_styles['page-color'].';';
+			break;
+
+		case 'solid':
+			$html .= 'background:'.$_styles['page-color'].';';
+			break;
+		
+		default:
+			$html .= '';
+			break;
+	}
+	$html .= implode( '', $style ).'"';
+	echo $html;
+}
+
 /**
  * Home Splash Classes and Styles
  * @param  array  $my_classes Additional classes to insert, i.e. ('one-class', 'other-class')
