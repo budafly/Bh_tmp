@@ -52,43 +52,37 @@ class BloodhoundTeamMemberClass {
 		$meta = get_post_meta( $post->ID, 'bloodhound_tmcpt_meta', true );
 		
 		echo '<div class="row"><div class="col2">';
-		//title
-		premise_field( array(  'type' 		  => 'text',
-							   'name' 		  => 'bloodhound_tmcpt_meta[title]',
-							   'value' 	  	  => $meta['title'],
-							   'id' 		  => 'bh_tmcpt_title',
-							   'placeholder'  => 'title', ) );
-		//email
-		premise_field( array(  'type' 		  => 'email',
-							   'name' 		  => 'bloodhound_tmcpt_meta[email]',
-							   'value' 	  	  => $meta['email'],
-							   'id' 		  => 'bh_tmcpt_email',
-							   'placeholder'  => 'email',) );
-		//tel
-		premise_field( array(  'type' 		  => 'tel',
-							   'name' 		  => 'bloodhound_tmcpt_meta[tel]',
-							   'value' 	  	  => $meta['tel'],
-							   'id' 		  => 'bh_tmcpt_tel',
-							   'placeholder'  => 'tel',) );
-		//cell
-		premise_field( array(  'type' 		  => 'tel',
-							   'name' 		  => 'bloodhound_tmcpt_meta[cell]',
-							   'value' 	  	  => $meta['cell'],
-							   'id' 		  => 'bh_tmcpt_cell',
-							   'placeholder'  => 'cell',) );
-		//url
-		premise_field( array(  'type' 		  => 'text',
-							   'name' 		  => 'bloodhound_tmcpt_meta[url]',
-							   'value' 	  	  => $meta['url'],
-							   'id' 		  => 'bh_tmcpt_url',
-							   'placeholder'  => 'url',) );
-		//address
-		premise_field( array(  'type' 		  => 'textarea',
-							   'name' 		  => 'bloodhound_tmcpt_meta[address]',
-							   'value' 	  	  => $meta['address'],
-							   'id' 		  => 'bh_tmcpt_address',
-							   'placeholder'  => 'address',) );
-							   
+		$field_builder = array( array(  'type' 	  => 'text',		//title
+								   'name' 		  => 'bloodhound_tmcpt_meta[title]',
+								   'value' 	  	  => $meta['title'],
+								   'id' 		  => 'bh_tmcpt_title',
+								   'placeholder'  => 'title',),
+								array(  'type' 	  => 'email',		//email
+								   'name' 		  => 'bloodhound_tmcpt_meta[email]',
+								   'value' 	  	  => $meta['email'],
+								   'id' 		  => 'bh_tmcpt_email',
+								   'placeholder'  => 'email',),
+								array(  'type' 	  => 'tel',			//tel
+								   'name' 		  => 'bloodhound_tmcpt_meta[tel]',
+								   'value' 	  	  => $meta['tel'],
+								   'id' 		  => 'bh_tmcpt_tel',
+								   'placeholder'  => 'tel',),
+								array(  'type' 	  => 'tel',			//cell
+								   'name' 		  => 'bloodhound_tmcpt_meta[cell]',
+								   'value' 	  	  => $meta['cell'],
+								   'id' 		  => 'bh_tmcpt_cell',
+								   'placeholder'  => 'cell',),
+								array(  'type' 	  => 'text',		//url
+								   'name' 		  => 'bloodhound_tmcpt_meta[url]',
+								   'value' 	  	  => $meta['url'],
+								   'id' 		  => 'bh_tmcpt_url',
+								   'placeholder'  => 'url',),
+								array(  'type' 	  => 'textarea',	//address
+								   'name' 		  => 'bloodhound_tmcpt_meta[address]',
+								   'value' 	  	  => $meta['address'],
+								   'id' 		  => 'bh_tmcpt_address',
+								   'placeholder'  => 'address',), );
+		premise_field( $field_builder );
 		echo '</div><div class="col2">';
 		//user info
 		echo '<div class="block center">';
