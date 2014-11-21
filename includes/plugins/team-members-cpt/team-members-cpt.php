@@ -93,3 +93,5 @@ if ( is_admin() ) {
     add_action( 'load-post.php', 'call_BloodhoundTeamMemberClass' );
     add_action( 'load-post-new.php', 'call_BloodhoundTeamMemberClass' );
 }
+
+include( 'team-members-library.php' );
