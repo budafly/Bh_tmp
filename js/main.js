@@ -1,17 +1,104 @@
 
-jQuery(function($){
-	//force home splash to cover screen height
-	setHomeSplashHeight()
+blodhound_init()
 
-	//if header is sticky, make it stick
-	if( ifHeaderSticky() ) {
-		$('.menu-item a').on( 'click', function(){
-			vgScrollToEl( $(this), jQuery('#header.sticky').height() )
+/**
+ * make header sticky if applicable
+ */
+function bloodhound_ifHeaderSticky() {
+	if( !jQuery('#header').is('.sticky') )
+		return false;
+
+	var header = jQuery('#header.sticky'),
+		bump = jQuery('.header-bump'),
+		o = header.offset().top;
+
+	jQuery(window).scroll(function(){
+		var t = jQuery(window).scrollTop();
+		
+		if( o < t ){
+			bump.height( header.height() )
+			header.addClass('fixed')
+		}
+		else{
+			bump.height( '' )
+			header.removeClass('fixed')
+		}
+	})
+
+	return true
+}
+
+/**
+ * Sets height for home splash
+ */
+function bloodhound_setHomeSplashHeight() {
+	var h = jQuery('#home-splash')
+	if( h.is('.cover-screen') ){
+		jQuery('#home-splash.cover-screen').css( 'min-height', jQuery(window).height() )
+		return true
+	}
+	return false
+}
+
+/**
+ * initiates accordion jquery ui
+ */
+function bloodhound_fireAccordion(){
+	jQuery( ".bloodhound-accordion" ).accordion({
+      collapsible: true,
+      autoHeight: false,
+      animate: 400, 
+      active: false,
+      icons: { "header": "bloodhound-display-none", "activeHeader": "bloodhound-display-none" },
+      heightStyle: "fill",
+      beforeActivate: function(event, ui) {
+
+      },
+      activate: function(event, ui) {
+      	if( jQuery(".ui-accordion-header").hasClass('ui-state-active') ){
+      		jQuery('.bloodhound-our-team-title').fadeOut('fast')
+      	}
+      	else{
+      		jQuery('.bloodhound-our-team-title').fadeIn('fast')
+      	}
+      }
+    })
+}
+
+function bloodhound_customJs() {
+
+	if( bloodhound_ifHeaderSticky() ) {
+		jQuery('.menu-item a').on( 'click', function(){
+			vgScrollToEl( jQuery(this), jQuery('#header.sticky').height() )
 			return false
-		} )
+		})
 	}
 
-});
+
+
+	console.log( 'Bloodhound custom JS: Successful' )
+}
+
+/**
+ * Initiate our theme
+ */
+function blodhound_init(){
+	jQuery(function(){
+		bloodhound_ready()
+		console.log( 'Bloodhound Theme JS: Successful' )
+	})
+}
+
+function bloodhound_ready() {
+	bloodhound_setHomeSplashHeight()
+	bloodhound_fireAccordion()
+	//run last
+	bloodhound_customJs()
+}
+
+
+//if header is sticky, make it stick
+		
 
 /**
  * ========== Functions ==========
@@ -39,38 +126,3 @@ function vgScrollToEl(el,o) {
 	return false;
 }
 
-/**
- * make header sticky if applicable
- */
-function ifHeaderSticky() {
-	if( !jQuery('#header').is('.sticky') )
-		return false;
-
-	var header = jQuery('#header.sticky'),
-		bump = jQuery('.header-bump'),
-		o = header.offset().top;
-
-	jQuery(window).scroll(function(){
-		var t = jQuery(window).scrollTop();
-		
-		if( o < t ){
-			bump.height( header.height() )
-			header.addClass('fixed')
-		}
-		else{
-			bump.height( '' )
-			header.removeClass('fixed')
-		}
-	})
-
-	return true
-}
-
-function setHomeSplashHeight() {
-	var h = jQuery('#home-splash')
-	if( h.is('.cover-screen') ){
-		jQuery('#home-splash.cover-screen').css( 'min-height', jQuery(window).height() )
-		return true
-	}
-	return false
-}
