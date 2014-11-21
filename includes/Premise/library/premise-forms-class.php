@@ -73,7 +73,7 @@ class PremiseFormElements {
 	
 	/**
 	 * @param  array $this->field options
-	 * @return echo         html markup for input fields
+	 * @return echo         	  html markup for input fields
 	 */
 	public function input_field() {
 		$placeholder = $this->field['placeholder'] ? ' placeholder="'.$this->field['placeholder'].'"' : '';
