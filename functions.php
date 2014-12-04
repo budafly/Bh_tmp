@@ -1,4 +1,6 @@
 <?php
+//include_once( 'includes/Premise/premise.php' );
+
 function vg_print_r($var){
 	echo '<pre>';
 	print_r($var);

@@ -1,76 +1,63 @@
-<?php //get header settings array
-$header = get_option( 'vg_header' ); ?>
-
-<div id="header" class="black">
+<div id="bloodhound-header" class="block theme-tab-content" style="display:none;">
 	
-	<h3>Header Settings</h3>
+	<?php //get header options
+	$header = get_option( 'vg_header' );
+	//setup fields
+	$header_fields = array(
+		array(
+			'type' => 'checkbox',
+			'name' => 'vg_header[sticky]',
+			'id' => 'vg_header-sticky',
+			'label' => 'Make header sticky',
+			'tooltip' => 'If enabled, the header will always stick to the top.',
+			'value_att' => '1',
+			'value' => $header['sticky'],
+			'container' => true,
+			'container_title' => 'Header Settings',
+		),
+		array(
+			'type' => 'file',
+			'name' => 'vg_logo',
+			'id' => 'vg_logo',
+			'label' => 'Upload a Logo',
+			'value' => get_option( 'vg_logo' ),
+		),
+		array(
+			'type' => 'minicolors',
+			'name' => 'vg_header[nav-color]',
+			'id' => 'vg_header-nav-color',
+			'label' => 'Nav Items Color',
+			'tooltip' => 'Choose the color for all menu items. This controls all menu items and the icons on the home splash menu if applicable.',
+			'value' => $header['nav-color'],
+		),
+		array(
+			'type' => 'minicolors',
+			'name' => 'vg_header[nav-toggle-bg]',
+			'id' => 'vg_header-nav-toggle-bg',
+			'label' => 'Select a background',
+			'value' => $header['nav-toggle-bg'],
+			'container' => true,
+			'container_title' => 'Mobile Nav Button',
+			'container_desc' => 'Style the mobile nav toggle button.',
+		),
+		array(
+			'type' => 'fa-icon',
+			'name' => 'vg_header[nav-toggle-icon]',
+			'id' => 'vg_header-nav-toggle-icon',
+			'label' => 'Select a Nav Icon',
+			'value' => $header['nav-toggle-icon'],
+		),
+		array(
+			'type' => 'minicolors',
+			'name' => 'vg_header[nav-toggle-color]',
+			'id' => 'vg_header-nav-toggle-color',
+			'label' => 'Nav Icon Color',
+			'value' => $header['nav-toggle-color'],
+		),
+	);
+	//build fields
+	premise_field( $header_fields );
 
-	<div class="field-section">
-		<div class="field">
-			<p class="label">Make header sticky</p>
-			<span class="tooltip">
-				<i>If enabled, the header will always stick to the top.</i>
-			</span>
-			<div class="checkbox">
-				<input type="checkbox" name="vg_header[sticky]" id="vg_header-sticky" value="1" <?php checked( $header['sticky'], 1 ); ?>>
-				<label for="vg_header-sticky"></label>
-			</div>
-		</div>
-	</div>
-
-	<div class="field-sectioin">		
-		<div class="field">
-			<label for="vg_logo">Upload Logo</label>
-			<div class="file">
-				<input type="text" name="vg_logo" id="vg_logo" value="<?php echo get_option( 'vg_logo' ); ?>" class="file-url">
-				<a class="btn-upload" href="javascript:void(0);"><i class="fa fa-fw fa-upload"></i></a>
-				<a class="btn-remove" href="javascript:void(0);"><i class="fa fa-fw fa-times"></i></a>
-			</div>
-		</div>
-	</div>
-
-	<div class="field-sectioin">		
-		<div class="field">
-			<label for="vg_header-nav-color">Nav Items Color</label>
-			<i>Choose the color for all menu items. This controls all menu items and the icons on the home splash menu if applicable.</i>
-			<div class="color">
-				<input type="text" name="vg_header[nav-color]" id="vg_header-nav-color" class="premise-color-field" value="<?php echo $header['nav-color']; ?>">
-			</div>
-		</div>
-	</div>
-
-	<div class="field-sectioin">
-		
-		<h3>Mobile Nav Button</h3>
-		<i>Style the mobile nav toggle button.</i>
-
-		<div class="clear"></div>
-
-		<div class="field">
-			<label for="vg_header-nav-toggle-bg">Select a background</label>
-			<div class="color">
-				<input type="text" name="vg_header[nav-toggle-bg]" id="vg_header-nav-toggle-bg" class="premise-color-field" value="<?php echo $header['nav-toggle-bg']; ?>">
-			</div>
-		</div>
-
-
-		<div class="field">
-			<label for="vg_header-nav-toggle-icon">Select a Nav Icon</label>
-			<div class="fa-icon">
-				<input type="text" name="vg_header[nav-toggle-icon]" id="vg_header_nav-toggle-icon" class="premise-insert-icon" value="<?php echo $header['nav-toggle-icon']; ?>">
-				<a href="javascript:;" class="premise-choose-icon"><i class="fa fa-fw fa-th"></i></a>
-				<a href="javascript:;" class="premise-remove-icon"><i class="fa fa-fw fa-times"></i></a>
-			</div>
-		</div>
-		
-		<div class="field">
-			<label for="vg_header-nav-toggle-color">Nav Icon color</label>
-			<div class="color">
-				<input type="text" name="vg_header[nav-toggle-color]" id="vg_header-nav-toggle-color" class="premise-color-field" value="<?php echo $header['nav-toggle-color']; ?>">
-			</div>
-		</div>
-
-		<div class="clear"></div>
-	</div>
+	submit_button(); ?>
 
 </div>

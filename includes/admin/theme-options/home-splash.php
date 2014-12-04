@@ -3,74 +3,58 @@
 	<i>The home splash is similar to a landing page. It is the first content users will see when the site loads and it covers the whole screen.</i>
 
 	<?php //get splash options
-	$splash = get_option( 'vg_splash' ); ?>
+	$splash = get_option( 'vg_splash' );
 
-	<div class="field-section">
-		<div class="field">
-			<p class="label">Force Home Splash to cover</p>
-			<div class="checkbox">
-				<input type="checkbox" id="home-splash-cover" name="vg_splash[cover-screen]" <?php checked( $splash['cover-screen'], 1 ); ?> value="1">
-				<label for="home-splash-cover"></label>
-			</div>
-		</div>
-	</div>
+	$splash_fields = array(
+		array(
+			'type' => 'checkbox',
+			'label' => 'Force Home Splash to cover',
+			'name' => 'vg_splash[cover-screen]',
+			'id' => 'home-splash-cover',
+			'value_att' => '1',
+			'value' => $splash['cover-screen'],
+			'container' => true,
+			'container_title' => 'Home Splash',
+			'container_desc' => 'The home splash is similar to a landing page. It is the first content users will see when the site loads and it covers the whole screen.',
+		),
+		array(
+			'type' => 'file',
+			'label' => 'Home Splash Logo',
+			'tooltip' => 'If no logo is chosen here, your main logo will be used.',
+			'name' => 'vg_splash[logo]',
+			'id' => 'home-splash-logo',
+			'value' => $splash['logo'],
+		),
+		array(
+			'type' => 'textarea',
+			'label' => 'Home Splash Tag Line',
+			'tooltip' => 'Type a tag line here. This field accepts HTML for ease of styling.',
+			'name' => 'vg_splash[tag-line]',
+			'id' => 'vg_splash-tag-line',
+			'value' => $splash['tag-line'],
+		),
+		array(
+			'type' => 'text',
+			'label' => 'Call to Action',
+			'tooltip' => 'This call to action appears at the bottom of your home splash screen',
+			'name' => 'vg_splash[cta]',
+			'id' => 'vg_splash-cta',
+			'value' => $splash['cta'],
+		),
+		array(
+			'type' => 'wp_dropdown_pages',
+			'label' => 'Link Call to Action',
+			'tooltip' => 'This call to action appears at the bottom of your home splash screen',
+			'name' => 'vg_splash[cta-link]',
+			'id' => 'vg_splash-cta-link',
+			'value' => $splash['cta-link'],
+			'show_option_none'=>'Please Select a Page',
+		),
+	);
+	premise_field( $splash_fields );
+	
+	premise_insert_background( 'vg_splash' );
 
-	<div class="field-section">
-		<div class="field">
-			<label for="home-splash-logo">Home Splash Logo</label>
-			<span class="tooltip">
-				<i>If no logo is chosen here, your main logo will be used.</i>
-			</span>
-			<div class="file">
-				<input type="text" name="vg_splash[logo]" value="<?php echo $splash['logo']; ?>" placeholder="Upload a Logo" class="file-url">
-				<a class="btn-upload" href="javascript:void(0);"><i class="fa fa-fw fa-upload"></i></a>
-				<a class="btn-remove" href="javascript:void(0);"><i class="fa fa-fw fa-times"></i></a>
-			</div>
-		</div>
-	</div>
-
-	<div class="field-section">		
-		<div class="field">
-			<label>Edit Home Splash Menu Items</label>
-			<!-- Setup home splash menu -->
-		</div>
-	</div>
-
-	<div class="field-section">
-		<div class="field">
-			<label for="vg_splash-tag-line">Home Splash Tag Line</label>
-			<span class="tooltip">
-				<i>Type a tag line here. This field accepts HTML for ease of styling.</i>
-			</span>
-			<div class="textarea">
-				<textarea name="vg_splash[tag-line]" id="vg_splash-tag-line"><?php echo $splash['tag-line']; ?></textarea>
-			</div>
-		</div>
-	</div>
-
-	<div class="field-section">
-		<div class="field">
-			<label for="vg_splash-cta">Call to Action</label>
-			<span class="tooltip">
-				<i>This call to action appear at the bottom of your home splash screen</i>
-			</span>
-			<div class="text">
-				<input type="text" name="vg_splash[cta]" id="vg_splash-cta" value="<?php echo $splash['cta']; ?>">
-			</div>
-		</div>
-
-		<div class="field">
-			<label for="vg_splash-cta-link">Link Call to Action</label>
-			<span class="tooltip">
-				<i>Link the call to action to any page or post.</i>
-			</span>
-			<div class="select">
-				<?php $selected = $splash['cta-link']; ?>
-				<?php wp_dropdown_pages( array( 'name'=>'vg_splash[cta-link]', 'show_option_none'=>'Please Select a Page', 'selected'=>$selected ) ); ?>
-			</div>
-		</div>
-	</div>
-
-	<?php premise_insert_background( 'vg_splash' ); ?>
+	submit_button();?>
 
 </div>

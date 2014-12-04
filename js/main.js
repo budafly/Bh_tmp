@@ -74,7 +74,7 @@ function bloodhound_customJs() {
 		})
 	}
 
-
+	// additional custom JS here
 
 	console.log( 'Bloodhound custom JS: Successful' )
 }
@@ -125,4 +125,3 @@ function vgScrollToEl(el,o) {
 
 	return false;
 }
-

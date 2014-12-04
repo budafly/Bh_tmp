@@ -5,285 +5,197 @@
  */
 
 /**
- * Create option to add page/post to Navigation
+ * Calls the class on the post edit screen.
  */
-if ( !function_exists( 'vg_add_post_to_nav' ) ) {
-	function vg_add_post_to_nav( $post ) {
-		wp_nonce_field( 'vg_add_post_to_nav_metabox', 'vg_add_post_to_nav_metabox_nonce' );
-		$nav = get_post_meta( $post->ID, 'vg_add_post', true );
-		?>
-			<table class="form-table">
-				<tr>
-					<td>
-						<label for="vg_add_post-checkbox">Add this page/post to your one page nav.</label>
-					</td>
-					<td><?php $check = get_post_meta( $post->ID, 'vg_add_post_to_one_page', true ); ?>
-						<input type="checkbox" value="1" id="vg_add_post-checkbox" name="vg_add_post_to_one_page" <?php checked( $check, 1 ); ?>>						
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2"><span class="ajax-response"></span></td>
-				</tr>
-				<tr>
-					<td colspan="2"><span id="vg_add_post_options">
-						<div class="field">
-							<label for="vg_add_post-color">Choose Page Color</label>
-							<div class="color">
-							<input type="text" name="vg_add_post[page-color]" id="vg_add_post-color" class="premise-color-field" value="<?php echo $nav['page-color']; ?>">
-							</div>
-						</div>
-
-						<div class="field">
-							<label for="vg_add_post-style">Select Style</label>
-							<div class="select">
-								<select name="vg_add_post[style]" id="vg_add_post-style">
-									<option value="" <?php selected( $nav['style'], '') ?>>None</option>
-									<option value="solid" <?php selected( $nav['style'], 'solid') ?>>Solid Background</option>
-									<option value="top" <?php selected( $nav['style'], 'top') ?>>Top Bar</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="field">
-							<label for="vg_add_post-nav-icon">Select a Nav Icon</label>
-							<i>Only applies to Home Splash Nav</i>
-							<div class="fa-icon">
-								<input type="text" name="vg_add_post[nav-icon]" id="vg_add_post_nav-icon" class="premise-insert-icon" value="<?php echo $nav['nav-icon']; ?>">
-								<a href="javascript:;" class="premise-choose-icon"><i class="fa fa-fw fa-th"></i></a>
-								<a href="javascript:;" class="premise-remove-icon"><i class="fa fa-fw fa-times"></i></a>
-							</div>
-						</div>
-
-						<div class="field">
-							<label for="vg_add_post-title-color">Select Title Color</label>
-							<div class="color">
-							<input type="text" name="vg_add_post[title-color]" id="vg_add_post-title-color" class="premise-color-field" value="<?php echo $nav['title-color']; ?>">
-							</div>
-						</div>
-					</span></td>
-				</tr>
-			</table>
-			<script>
-			jQuery(function($){
-				
-				$(document).on('change', '#vg_add_post-checkbox', updatePostAjax)
-
-				function updatePostAjax(obj) {
-					if( $('#vg_add_post-color').val() == '' ){
-						$('#vg_add_post-checkbox').prop('checked', false)
-						alert( 'Please select a color first.' )
-						$('#vg_add_post-color').focus()
-						return false;
-					}
-					var c = $('#'+obj.id),
-						data;
-					if( c.is(':checked') ){
-						data = {
-							'action': 'vg_update_this_post',
-							'vg_add_post_to_one_page': '1',
-							'vg_post_title': <?php echo "'".get_the_title()."'"; ?>,
-							'vg_post_url': <?php echo "'".get_permalink()."'"; ?>,
-							'vg_post_object_id': <?php echo "'".$post->ID."'"; ?>,
-							'vg_post_object': <?php echo "'".$post->post_type."'"; ?>
-						};
-					}
-					else{
-						data = {
-							'action': 'vg_update_this_post',
-							'vg_add_post_to_one_page': '0',
-							'vg_post_object_id': <?php echo "'".$post->ID."'"; ?>,
-							'vg_post_object': <?php echo "'".$post->post_type."'"; ?>
-						}
-					}
-					$('span.ajax-response').html( '<i class="fa fa-fw fa-spin fa-futbol"></i>' )
-					$.post(ajaxurl, data, function( response ) {
-						response = JSON.parse(response)
-						if( response.status !== null ) {
-							if( 'SUCCESS' == response.status && 'create' == response.action ){
-								$('span.ajax-response').html( 'Page added to menu.' )
-							}
-							else if( 'SUCCESS' == response.status && 'delete' == response.action ){
-								$('span.ajax-response').html( 'Page removed from menu.' )
-							}
-							else if( 'SUCCESS' == response.status && 'exists' == response.action ){
-								$('span.ajax-response').html( 'Page already exists in menu.' )
-							}
-							else if( 'FAILURE' == response.status && 'exists' == response.action ){
-								$('span.ajax-response').html( 'Page has already been removed from menu.' )
-							}
-							else{
-								$('span.ajax-response').html( '<i class="fa fa-fw fa-frown-o"></i> Please try again.' )
-							}
-						}
-						else{
-							$('span.ajax-response').html( '<i class="fa fa-fw fa-frown-o"></i> Please try again.' )
-						}			
-						console.log(response.status)
-					})
-				}
-			})
-			</script>
-		<?php
-	}
+function bloodhound_call_one_page_nav_class() {
+    new BloodhoundOnePageNavClass;
 }
-/*
-wp_update_post( array( 'post_type' => 'wp_nav_item' ) ); 
-For every page or post that is marked to appear in nav. 
-Edit nav item and page backgournd and other features right from the page.
- */
+
+if ( is_admin() ) {
+    add_action( 'wp_loaded', 'bloodhound_call_one_page_nav_class' );
+}
+
 /**
- * Add Meta Box
- */
-if ( !function_exists( 'vg_one_page_nav_add_metabox' ) ) {
-	function vg_one_page_nav_add_metabox() {
+* One Page Nav Class
+*/
+class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
+	public $nav;
+	protected $menu;
+	protected $menu_id;
+	protected $menu_args = array(
+		'menu-item-title'     => '',
+		'menu-item-url'       => '',
+		'menu-item-object-id' => '',
+		'menu-item-object'    => '',
+		'menu-item-type'      => 'post_type',
+		'menu-item-status'    => 'publish', );
+	protected $message = array(
+		'success-add-post'    => 'This Page/Post is now in your home page and main navigation. <br><b>NOTE:</b> This <b>does not save other changes</b> you have made. Rememeber to save your changes by updating the post or page.',
+		'failure-add-post'    => 'Seems like there was an issue. Update the Page/Post or refresh the page and try again.',
+		'success-delete-post' => 'This Page/Post is no longer in your home page or main navigation.',
+		'failure-delete-post' => 'Seems like there was an issue. Update the Page/Post or refresh the page and try again.', );
+
+	function __construct( $nav = '' ) {
+		if( 'splash' == $nav ) $this->nav = 'splash';
+		add_action( 'add_meta_boxes', array( $this, 'vg_one_page_nav_add_metabox' ) );
+		add_action( 'save_post', array( $this, 'vg_one_page_nav_save_metabox' ) );
+		add_action( 'wp_ajax_vg_update_this_post', array( $this, 'vg_add_post_to_main_nav' ) );
+		$this->get_menu();
+		$this->set_new_menu_params();
+	}
+
+	protected function get_menu() {
+		$locations = get_nav_menu_locations();
+		$this->menu_id = $locations['primary'];
+		$this->menu = wp_get_nav_menu_items( $this->menu_id );
+	}
+
+	protected function set_new_menu_params() {
+		$this->menu_args['menu-item-title'] = !empty( $_POST['vg_post_title'] ) ? $_POST['vg_post_title'] : '';
+		$this->menu_args['menu-item-url'] = !empty( $_POST['vg_post_url'] ) ? $_POST['vg_post_url'] : '';
+		$this->menu_args['menu-item-object-id'] = !empty( $_POST['vg_post_object_id'] ) ? $_POST['vg_post_object_id'] : '';
+		$this->menu_args['menu-item-object'] = !empty( $_POST['vg_post_object'] ) ? $_POST['vg_post_object'] : '';
+	}
+
+	public function vg_one_page_nav_add_metabox() {
 		$post_types = get_post_types( '', 'names' );
 		foreach ($post_types as $post_type) {
-			add_meta_box( 'vg-one-page-nav', 'One Page Nav', 'vg_add_post_to_nav', $post_type, 'side', 'high' );
+			add_meta_box( 'vg-one-page-nav', 'One Page Nav', array( $this, 'vg_add_post_to_nav' ), $post_type, 'side', 'high' );
 		}
 	}
-}
-add_action( 'add_meta_boxes', 'vg_one_page_nav_add_metabox' );
 
-function vg_one_page_nav_save_metabox( $post_id ) {
-	if ( !isset( $_POST['vg_add_post_to_nav_metabox_nonce'] ) ) return;
-	if ( !wp_verify_nonce( $_POST['vg_add_post_to_nav_metabox_nonce'], 'vg_add_post_to_nav_metabox' ) ) return;
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-	if ( isset( $_POST['post_type'] ) && get_post_type() == $_POST['post_type'] ) {
-		if ( !current_user_can( 'edit_page', $post_id ) ) return;
-	} else {
-		if ( !current_user_can( 'edit_post', $post_id ) ) return;
-	}	
-	update_post_meta( $post_id, 'vg_add_post_to_one_page', $_POST['vg_add_post_to_one_page'] );
-	update_post_meta( $post_id, 'vg_add_post', $_POST['vg_add_post'] );
+	public function vg_one_page_nav_save_metabox( $post_id ) {
+		if ( !isset( $_POST['vg_add_post_to_nav_metabox_nonce'] ) ) return;
+		if ( !wp_verify_nonce( $_POST['vg_add_post_to_nav_metabox_nonce'], 'vg_add_post_to_nav_metabox' ) ) return;
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+		if ( isset( $_POST['post_type'] ) && get_post_type() == $_POST['post_type'] ) {
+			if ( !current_user_can( 'edit_page', $post_id ) ) return;
+		} else {
+			if ( !current_user_can( 'edit_post', $post_id ) ) return;
+		}	
+		update_post_meta( $post_id, 'vg_add_post_to_one_page', $_POST['vg_add_post_to_one_page'] );
+		update_post_meta( $post_id, 'vg_add_post', $_POST['vg_add_post'] );
+	}
 
-}
-add_action( 'save_post', 'vg_one_page_nav_save_metabox' );
+	public function vg_add_post_to_nav( $post ) {
+		wp_nonce_field( 'vg_add_post_to_nav_metabox', 'vg_add_post_to_nav_metabox_nonce' );
+		$nav = get_post_meta( $post->ID, 'vg_add_post', true );
 
+		$check = $this->vg_nav_item_exists() ? '1' : '';//get_post_meta( $post->ID, 'vg_add_post_to_one_page', true );
+		echo '<span class="ajax-response"></span>';
+		$form_builder = array( 
+			array( 
+				'type' => 'checkbox',
+				'label' => 'Add to one page nav',
+				'tooltip' => 'When this box gets checked, this post or page automatically gets added to our home screen and main nav. You must have the One Page Nav option enabled iin the theme for this to work though.',
+				'name' => 'vg_add_post_to_one_page',
+				'id' => 'vg_add_post-checkbox',
+				'value_att' => '1',
+				'value' => $check,
+				'attribute' => 'onchange="jQuery(function($){bloodhoundAddToOPN(this);})"',
+			 ),
+			array( 
+				'type' => 'minicolors',
+				'label' => 'Choose page color',
+				'name' => 'vg_add_post[page-color]',
+				'id' => 'vg_add_post-page-color',
+				'value' => $nav['page-color'],
+			 ),
+			array( 
+				'type' => 'select',
+				'name' => 'vg_add_post[style]',
+				'label' => 'Select style',
+				'id' => 'vg_add_post-style',
+				'placeholder' => 'Select a style',
+				'value' => $nav['style'],
+				'options' => array(
+					'Solid' => 'solid',
+					'Top Bar' => 'top',
+				),
+			 ),
+			array( 
+				'type' => 'fa-icon',
+				'name' => 'vg_add_post[nav-icon]',
+				'label' => 'Select a nav icon',
+				'tooltip' => 'Only applys to Home Splash Nav',
+				'id' => 'vg_add_post-nav-icon',
+				'value' => $nav['nav-icon'],
+			 ),
+			array( 
+				'type' => 'minicolors',
+				'label' => 'Select title color',
+				'name' => 'vg_add_post[title-color]',
+				'id' => 'vg_add_post-title-color',
+				'value' => $nav['title-color'],
+			 ),
+			array(
+				'type' => 'hidden',
+				'name' => 'vg_post_title',
+				'id' => 'vg_post_title',
+				'value' => get_the_title(),
+				'template' => 'raw',
+			),
+			array(
+				'type' => 'hidden',
+				'name' => 'vg_post_url',
+				'id' => 'vg_post_url',
+				'value' => get_permalink(),
+				'template' => 'raw',
+			),
+			array(
+				'type' => 'hidden',
+				'name' => 'vg_post_object_id',
+				'id' => 'vg_post_object_id',
+				'value' => $post->ID,
+				'template' => 'raw',
+			),
+			array(
+				'type' => 'hidden',
+				'name' => 'vg_post_object',
+				'id' => 'vg_post_object',
+				'value' => $post->post_type,
+				'template' => 'raw',
+			),
+		); 
 
-/**
- * Validate CRM credentials
- * @return echo message
-*/
-if ( !function_exists( 'vg_add_post_to_main_nav' ) ) {
-	function vg_add_post_to_main_nav($post) {
-		$locations = get_nav_menu_locations();		
-		$menu_id = $locations['primary'];
+		premise_field( $form_builder );
+	}
 
-		$menu = wp_get_nav_menu_items( $menu_id );
-
+	public function vg_add_post_to_main_nav() {
+		global $post;
 		if ( $_POST['vg_add_post_to_one_page'] == '1' ) {
-			if( vg_nav_item_exists( $menu_id ) ) {
-				$response = array(
-	        		'status' => 'SUCCESS',
-	        		'action' => 'exists',
-	        	);
-	        	echo json_encode($response);
-	        	die();
-			}
-			$args = array(
-				'menu-item-title' => $_POST['vg_post_title'],
-				'menu-item-url' => $_POST['vg_post_url'],
-				'menu-item-object-id' => $_POST['vg_post_object_id'],
-				'menu-item-object' => $_POST['vg_post_object'],
-				'menu-item-type' => 'post_type',
-				'menu-item-status' => 'publish',
-			);
-			if( wp_update_nav_menu_item( $menu_id, 0, $args ) ) {
-				$response = array(
-	        		'status' => 'SUCCESS',
-	        		'action' => 'create',
-	        	);	
-			}
-			else{
-				$response = array(
-	        		'status' => 'FAILURE',
-	        		'action' => 'warning',
-	        	);
-			}
-			echo json_encode($response);
-			die();
+			update_post_meta( $post->ID, 'vg_add_post_to_one_page', '1' );
+			if( !$this->vg_nav_item_exists() )
+				$r = wp_update_nav_menu_item( $this->menu_id, 0, $this->menu_args );
+			echo $r ? $this->message['success-add-post'] : $this->message['failure-add-post'].$post;
 		}
 		else{
-
-			if( !vg_nav_item_exists( $menu_id ) ) {
-				$response = array(
-	        		'status' => 'FAILURE',
-	        		'action' => 'exists',
-	        	);
-	        	echo json_encode($response);
-	        	die();
-			}
-			
 			$item_id = "";
-			foreach( $menu as $item ){
-				if( $item->object_id == $_POST['vg_post_object_id'] )
+			foreach( $this->menu as $item ){
+				if( $item->object_id == $this->menu_args['menu-item-object-id'] )
 					$item_id = $item->ID;
 			}
 
-			$menuObject = wp_get_nav_menu_object( $menu_id );
+			$menuObject = wp_get_nav_menu_object( $this->menu_id );
 			$menu_objects = get_objects_in_term( $menuObject->term_id, 'nav_menu' );
 	        if ( !empty( $item_id ) && !empty( $menu_objects ) ) {
                 foreach ( $menu_objects as $item ) {
                     if( $item == $item_id ){
-                    	wp_delete_post( $item );
-                    	$response = array(
-                    		'status' => 'SUCCESS',
-                    		'action' => 'delete',
-                    	);
-                    }
-                }
-	        }
-	        else{
-            	$response = array(
-            		'status' => 'FAILURE',
-            		'action' => 'warning',
-            	);
-            }
-			echo json_encode($response);
-			die();
+                    	$r = wp_delete_post( $item );
+                    	return $r;
+	                }
+		        }
+	    	}
 		}
 		return false;
 	}
-}
-add_action( 'wp_ajax_vg_update_this_post', 'vg_add_post_to_main_nav' );
 
-function vg_nav_item_exists( $menu_id ) {
-	$menu = wp_get_nav_menu_items( $menu_id );
-
-	foreach( $menu as $item ){
-		if( $item->object_id == $_POST['vg_post_object_id'] )
-			return $item->ID;
-	}
-	return false;
-}
-
-function vg_grab_menu_items_ids() {
-	$locations = get_nav_menu_locations();		
-	$menu_id = $locations['primary'];
-
-	$menu = wp_get_nav_menu_items( $menu_id );
-
-	$menu_ids = array();
-
-	foreach ($menu as $menu_item) {
-		array_push( $menu_ids, $menu_item->object_id );
-	}
-
-	if( $menu_ids )
-		return $menu_ids;
-
-	return false;
-}
-
-/**
-* 
-*/
-class vgOnePageNav extends Walker_Nav_Menu {
-	public $nav;		
-
-	function __construct( $nav ){
-		if( 'splash' == $nav )
-			$this->nav = 'splash';		
+	public function vg_nav_item_exists( ) {
+		foreach( $this->menu as $item ){
+			if( $item->object_id == $this->menu_args['menu-item-object-id'] )
+				return $item->ID;
+		}
+		return false;
 	}
 
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
@@ -407,38 +319,5 @@ class vgOnePageNav extends Walker_Nav_Menu {
 	     */	    
 	    $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
 	}
-}
-
-function vg_splash_cta_url() {
-	$splash = get_option( 'vg_splash' );
-	$p = get_post( $splash['cta-link'] );
-	$post_in_onepage = get_post_meta( $p->ID, 'vg_add_post_to_one_page', true );
-	
-	if( $post_in_onepage ) {		
-		$output = '#'.$p->post_name.'" onclick="vgScrollToEl(this)';//Leave last double quote out.
-	}
-	else{
-		$output = '/'.$p->post_name;
-	}
-	echo $output;
-}
-
-function vg_the_title( $post, $span = true, $echo = true ) {
-	$page = get_post_meta( $post->ID, 'vg_add_post', true );
-	
-	if( !$page['title-color'] )
-		$page['title-color'] = '#333333';
-	
-	$html = '<div class="post-title">';
-	
-	if( $span )
-		$html .= '<span class="title-bar" style="background:'.$page['title-color'].'"></span>';
-	
-	$html .= '<h2 style="color:'.$page['title-color'].'">'.get_the_title().'</h2></div>';
-
-	if($echo)
-		echo $html;
-
-	return $html;
 }
 ?>

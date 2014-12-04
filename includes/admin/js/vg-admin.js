@@ -1,5 +1,15 @@
 jQuery(function($) { //on document ready
 
+	//theme options page tabs
+	$(document).on( 'click', '.theme-tabs .theme-tab a', function(){
+		var a = $( event.target ).attr( 'href' )
+		$('.theme-tabs .theme-tab').removeClass( 'active' )
+		$( event.target ).parent().addClass( 'active' )
+		$('.theme-tab-content').fadeOut( 'fast' )
+		$( a ).fadeIn( 'fast' )
+		return false
+	} )
+
 	$(window).load(function(){
 
 	})
@@ -115,3 +125,62 @@ jQuery(function($) { //on document ready
 	
 });
 
+/**
+ * add post
+ * @param  {[type]} obj [description]
+ * @return {[type]}     [description]
+ */
+function bloodhoundAddToOPN() {
+	var c = jQuery('#vg_add_post-checkbox'), s = jQuery('span.ajax-response'), data;
+
+	var vg_post_title     = jQuery( '#vg_post_title' ).val()
+	var vg_post_url       = jQuery( '#vg_post_url' ).val()
+	var vg_post_object_id = jQuery( '#vg_post_object_id' ).val()
+	var vg_post_object    = jQuery( '#vg_post_object' ).val()
+		
+	if( c.prop('checked') ){
+		data = {
+			'action': 'vg_update_this_post',
+			'vg_add_post_to_one_page': '1',
+			'vg_post_title': vg_post_title,
+			'vg_post_url': vg_post_url,
+			'vg_post_object_id': vg_post_object_id,
+			'vg_post_object': vg_post_object
+		}
+	}
+	else{
+		data = {
+			'action': 'vg_update_this_post',
+			'vg_add_post_to_one_page': '0',
+			'vg_post_object_id': vg_post_object_id,
+			'vg_post_object': vg_post_object
+		}
+	}
+	s.html( '<i class="fa fa-fw fa-spin fa-futbol"></i>' )
+	jQuery.post(ajaxurl, data, function( response ) {
+		//response = JSON.parse(response)
+		console.log(response)
+		s.html(response)
+		// if( response.status !== null ) {
+		// 	if( 'SUCCESS' == response.status && 'create' == response.action ){
+		// 		$('span.ajax-response').html( 'Page added to menu.' )
+		// 	}
+		// 	else if( 'SUCCESS' == response.status && 'delete' == response.action ){
+		// 		$('span.ajax-response').html( 'Page removed from menu.' )
+		// 	}
+		// 	else if( 'SUCCESS' == response.status && 'exists' == response.action ){
+		// 		$('span.ajax-response').html( 'Page already exists in menu.' )
+		// 	}
+		// 	else if( 'FAILURE' == response.status && 'exists' == response.action ){
+		// 		$('span.ajax-response').html( 'Page has already been removed from menu.' )
+		// 	}
+		// 	else{
+		// 		$('span.ajax-response').html( '<i class="fa fa-fw fa-frown-o"></i> Please try again.' )
+		// 	}
+		// }
+		// else{
+		// 	$('span.ajax-response').html( '<i class="fa fa-fw fa-frown-o"></i> Please try again.' )
+		// }			
+		console.log(response.status)
+	})
+}

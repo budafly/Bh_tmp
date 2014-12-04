@@ -15,6 +15,7 @@ function bloodhound_the_team_meber_info() {
 		return false;
 
 	$tm_info = get_post_meta( $post->ID, 'bloodhound_tmcpt_meta', true );
+	$page_meta = get_post_meta( $post->ID, 'vg_add_post', true );
 
 	foreach ( $tm_info as $key => $value ) {
 		
@@ -22,25 +23,25 @@ function bloodhound_the_team_meber_info() {
 
 		switch ( $key ) {
 			case 'title':
-				$html .= '<span style="font-size:1.5em;text-transform:uppercase;">'.$value.'</span>';
+				$html .= '<span style="color:'.$page_meta['title-color'].';font-size:1.5em;text-transform:uppercase;">'.$value.'</span>';
 				break;
 
 			case 'email':
-				$html .= '<a href="mailto:'.$value.'">'.$value.'</a></span>';
+				$html .= '<a href="mailto:'.$value.'" style="color:'.$page_meta['title-color'].';">'.$value.'</a>';
 				break;
 
 			case 'tel':
 			case 'cell':
-				$html .= '<a href="tel:'.$value.'">'.$value.'</a></span>';
+				$html .= '<a href="tel:'.$value.'" style="color:'.$page_meta['title-color'].';">'.$value.'</a>';
 				break;
 
 			case 'url':
 				$url = preg_match( "/\/\//", $value ) ? $value : 'http://'.$value;
-				$html .= '<a href="'.$url.'">'.$value.'</a></span>';
+				$html .= '<a href="'.$url.'" style="color:'.$page_meta['title-color'].';">'.$value.'</a>';
 				break;
 
 			default:
-				$html .= $value;
+				$html .= '<span style="color:'.$page_meta['title-color'].';">'.$value.'</span>';
 				break;
 		}
 

@@ -259,3 +259,20 @@ article.one-page-section {
     -moz-box-sizing:border-box;
     padding:20px;
 }
+
+/* jquery-ui overrides */
+.iu-widget {
+    font-family: 'Nunito', sans-serif !important;
+}
+.ui-widget-content a {
+    color: inherit;
+}
+.ui-widget-content {
+    color:inherit;
+    margin-bottom:-6px;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}

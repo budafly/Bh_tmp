@@ -362,11 +362,63 @@ function vg_do_nav( $depth = 2, $nav = '' ) {
 		'echo'            => true,
 		'fallback_cb'     => false,
 		'depth'           => $depth,
-		'walker'		  => new vgOnePageNav( $nav ),
+		'walker'		  => new BloodhoundOnePageNavClass( $nav ),
 	);
 	echo "<div class='block'>"; ?>
 	<a href="javascript:;" onclick="vgToggleNav(this)" class="nav-toggle btn" id="nav-toggle" style="background:<?php echo $header['nav-toggle-bg']; ?>;color:<?php echo $header['nav-toggle-color']; ?>;"><i class="fa fa-fw fa-bars"></i></a>
 	<?php wp_nav_menu( $args );
 	echo "</div>";
+}
+
+function vg_grab_menu_items_ids() {
+	$locations = get_nav_menu_locations();		
+	$menu_id = $locations['primary'];
+
+	$menu = wp_get_nav_menu_items( $menu_id );
+
+	$menu_ids = array();
+
+	foreach ($menu as $menu_item) {
+		array_push( $menu_ids, $menu_item->object_id );
+	}
+
+	if( $menu_ids )
+		return $menu_ids;
+
+	return false;
+}
+
+
+function vg_splash_cta_url() {
+	$splash = get_option( 'vg_splash' );
+	$p = get_post( $splash['cta-link'] );
+	$post_in_onepage = get_post_meta( $p->ID, 'vg_add_post_to_one_page', true );
+	
+	if( $post_in_onepage ) {		
+		$output = '#'.$p->post_name.'" onclick="vgScrollToEl(this)';//Leave last double quote out.
+	}
+	else{
+		$output = '/'.$p->post_name;
+	}
+	echo $output;
+}
+
+function vg_the_title( $post, $span = true, $echo = true ) {
+	$page = get_post_meta( $post->ID, 'vg_add_post', true );
+	
+	if( !$page['title-color'] )
+		$page['title-color'] = '#333333';
+	
+	$html = '<div class="post-title">';
+	
+	if( $span )
+		$html .= '<span class="title-bar" style="background:'.$page['title-color'].'"></span>';
+	
+	$html .= '<h2 style="color:'.$page['title-color'].'">'.get_the_title().'</h2></div>';
+
+	if($echo)
+		echo $html;
+
+	return $html;
 }
 ?>
