@@ -85,19 +85,7 @@ $splash_fields = array(
 );
 premise_field( $splash_fields );
 
-premise_insert_background( 'vg_splash' );
-
-premise_field( array(
-		'type' => 'select',
-		'label' => 'Test',
-		'name' => 'test',
-		'options' => array(
-			'Key ' => 'Value',
-			'Keys ' => 'Value',
-			'Keyf ' => 'Value',
-			'Keyg ' => 'Value',
-			),
-	));
+premise_insert_background_options( 'vg_splash' );
 
 submit_button();
 ?>

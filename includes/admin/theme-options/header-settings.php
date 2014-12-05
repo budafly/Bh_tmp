@@ -58,6 +58,8 @@
 	//build fields
 	premise_field( $header_fields );
 
+	premise_insert_background_options( 'vg_header' );
+
 	submit_button(); ?>
 
 </div>
