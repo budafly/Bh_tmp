@@ -31,7 +31,7 @@ $layout = vg_get_header_layout(); ?>
 						<img src="<?php echo get_option('vg_logo'); ?>" class="responsive">
 					</a>
 				</div><!-- /logo -->
-				
+
 				<div class="span8 main-nav right">
 					
 					<?php vg_do_nav(); ?>

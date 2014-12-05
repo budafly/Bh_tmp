@@ -13,7 +13,7 @@ function bloodhound_ifHeaderSticky() {
 		o = header.offset().top;
 
 	jQuery(window).scroll(function(){
-		var t = jQuery(window).scrollTop();
+		var t = jQuery(window).scrollTop()
 		
 		if( o < t ){
 			bump.height( header.height() )
@@ -51,9 +51,6 @@ function bloodhound_fireAccordion(){
       active: false,
       icons: { "header": "bloodhound-display-none", "activeHeader": "bloodhound-display-none" },
       heightStyle: "fill",
-      beforeActivate: function(event, ui) {
-
-      },
       activate: function(event, ui) {
       	if( jQuery(".ui-accordion-header").hasClass('ui-state-active') ){
       		jQuery('.bloodhound-our-team-title').fadeOut('fast')
@@ -66,13 +63,6 @@ function bloodhound_fireAccordion(){
 }
 
 function bloodhound_customJs() {
-
-	if( bloodhound_ifHeaderSticky() ) {
-		jQuery('.menu-item a').on( 'click', function(){
-			vgScrollToEl( jQuery(this), jQuery('#header.sticky').height() )
-			return false
-		})
-	}
 
 	// additional custom JS here
 
@@ -89,6 +79,9 @@ function blodhound_init(){
 	})
 }
 
+/**
+ * Run Bloodhound
+ */
 function bloodhound_ready() {
 	bloodhound_setHomeSplashHeight()
 	bloodhound_fireAccordion()
@@ -97,15 +90,12 @@ function bloodhound_ready() {
 }
 
 
-//if header is sticky, make it stick
-		
-
 /**
- * ========== Functions ==========
+ * Nav toggle
  */
 var navToggleCount;
-function vgToggleNav() {
-	var m = jQuery('#header .nav-menu');
+function bloodhound_ToggleNav() {
+	var m = jQuery('#header .nav-menu')
 
 	m.slideToggle('fast')
 	m.find('a').addClass('close-nav')
@@ -116,8 +106,13 @@ function vgToggleNav() {
  * @param  {object} el anchor element to be passed in onclick attribute
  * @return {false}    the page will scroll to the element in href attr of anchor element
  */
-function vgScrollToEl(el,o) {
+function bloodhound_ScrollToEl(el,o) {
+	event.preventDefault();
+	el = typeof el === 'object' ? el : '.menu-item a'
+	o = bloodhound_ifHeaderSticky() ? jQuery('#header.sticky').height() : 0
+
 	var a = jQuery(el).attr('href')
+	a = a.substr( a.indexOf('#') )//get the #link
 
 	jQuery('body').animate({
 		scrollTop: jQuery(a).offset().top - o

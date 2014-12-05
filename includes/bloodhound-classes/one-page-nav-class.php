@@ -1,7 +1,8 @@
 <?php
 /**
  * Create the one page navigation
- * @package One Page Nav
+ * @package Bloodhound
+ * @subpackage One Page Nav
  */
 
 /**
@@ -10,10 +11,7 @@
 function bloodhound_call_one_page_nav_class() {
     new BloodhoundOnePageNavClass;
 }
-
-if ( is_admin() ) {
-    add_action( 'wp_loaded', 'bloodhound_call_one_page_nav_class' );
-}
+add_action( 'wp_loaded', 'bloodhound_call_one_page_nav_class' );
 
 /**
 * One Page Nav Class
@@ -30,43 +28,68 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 		'menu-item-type'      => 'post_type',
 		'menu-item-status'    => 'publish', );
 	protected $message = array(
-		'success-add-post'    => 'This Page/Post is now in your home page and main navigation. <br><b>NOTE:</b> This <b>does not save other changes</b> you have made. Rememeber to save your changes by updating the post or page.',
-		'failure-add-post'    => 'Seems like there was an issue. Update the Page/Post or refresh the page and try again.',
-		'success-delete-post' => 'This Page/Post is no longer in your home page or main navigation.',
-		'failure-delete-post' => 'Seems like there was an issue. Update the Page/Post or refresh the page and try again.', );
+		'success-add-post'    => array(
+			'message'         => 'This Page/Post is now in your home page and main navigation. <br><b>NOTE:</b> This <b>does not save other changes</b> you have made. Rememeber to save your changes by updating the post or page.',
+			'type'            => 'success', ),
+		'failure-add-post'    => array(
+			'message'         => 'Seems like this Page/Post is already in your navigation. Make sure to update to add to your home page as well.',
+			'type'            => 'warning', ),
+		'success-delete-post' => array(
+			'message'         => 'This Page/Post is no longer in your home page or main navigation.',
+			'type'            => 'success', ),
+		'failure-delete-post' => array(
+			'message'         => 'Seems like this Page/Post was already removed from your navigation, make sure you update to remove it from your home page as well.',
+			'type'            => 'warning', ),
+		'no-menu'             => array(
+			'message'         => 'Error: This will only add this Page/Post to your home page. To add it to your Navigation as well you must create a Wordpress menu (with at least one item) and set the theme location to <em>Bloodhound Menu</em>.',
+			'type'            => 'warning', ), );
 
 	function __construct( $nav = '' ) {
-		if( 'splash' == $nav ) $this->nav = 'splash';
-		add_action( 'add_meta_boxes', array( $this, 'vg_one_page_nav_add_metabox' ) );
-		add_action( 'save_post', array( $this, 'vg_one_page_nav_save_metabox' ) );
-		add_action( 'wp_ajax_vg_update_this_post', array( $this, 'vg_add_post_to_main_nav' ) );
+		$this->nav = 'splash' == $nav ? 'splash' : '';
 		$this->get_menu();
 		$this->set_new_menu_params();
+		add_action( 'add_meta_boxes', array( $this, 'add_metabox' ) );
+		add_action( 'save_post', array( $this, 'save_metabox' ) );
+		add_action( 'wp_ajax_vg_update_this_post', array( $this, 'add_to_one_page_nav' ) );
 	}
 
+	/**
+	 * Get the main menu from theme
+	 * @return array array of menu item objects
+	 */
 	protected function get_menu() {
 		$locations = get_nav_menu_locations();
 		$this->menu_id = $locations['primary'];
 		$this->menu = wp_get_nav_menu_items( $this->menu_id );
 	}
 
+	/**
+	 * Set Menu Item Args
+	 */
 	protected function set_new_menu_params() {
-		$this->menu_args['menu-item-title'] = !empty( $_POST['vg_post_title'] ) ? $_POST['vg_post_title'] : '';
-		$this->menu_args['menu-item-url'] = !empty( $_POST['vg_post_url'] ) ? $_POST['vg_post_url'] : '';
+		$this->menu_args['menu-item-title']     = !empty( $_POST['vg_post_title'] ) ? $_POST['vg_post_title'] : '';
+		$this->menu_args['menu-item-url']       = !empty( $_POST['vg_post_url'] ) ? $_POST['vg_post_url'] : '';
 		$this->menu_args['menu-item-object-id'] = !empty( $_POST['vg_post_object_id'] ) ? $_POST['vg_post_object_id'] : '';
-		$this->menu_args['menu-item-object'] = !empty( $_POST['vg_post_object'] ) ? $_POST['vg_post_object'] : '';
+		$this->menu_args['menu-item-object']    = !empty( $_POST['vg_post_object'] ) ? $_POST['vg_post_object'] : '';
 	}
 
-	public function vg_one_page_nav_add_metabox() {
-		$post_types = get_post_types( '', 'names' );
+	/**
+	 * Add Metabox
+	 */
+	public function add_metabox() {
+		$post_types = get_post_types( array( 'public' => true ), 'names' );
 		foreach ($post_types as $post_type) {
-			add_meta_box( 'vg-one-page-nav', 'One Page Nav', array( $this, 'vg_add_post_to_nav' ), $post_type, 'side', 'high' );
+			add_meta_box( 'vg-one-page-nav', 'One Page Nav', array( $this, 'render_metabox' ), $post_type, 'side', 'high' );
 		}
 	}
 
-	public function vg_one_page_nav_save_metabox( $post_id ) {
-		if ( !isset( $_POST['vg_add_post_to_nav_metabox_nonce'] ) ) return;
-		if ( !wp_verify_nonce( $_POST['vg_add_post_to_nav_metabox_nonce'], 'vg_add_post_to_nav_metabox' ) ) return;
+	/**
+	 * Save Meta Box
+	 * @param  int $post_id The Post ID
+	 */
+	public function save_metabox( $post_id ) {
+		if ( !isset( $_POST['bloodhound_one_page_nav_nonce'] ) ) return;
+		if ( !wp_verify_nonce( $_POST['bloodhound_one_page_nav_nonce'], 'bloodhound_one_page_nav' ) ) return;
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 		if ( isset( $_POST['post_type'] ) && get_post_type() == $_POST['post_type'] ) {
 			if ( !current_user_can( 'edit_page', $post_id ) ) return;
@@ -77,11 +100,17 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 		update_post_meta( $post_id, 'vg_add_post', $_POST['vg_add_post'] );
 	}
 
-	public function vg_add_post_to_nav( $post ) {
-		wp_nonce_field( 'vg_add_post_to_nav_metabox', 'vg_add_post_to_nav_metabox_nonce' );
+	/**
+	 * Render Metabox
+	 * @param  object $post The post to be included in our one page navigation
+	 * @return string       HTML for one page nav metabox
+	 */
+	public function render_metabox( $post ) {
+		wp_nonce_field( 'bloodhound_one_page_nav', 'bloodhound_one_page_nav_nonce' );
 		$nav = get_post_meta( $post->ID, 'vg_add_post', true );
 
-		$check = $this->vg_nav_item_exists() ? '1' : '';//get_post_meta( $post->ID, 'vg_add_post_to_one_page', true );
+		$check = get_post_meta( $post->ID, 'vg_add_post_to_one_page', true );
+		
 		echo '<span class="ajax-response"></span>';
 		$form_builder = array( 
 			array( 
@@ -161,43 +190,62 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 		premise_field( $form_builder );
 	}
 
-	public function vg_add_post_to_main_nav() {
-		global $post;
+	/**
+	 * Add Post to One Page Nav AJAX Function
+	 * @return mixed confirmation message $this->message, false if function fails
+	 */
+	public function add_to_one_page_nav() {
+		// Check if menu even exists
+		if( empty( $this->menu_id ) ) {
+			echo json_encode( $this->message['no-menu'] );
+			die();
+		}
+		// if adding post o OPN
 		if ( $_POST['vg_add_post_to_one_page'] == '1' ) {
-			update_post_meta( $post->ID, 'vg_add_post_to_one_page', '1' );
 			if( !$this->vg_nav_item_exists() )
 				$r = wp_update_nav_menu_item( $this->menu_id, 0, $this->menu_args );
-			echo $r ? $this->message['success-add-post'] : $this->message['failure-add-post'].$post;
+			echo $r ? json_encode( $this->message['success-add-post'] ) : json_encode( $this->message['failure-add-post'] );
+			die();
 		}
-		else{
-			$item_id = "";
-			foreach( $this->menu as $item ){
-				if( $item->object_id == $this->menu_args['menu-item-object-id'] )
-					$item_id = $item->ID;
-			}
-
-			$menuObject = wp_get_nav_menu_object( $this->menu_id );
-			$menu_objects = get_objects_in_term( $menuObject->term_id, 'nav_menu' );
-	        if ( !empty( $item_id ) && !empty( $menu_objects ) ) {
-                foreach ( $menu_objects as $item ) {
-                    if( $item == $item_id ){
-                    	$r = wp_delete_post( $item );
-                    	return $r;
-	                }
-		        }
-	    	}
-		}
-		return false;
-	}
-
-	public function vg_nav_item_exists( ) {
+		// If deleting post from OPN
+		$item_id = "";
 		foreach( $this->menu as $item ){
 			if( $item->object_id == $this->menu_args['menu-item-object-id'] )
+				$item_id = $item->ID;
+		}
+		$menuObject = wp_get_nav_menu_object( $this->menu_id );
+		$menu_objects = get_objects_in_term( $menuObject->term_id, 'nav_menu' );
+        if ( !empty( $item_id ) && !empty( $menu_objects ) ) {
+            foreach ( $menu_objects as $item ) {
+                if( $item == $item_id ){
+                	$r = wp_delete_post( $item );
+                	echo $r ? json_encode( $this->message['success-delete-post'] ) : json_encode( $this->message['failure-delete-post'] );
+                	die();
+                }
+	        }
+    	}
+    	die();
+	}
+
+	/**
+	 * Check nav item exists
+	 * @param int $nav_id nav item id to check for. if none $this->menu_args['menu-item-object-id'] will be used
+	 * @return mixed if nav item exists returns int ID. false if nav item does not exist
+	 */
+	public function vg_nav_item_exists( $nav_id = '' ) {
+		$nav_id = empty( $nav_id ) ? $this->menu_args['menu-item-object-id'] : $nav_id;
+		foreach( $this->menu as $item ){
+			if( $item->object_id == $nav_id )
 				return $item->ID;
 		}
 		return false;
 	}
 
+	/**
+	 * Customization to Wordpress Menu Walker
+	 *
+	 * DO NOT EDIT THIS FUNCTION
+	 */
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		
 	    $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
@@ -245,16 +293,17 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	    $atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
 	    $atts['target'] = ! empty( $item->target )     ? $item->target     : '';
 	    $atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
-	    $atts['href']   = ( ! empty( $item->url ) && !$in_one_page )       ? $item->url       : '#'.$post->post_name;
-	    // if( $in_one_page )
-	    // 	$atts['onclick'] = 'vgScrollToEl(this);return false';
+	    $atts['href']   = ( ! empty( $item->url ) && !$in_one_page )       ? $item->url       : '/#'.$post->post_name;
 
-	    echo $nav;
-	    if( $this->nav === null ){
-	    	$atts['style']  = ! empty( $item->object_id )  ? 'background:'.$onepage['page-color'].';color:'.$header['nav-color'].';' : '';
+	    if( $in_one_page ){
+	    	$atts['onclick'] = ! empty( $item->object_id )  ? 'bloodhound_ScrollToEl(this);' : '';
+	    }
+	    
+	    if( $this->nav == '' ){
+	    	$atts['style']  = ! empty( $item->object_id )  ? 'background:'.$onepage['page-color'].';color:'.$onepage['title-color'].';' : '';
 	    }
 	    else{
-	    	$atts['style']  = ! empty( $item->object_id )  ? 'color:'.$header['nav-color'].';' : '';
+	    	$atts['style']  = ! empty( $item->object_id )  ? 'color:'.$onepage['title-color'].';' : '';
 	    }
 
 	    /**
@@ -290,7 +339,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 
 	    $item_output .= '<a'. $attributes .'>';
 	    if( $this->nav == 'splash' ){
-	    	$vg_nav_icon = '<span class="splash-nav-icon" style="background:'.$onepage['page-color'].';color:'.$header['nav-color'].';">
+	    	$vg_nav_icon = '<span class="splash-nav-icon" style="background:'.$onepage['page-color'].';color:'.$onepage['title-color'].';">
 	    		<i class="fa fa-fw '.$onepage['nav-icon'].'"></i>
 	    		</span>';
 	    	//insert nav icon

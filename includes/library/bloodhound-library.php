@@ -365,7 +365,7 @@ function vg_do_nav( $depth = 2, $nav = '' ) {
 		'walker'		  => new BloodhoundOnePageNavClass( $nav ),
 	);
 	echo "<div class='block'>"; ?>
-	<a href="javascript:;" onclick="vgToggleNav(this)" class="nav-toggle btn" id="nav-toggle" style="background:<?php echo $header['nav-toggle-bg']; ?>;color:<?php echo $header['nav-toggle-color']; ?>;"><i class="fa fa-fw fa-bars"></i></a>
+	<a href="javascript:;" onclick="bloodhound_ToggleNav(this)" class="nav-toggle btn" id="nav-toggle" style="background:<?php echo $header['nav-toggle-bg']; ?>;color:<?php echo $header['nav-toggle-color']; ?>;"><i class="fa fa-fw fa-bars"></i></a>
 	<?php wp_nav_menu( $args );
 	echo "</div>";
 }
@@ -395,7 +395,7 @@ function vg_splash_cta_url() {
 	$post_in_onepage = get_post_meta( $p->ID, 'vg_add_post_to_one_page', true );
 	
 	if( $post_in_onepage ) {		
-		$output = '#'.$p->post_name.'" onclick="vgScrollToEl(this)';//Leave last double quote out.
+		$output = '#'.$p->post_name.'" onclick="bloodhound_ScrollToEl(this)';//Leave last double quote out.
 	}
 	else{
 		$output = '/'.$p->post_name;

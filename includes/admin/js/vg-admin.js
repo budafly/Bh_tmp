@@ -132,12 +132,10 @@ jQuery(function($) { //on document ready
  */
 function bloodhoundAddToOPN() {
 	var c = jQuery('#vg_add_post-checkbox'), s = jQuery('span.ajax-response'), data;
-
 	var vg_post_title     = jQuery( '#vg_post_title' ).val()
 	var vg_post_url       = jQuery( '#vg_post_url' ).val()
 	var vg_post_object_id = jQuery( '#vg_post_object_id' ).val()
 	var vg_post_object    = jQuery( '#vg_post_object' ).val()
-		
 	if( c.prop('checked') ){
 		data = {
 			'action': 'vg_update_this_post',
@@ -158,29 +156,7 @@ function bloodhoundAddToOPN() {
 	}
 	s.html( '<i class="fa fa-fw fa-spin fa-futbol"></i>' )
 	jQuery.post(ajaxurl, data, function( response ) {
-		//response = JSON.parse(response)
-		console.log(response)
-		s.html(response)
-		// if( response.status !== null ) {
-		// 	if( 'SUCCESS' == response.status && 'create' == response.action ){
-		// 		$('span.ajax-response').html( 'Page added to menu.' )
-		// 	}
-		// 	else if( 'SUCCESS' == response.status && 'delete' == response.action ){
-		// 		$('span.ajax-response').html( 'Page removed from menu.' )
-		// 	}
-		// 	else if( 'SUCCESS' == response.status && 'exists' == response.action ){
-		// 		$('span.ajax-response').html( 'Page already exists in menu.' )
-		// 	}
-		// 	else if( 'FAILURE' == response.status && 'exists' == response.action ){
-		// 		$('span.ajax-response').html( 'Page has already been removed from menu.' )
-		// 	}
-		// 	else{
-		// 		$('span.ajax-response').html( '<i class="fa fa-fw fa-frown-o"></i> Please try again.' )
-		// 	}
-		// }
-		// else{
-		// 	$('span.ajax-response').html( '<i class="fa fa-fw fa-frown-o"></i> Please try again.' )
-		// }			
-		console.log(response.status)
+		response = jQuery.parseJSON(response)
+		s.html(response.message)
 	})
 }

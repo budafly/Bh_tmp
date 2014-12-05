@@ -5,7 +5,7 @@ get_header( 'one-page' ); ?>
 <section id="vg-one-page-loop">
 	<?php
 	$onepage = get_option( 'vg_one_page_nav' );
-	$post_types = get_post_types();
+	$post_types = get_post_types( array( 'public' => true ), 'names' );
 	
 		$menu_items = vg_grab_menu_items_ids();
 		$args = array(
@@ -52,7 +52,7 @@ get_header( 'one-page' ); ?>
 									<?php the_post_thumbnail( 'full', array( 'class' => 'responsive' ) ); ?>
 								</div>
 							<?php endif; ?>
-							
+
 							<?php the_content(); ?>
 
 						</div>
