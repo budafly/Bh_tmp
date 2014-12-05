@@ -31,7 +31,7 @@ $home_fields = array(
 
 premise_field( $home_fields );
 
-echo '<div class="clear"></div>';
+echo '<div class="clear hr_ccc"></div>';
 
 //get splash options
 $splash = get_option( 'vg_splash' );
@@ -86,6 +86,18 @@ $splash_fields = array(
 premise_field( $splash_fields );
 
 premise_insert_background( 'vg_splash' );
+
+premise_field( array(
+		'type' => 'select',
+		'label' => 'Test',
+		'name' => 'test',
+		'options' => array(
+			'Key ' => 'Value',
+			'Keys ' => 'Value',
+			'Keyf ' => 'Value',
+			'Keyg ' => 'Value',
+			),
+	));
 
 submit_button();
 ?>
