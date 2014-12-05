@@ -108,7 +108,8 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	public function render_metabox( $post ) {
 		wp_nonce_field( 'bloodhound_one_page_nav', 'bloodhound_one_page_nav_nonce' );
 		$nav = get_post_meta( $post->ID, 'vg_add_post', true );
-
+		$nav_title = $nav['title-color'] ? $nav['title-color'] : '#333333';
+		$page_color = $nav['page-color'] ? $nav['page-color'] : '#FFFFFF';
 		$check = get_post_meta( $post->ID, 'vg_add_post_to_one_page', true );
 		
 		echo '<span class="ajax-response"></span>';
@@ -128,7 +129,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 				'label' => 'Choose page color',
 				'name' => 'vg_add_post[page-color]',
 				'id' => 'vg_add_post-page-color',
-				'value' => $nav['page-color'],
+				'value' => $page_color,
 			 ),
 			array( 
 				'type' => 'select',
@@ -155,7 +156,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 				'label' => 'Select title color',
 				'name' => 'vg_add_post[title-color]',
 				'id' => 'vg_add_post-title-color',
-				'value' => $nav['title-color'],
+				'value' => $nav_title,
 			 ),
 			array(
 				'type' => 'hidden',
