@@ -16,7 +16,7 @@ if ( !function_exists( 'bloodhound_theme_activation' ) ) {
 				'ignore-sticky' => '1',
 			),
 			'bloodhound_splash' => array(
-				'logo' => get_stylesheet_directory().'/img/defaults/logo-splash.png',
+				'logo' => get_stylesheet_directory().'/images/defaults/logo-splash.png',
 			),
 		);
 	}
@@ -31,6 +31,22 @@ add_action('wp_enqueue_scripts', 'bloodhound_enqueue_scripts');
 add_action('admin_menu', 'bloodhound_add_theme_options_page');
 
 add_action( 'admin_enqueue_scripts', 'bloodhound_enqueue_admin_scripts' );
+
+$portfolio = new PremiseCPT( array(
+	'post_type' => 'portfolio',
+	'menu_name' => 'Portfolio',
+	'singular'  => 'Project',
+	'plural'    => 'Projects',
+	'slug'      => 'portfolio',
+) );
+
+$team_member = new PremiseCPT( array( 
+	'post_type' => 'team_member',
+	'singular'  => 'Team Member',
+	'plural'    => 'Team Members',
+	'slug'      => 'team-member',
+) );
+
 
 /**
  * Site scripts
@@ -104,11 +120,11 @@ function bloodhound_build_options_page() {
  */
 if ( !function_exists( 'bloodhound_register_theme_settings' ) ) {
 	function bloodhound_register_theme_settings () {
+		register_setting( 'bloodhound_theme_options', 'bloodhound_logo' );
+		register_setting( 'bloodhound_theme_options', 'bloodhound_header' );
 		register_setting( 'bloodhound_theme_options', 'bloodhound_home' );
 		register_setting( 'bloodhound_theme_options', 'bloodhound_one_page_nav' );
 		register_setting( 'bloodhound_theme_options', 'bloodhound_splash' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_header' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_logo' );
 		register_setting( 'bloodhound_theme_options', 'bloodhound_footer' );
 		register_setting( 'bloodhound_theme_options', 'bloodhound_enable_one_page' );
 	}

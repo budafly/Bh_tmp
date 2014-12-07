@@ -1,18 +1,21 @@
 <?php
 /**
  * Bloodhound Library
+ * 
  * @package Bloodhound
+ * @subpackage Library
  */
 
-function bloodhound_get_page_options() {
-	global $post;
-	return $page = get_post_meta( $post->ID, 'bloodhound_add_post', true );
-}
-
-function bloodhound_the_page_styles( $style = array() ) {
+/**
+ * The Page Styles
+ * 
+ * @param  string $style additional styles you can pass  i.e. ('display:block; box-sizing:border-box;')
+ * @return string        Output inline styles
+ */
+function bloodhound_the_page_styles( $style = '' ) {
 	if( !is_array( $style ) )
 		return false;
-	$_styles = bloodhound_get_page_options();
+	$_styles = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 	$html = 'style="';
 	switch ( $_styles['style'] ) {
 		case 'top':
@@ -27,15 +30,17 @@ function bloodhound_the_page_styles( $style = array() ) {
 			$html .= '';
 			break;
 	}
-	$html .= implode( '', $style ).'"';
-	echo $html;
+	echo $html . $style . '"';
 }
 
 /**
  * Home Splash Classes and Styles
+ * 
  * @param  array  $my_classes Additional classes to insert, i.e. ('one-class', 'other-class')
  * @param  array  $my_styles  Additional styles to insert, i.e. ('display:block;', 'margin-bottom:20px;' )
- * @return echo               Will echo classes and styles to element
+ * @return string             inline style and class attributes
+ *
+ * @see bloodhound_splash_classes() & bloodhound_splash_styles()
  */
 function bloodhound_splash_classes_and_styles( $my_classes = '', $my_styles = '' ) {
 	bloodhound_splash_classes( $my_classes );
@@ -44,8 +49,11 @@ function bloodhound_splash_classes_and_styles( $my_classes = '', $my_styles = ''
 
 /**
  * Home Splash Classes
+ * 
  * @param  string  $my_classes Additional classes to insert, i.e. ('one-class other-class')
- * @return echo                Will echo classes to element
+ * @return string              inline class attribute
+ *
+ * @see bloodhound_splash_classes_and_styles()
  */
 function bloodhound_splash_classes( $my_classes = '' ) {
 	$splash = get_option( 'bloodhound_splash' );	
@@ -62,6 +70,14 @@ function bloodhound_splash_classes( $my_classes = '' ) {
 	echo $classes;
 }
 
+/**
+ * Home Splash Styles
+ * 
+ * @param  string $my_styles additional styles i.e. ('display:block; box-sizing:border-box;')
+ * @return string            inline style attribute
+ *
+ * @see bloodhound_splash_classes_and_styles()
+ */
 function bloodhound_splash_styles( $my_styles = '' ) {
 	$styles = 'style="';
 
@@ -75,107 +91,51 @@ function bloodhound_splash_styles( $my_styles = '' ) {
 	echo $styles;
 }
 
-//Team Members Page Functions
-function bloodhound_team_member() {
-	//display team member avatar
-	if(get_option('bloodhound_team_image')) {
-		bloodhound_team_avatar();	
-	}
-		
-	bloodhound_team_name();
-	
-	if(get_option('bloodhound_team_phone')) :
-		?>
-		<div class="block vg-team-phone center">
-			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_phone'); ?></span>
-		</div>
-		<?php
-	endif;
-	
-	if(get_option('bloodhound_team_email')) :
-		?>
-		<div class="block vg-team-email center">
-			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_email'); ?></span>
-		</div>
-		<?php
-	endif;
-	
-	if(get_option('bloodhound_team_social')) :
-		?>
-		<div class="block vg-team-social center">
-			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_social'); ?></span>
-		</div>
-		<?php
-	endif;
-	
-	if(get_option('bloodhound_team_desc')) :
-		?>
-		<div class="block vg-team-desc center">
-			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_desc'); ?></span>
-		</div>
-		<?php
-	endif;
-}
-
-//display team member avatar
-function bloodhound_team_avatar() {
-	if ( get_option('bloodhound_team_link') ) {
-		?>
-			<div class="block vg-team-image center">
-				<a href="<?php the_permalink(); ?>" class="block">
-					<img src="<?php echo get_option('bloodhound_team_image'); ?>" class="responsive <?php echo get_option('bloodhound_image_round'); ?>">
-				</a>
-			</div>
-		<?php
-	}
-	else{
-		?>
-			<div class="block vg-team-image center">
-				<img src="<?php echo get_option('bloodhound_team_image'); ?>" class="responsive <?php echo get_option('bloodhound_image_round'); ?>">
-			</div>
-		<?php
-	}
-}
-
-//display team member name
-function bloodhound_team_name() {
-	if ( get_option('bloodhound_team_link') ) {
-		?>
-			<div class="block vg-team-name center">
-				<a href="<?php the_permalink(); ?>" class="block">
-					<h2><?php the_title(); ?></h2>
-				</a>
-			</div>
-		<?php
-	}
-	else{
-		?>
-			<div class="block vg-team-name center">
-				<h2><?php the_title(); ?></h2>
-			</div>
-		<?php
-	}
-}
-
+/**
+ * Header classes and styles
+ * 
+ * @param  string $my_classes additional classes i.e. ('one-class other-class')
+ * @param  string $my_styles  additional styles  i.e. ('display:block; box-sizing:border-box;')
+ * @return string             inline style and class attributes
+ *
+ * @see bloodhound_header_class() & bloodhound_header_style()
+ */
 function bloodhound_header_classes_and_styles( $my_classes = '', $my_styles = '' ) {
 	bloodhound_header_class( $my_classes );
 	bloodhound_header_style( $my_styles );
 }
 
+/**
+ * Header Classes
+ * 
+ * @param  string $my_classes additional classes i.e. ('one-class other-class')
+ * @return string             inline class attribute
+ *
+ * @see bloodhound_header_classes_and_styles()
+ */
 function bloodhound_header_class( $my_classes ='' ) {
 	$header = get_option( 'bloodhound_header' );
 	echo !empty( $header['sticky'] ) ? 'class="sticky '.$my_classes.'"' : 'class="'.$my_classes.'"';
 }
 
+/**
+ * header styles
+ * 
+ * @param  string $my_styles additional styles i.e. ('display:block; box-sizing:border-box;')
+ * @return string            inline style attribute
+ * 
+ * @see bloodhound_header_classes_and_styles()
+ */
 function bloodhound_header_style( $my_styles = '' ) {
 	echo 'style="'.premise_the_background( 'bloodhound_header', false ) . $my_styles.'"';
 }
 
 /**
  * Main Nav
+ * 
  * @param  integer $depth depth for wordpress child nav (sub menu levels)
  * @param  string  $nav   tells the function which nav to load. e.g. 'splash'
- * @return echo         echo the main nav
+ * @return string         HTML markup for the main nav
  */
 function bloodhound_do_nav( $depth = 2, $nav = '' ) {
 	//get mobile nav options
@@ -249,5 +209,13 @@ function bloodhound_the_title( $post, $span = true, $echo = true ) {
 		echo $html;
 
 	return $html;
+}
+
+/**
+ * Calls the class on the post edit screen.
+ * 
+ */
+function call_Bloodhoundteam_memberClass() {
+	new Bloodhoundteam_memberClass();
 }
 ?>

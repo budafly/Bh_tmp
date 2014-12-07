@@ -86,7 +86,7 @@ $splash_fields = array(
 	),
 );
 premise_field( $splash_fields );
-
+echo '<div class="clear"></div>';
 premise_save_background( 'bloodhound_splash' );
 
 submit_button();

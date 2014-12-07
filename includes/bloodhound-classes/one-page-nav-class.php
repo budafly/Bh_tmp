@@ -107,7 +107,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	 */
 	public function render_metabox( $post ) {
 		wp_nonce_field( 'bloodhound_one_page_nav', 'bloodhound_one_page_nav_nonce' );
-		$nav = get_post_meta( $post->ID, 'bloodhound_add_post', true );
+		$nav = get_post_meta( $post->ID, 'bloodhound_add_post', true ) ? get_post_meta( $post->ID, 'bloodhound_add_post', true ) : array();
 		$nav_title = $nav['title-color'] ? $nav['title-color'] : '#333333';
 		$page_color = $nav['page-color'] ? $nav['page-color'] : '#FFFFFF';
 		$check = get_post_meta( $post->ID, 'bloodhound_add_post_to_one_page', true );

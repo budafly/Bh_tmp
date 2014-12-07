@@ -18,10 +18,10 @@ $title = bloodhound_the_title( $post, false, false ); ?>
 				
 				<div class="bloodhound-team-member-excerpt span3 same-height right relative" data-height="450px" >
 				 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
-				 		<?php bloodhound_the_team_member_excerpt( '0' ); ?>
+				 		<?php bloodhound_the_team_member_excerpt( $post, '0' ); ?>
 				 	</div>
 				 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
-				 		<?php bloodhound_the_team_member_excerpt( '1' ); ?>
+				 		<?php bloodhound_the_team_member_excerpt( $post, '1' ); ?>
 				 	</div>
 				 </div>
 						
@@ -33,10 +33,10 @@ $title = bloodhound_the_title( $post, false, false ); ?>
 
 				<div class="bloodhound-team-member-excerpt span3 same-height left relative">
 					<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
-						<?php bloodhound_the_team_member_excerpt( '2' ); ?>
+						<?php bloodhound_the_team_member_excerpt( $post, '2' ); ?>
 					</div>
 					<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
-						<?php bloodhound_the_team_member_excerpt( '3' ); ?>
+						<?php bloodhound_the_team_member_excerpt( $post, '3' ); ?>
 					</div>
 				</div>
 

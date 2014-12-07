@@ -6,7 +6,7 @@
 
 /**
  * Team Member info
- * @return echo team member's info
+ * @return string team member's info
  */
 function bloodhound_the_team_meber_info() {
 	global $post;
@@ -59,19 +59,15 @@ function bloodhound_the_team_member_name() {
 
 	$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 
-	echo '<h3 class="relative" style="	background:	'.$meta['page-color'].';
-										color:		'.$meta['title-color'].';">
-	'.get_the_title().'<i class="absolute fa fa-fw '.$meta['nav-icon'].'" style="top:5px;right:5px;"></i></h3>';
+	echo '<h3 class="relative" style="background:'.$meta['page-color'].';color:'.$meta['title-color'].';">'.get_the_title().'<i class="absolute fa fa-fw '.$meta['nav-icon'].'" style="top:5px;right:5px;"></i></h3>';
 }
 
-function bloodhound_the_team_member_excerpt( $i ) {
-	$side_info = get_posts( 'post_type=teammember&numberposts=4' );
+function bloodhound_the_team_member_excerpt( $post, $i ) {
+	$side_info = get_posts( 'post_type=team_member&numberposts=4' );
 	
 	if( $side_info[$i] ) {
-		global $post;
 		$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
-		echo '<h3 class="block" style="font-weight:700;color:'.$meta['page-color'].';">'.$side_info[$i]->post_title.'</h3>
-			  <span class="block">'.$side_info[$i]->post_excerpt.'</span>';
+		echo '<h3 class="block" style="font-weight:700;color:'.$meta['page-color'].';">'.$side_info[$i]->post_title.'</h3><span class="block">'.$side_info[$i]->post_excerpt.'</span>';
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-$team_members = new WP_Query( array( 'post_type' => 'teammember' ) ); 
+$team_members = new WP_Query( array( 'post_type' => 'team_member' ) ); 
 $posts = $team_members->get_posts(); ?>
 
 <div class="bloodhound-accordion border-box" style="overflow:hidden;min-height:450px;"><!-- Beigin Team Member -->
