@@ -1,3 +1,5 @@
+<?php $footer = get_option( 'bloodhound_footer' ); ?>
+
 <section id="footer">
 
 	<div class="container">
@@ -18,10 +20,16 @@
 		</div>
 	</div>
 </section>
+
 <div class="copyright">
 	<div class="container row">
-		<span class="float-left">&copy; Copyright <?php echo date('Y'); ?>, Medriguez</span>
-		<span class="float-right">Developed by <a href="http://vallgroup.com" target="_blank">Vallgroup LLC</a></span>
+		<?php if( $footer['copyright'] = 'copyright'; ) : ?>
+			<span class="span6 left">&copy; Copyright <?php echo date('Y'), $footer['copyright']; ?></span>
+		<?php endif; ?>
+
+		<?php if( $footer['powered_by'] ) : ?>
+			<span class="span6 right">Developed by <a href="http://vallgroup.com" target="_blank">Vallgroup LLC</a></span>
+		<?php endif; ?>
 	</div>
 </div>
 

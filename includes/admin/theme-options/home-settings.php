@@ -8,7 +8,7 @@ $home_fields = array(
 	array(
 		'type' => 'checkbox',
 		'label' => 'One Page Home',
-		'tooltip' => 'Enabling this option will allow you to display pages and posts on top of each other in one single home page. You can select wchich pages and posts to display in the home page by simply selcting "display in one page home" checkbox in the page/post edit screen. When users click on a menu item, if the page or post is displayed in the home page the site will scroll to that section; otherwise, it will behave like a normal site and take the user to the selected page or post.',
+		'tooltip' => 'Enabling this option will turn your home page into a "one page website" allowing you to display pages and posts as sections of one single page. You can select wchich pages or posts to display in the home page by simply checking the "Add To One Page Nav" option from the Pgae/Post edit screen. The "Add To One Page Nav" option will automatically add the post to your main nav as well.',
 		'name' => 'vg_enable_one_page',
 		'value_att' => '1',
 		'value' => get_option( 'vg_enable_one_page' ),
@@ -20,7 +20,7 @@ $home_fields = array(
 	array(
 		'type' => 'checkbox',
 		'label' => 'Ignore Sticky Posts',
-		'tooltip' => 'When selected Sticky posts will be excluded from your one page nav. Only applies if your blog has any Sticky posts.',
+		'tooltip' => 'When selected Sticky posts will be excluded from your "One Page Nav".',
 		'name' => 'vg_one_page_nav[ignore-sticky]',
 		'value_att' => '1',
 		'value' => $onepage['ignore-sticky'],
@@ -31,7 +31,7 @@ $home_fields = array(
 
 premise_field( $home_fields );
 
-echo '<div class="clear hr_ccc"></div>';
+echo '<div class="clear" style="border-top:1px solid #ccc;margin:40px 0;"></div>';
 
 //get splash options
 $splash = get_option( 'vg_splash' );
@@ -72,6 +72,7 @@ $splash_fields = array(
 		'name' => 'vg_splash[cta]',
 		'id' => 'vg_splash-cta',
 		'value' => $splash['cta'],
+		'class' => 'span6 float-left'
 	),
 	array(
 		'type' => 'wp_dropdown_pages',
@@ -81,11 +82,12 @@ $splash_fields = array(
 		'id' => 'vg_splash-cta-link',
 		'value' => $splash['cta-link'],
 		'show_option_none'=>'Please Select a Page',
+		'class' => 'span6 float-right'
 	),
 );
 premise_field( $splash_fields );
 
-premise_insert_background_options( 'vg_splash' );
+premise_save_background( 'vg_splash' );
 
 submit_button();
 ?>

@@ -1,7 +1,3 @@
-<?php 
-//Get Header Layout
-$layout = vg_get_header_layout(); ?>
-
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -12,16 +8,12 @@ $layout = vg_get_header_layout(); ?>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
-	<?php 
-		vg_output_css();
-		wp_head(); 
-	?>
+	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class('site'); ?>>
 
-
-<header id="header" class="block <?php vg_header_class(); ?>">
+<header id="header" <?php bloodhound_header_classes_and_styles( 'block' ); ?>>
 	<div class="header-inner">
 		<div class="container">
 

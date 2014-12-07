@@ -109,7 +109,7 @@ if ( !function_exists( 'vg_register_theme_settings' ) ) {
 		register_setting( 'vg_theme_options', 'vg_splash' );
 		register_setting( 'vg_theme_options', 'vg_header' );
 		register_setting( 'vg_theme_options', 'vg_logo' );
-
+		register_setting( 'vg_theme_options', 'bloodhound_footer' );
 		register_setting( 'vg_theme_options', 'vg_enable_one_page' );
 	}
 }

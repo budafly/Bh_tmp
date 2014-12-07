@@ -22,14 +22,8 @@
 			'label' => 'Upload a Logo',
 			'value' => get_option( 'vg_logo' ),
 		),
-		array(
-			'type' => 'minicolors',
-			'name' => 'vg_header[nav-color]',
-			'id' => 'vg_header-nav-color',
-			'label' => 'Nav Items Color',
-			'tooltip' => 'Choose the color for all menu items. This controls all menu items and the icons on the home splash menu if applicable.',
-			'value' => $header['nav-color'],
-		),
+	);
+	$mobile_nav_fields = array(
 		array(
 			'type' => 'minicolors',
 			'name' => 'vg_header[nav-toggle-bg]',
@@ -58,7 +52,9 @@
 	//build fields
 	premise_field( $header_fields );
 
-	premise_insert_background_options( 'vg_header' );
+	premise_save_background( 'vg_header' );
+
+	premise_field( $mobile_nav_fields );
 
 	submit_button(); ?>
 
