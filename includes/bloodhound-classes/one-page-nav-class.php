@@ -50,7 +50,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 		$this->set_new_menu_params();
 		add_action( 'add_meta_boxes', array( $this, 'add_metabox' ) );
 		add_action( 'save_post', array( $this, 'save_metabox' ) );
-		add_action( 'wp_ajax_vg_update_this_post', array( $this, 'add_to_one_page_nav' ) );
+		add_action( 'wp_ajax_bloodhound_update_this_post', array( $this, 'add_to_one_page_nav' ) );
 	}
 
 	/**
@@ -67,10 +67,10 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	 * Set Menu Item Args
 	 */
 	protected function set_new_menu_params() {
-		$this->menu_args['menu-item-title']     = !empty( $_POST['vg_post_title'] ) ? $_POST['vg_post_title'] : '';
-		$this->menu_args['menu-item-url']       = !empty( $_POST['vg_post_url'] ) ? $_POST['vg_post_url'] : '';
-		$this->menu_args['menu-item-object-id'] = !empty( $_POST['vg_post_object_id'] ) ? $_POST['vg_post_object_id'] : '';
-		$this->menu_args['menu-item-object']    = !empty( $_POST['vg_post_object'] ) ? $_POST['vg_post_object'] : '';
+		$this->menu_args['menu-item-title']     = !empty( $_POST['bloodhound_post_title'] ) ? $_POST['bloodhound_post_title'] : '';
+		$this->menu_args['menu-item-url']       = !empty( $_POST['bloodhound_post_url'] ) ? $_POST['bloodhound_post_url'] : '';
+		$this->menu_args['menu-item-object-id'] = !empty( $_POST['bloodhound_post_object_id'] ) ? $_POST['bloodhound_post_object_id'] : '';
+		$this->menu_args['menu-item-object']    = !empty( $_POST['bloodhound_post_object'] ) ? $_POST['bloodhound_post_object'] : '';
 	}
 
 	/**
@@ -96,8 +96,8 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 		} else {
 			if ( !current_user_can( 'edit_post', $post_id ) ) return;
 		}	
-		update_post_meta( $post_id, 'vg_add_post_to_one_page', $_POST['vg_add_post_to_one_page'] );
-		update_post_meta( $post_id, 'vg_add_post', $_POST['vg_add_post'] );
+		update_post_meta( $post_id, 'bloodhound_add_post_to_one_page', $_POST['bloodhound_add_post_to_one_page'] );
+		update_post_meta( $post_id, 'bloodhound_add_post', $_POST['bloodhound_add_post'] );
 	}
 
 	/**
@@ -107,10 +107,10 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	 */
 	public function render_metabox( $post ) {
 		wp_nonce_field( 'bloodhound_one_page_nav', 'bloodhound_one_page_nav_nonce' );
-		$nav = get_post_meta( $post->ID, 'vg_add_post', true );
+		$nav = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 		$nav_title = $nav['title-color'] ? $nav['title-color'] : '#333333';
 		$page_color = $nav['page-color'] ? $nav['page-color'] : '#FFFFFF';
-		$check = get_post_meta( $post->ID, 'vg_add_post_to_one_page', true );
+		$check = get_post_meta( $post->ID, 'bloodhound_add_post_to_one_page', true );
 		
 		echo '<span class="ajax-response"></span>';
 		$form_builder = array( 
@@ -118,8 +118,8 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 				'type' => 'checkbox',
 				'label' => 'Add to one page nav',
 				'tooltip' => 'When this box gets checked, this post or page automatically gets added to our home screen and main nav. You must have the One Page Nav option enabled iin the theme for this to work though.',
-				'name' => 'vg_add_post_to_one_page',
-				'id' => 'vg_add_post-checkbox',
+				'name' => 'bloodhound_add_post_to_one_page',
+				'id' => 'bloodhound_add_post-checkbox',
 				'value_att' => '1',
 				'value' => $check,
 				'attribute' => 'onchange="jQuery(function($){bloodhoundAddToOPN(this);})"',
@@ -127,15 +127,15 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 			array( 
 				'type' => 'minicolors',
 				'label' => 'Choose page color',
-				'name' => 'vg_add_post[page-color]',
-				'id' => 'vg_add_post-page-color',
+				'name' => 'bloodhound_add_post[page-color]',
+				'id' => 'bloodhound_add_post-page-color',
 				'value' => $page_color,
 			 ),
 			array( 
 				'type' => 'select',
-				'name' => 'vg_add_post[style]',
+				'name' => 'bloodhound_add_post[style]',
 				'label' => 'Select style',
-				'id' => 'vg_add_post-style',
+				'id' => 'bloodhound_add_post-style',
 				'placeholder' => 'Select a style',
 				'value' => $nav['style'],
 				'options' => array(
@@ -145,44 +145,44 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 			 ),
 			array( 
 				'type' => 'fa-icon',
-				'name' => 'vg_add_post[nav-icon]',
+				'name' => 'bloodhound_add_post[nav-icon]',
 				'label' => 'Select a nav icon',
 				'tooltip' => 'Only applys to Home Splash Nav',
-				'id' => 'vg_add_post-nav-icon',
+				'id' => 'bloodhound_add_post-nav-icon',
 				'value' => $nav['nav-icon'],
 			 ),
 			array( 
 				'type' => 'minicolors',
 				'label' => 'Select title color',
-				'name' => 'vg_add_post[title-color]',
-				'id' => 'vg_add_post-title-color',
+				'name' => 'bloodhound_add_post[title-color]',
+				'id' => 'bloodhound_add_post-title-color',
 				'value' => $nav_title,
 			 ),
 			array(
 				'type' => 'hidden',
-				'name' => 'vg_post_title',
-				'id' => 'vg_post_title',
+				'name' => 'bloodhound_post_title',
+				'id' => 'bloodhound_post_title',
 				'value' => get_the_title(),
 				'template' => 'raw',
 			),
 			array(
 				'type' => 'hidden',
-				'name' => 'vg_post_url',
-				'id' => 'vg_post_url',
+				'name' => 'bloodhound_post_url',
+				'id' => 'bloodhound_post_url',
 				'value' => get_permalink(),
 				'template' => 'raw',
 			),
 			array(
 				'type' => 'hidden',
-				'name' => 'vg_post_object_id',
-				'id' => 'vg_post_object_id',
+				'name' => 'bloodhound_post_object_id',
+				'id' => 'bloodhound_post_object_id',
 				'value' => $post->ID,
 				'template' => 'raw',
 			),
 			array(
 				'type' => 'hidden',
-				'name' => 'vg_post_object',
-				'id' => 'vg_post_object',
+				'name' => 'bloodhound_post_object',
+				'id' => 'bloodhound_post_object',
 				'value' => $post->post_type,
 				'template' => 'raw',
 			),
@@ -202,8 +202,8 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 			die();
 		}
 		// if adding post o OPN
-		if ( $_POST['vg_add_post_to_one_page'] == '1' ) {
-			if( !$this->vg_nav_item_exists() )
+		if ( $_POST['bloodhound_add_post_to_one_page'] == '1' ) {
+			if( !$this->bloodhound_nav_item_exists() )
 				$r = wp_update_nav_menu_item( $this->menu_id, 0, $this->menu_args );
 			echo $r ? json_encode( $this->message['success-add-post'] ) : json_encode( $this->message['failure-add-post'] );
 			die();
@@ -233,7 +233,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	 * @param int $nav_id nav item id to check for. if none $this->menu_args['menu-item-object-id'] will be used
 	 * @return mixed if nav item exists returns int ID. false if nav item does not exist
 	 */
-	public function vg_nav_item_exists( $nav_id = '' ) {
+	public function bloodhound_nav_item_exists( $nav_id = '' ) {
 		$nav_id = empty( $nav_id ) ? $this->menu_args['menu-item-object-id'] : $nav_id;
 		foreach( $this->menu as $item ){
 			if( $item->object_id == $nav_id )
@@ -284,11 +284,11 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 
 	    $output .= $indent . '<li' . $id . $class_names .'>';
 
-	    $onepage = get_post_meta( $item->object_id, 'vg_add_post', true );
-	    $header = get_option( 'vg_header' );
+	    $onepage = get_post_meta( $item->object_id, 'bloodhound_add_post', true );
+	    $header = get_option( 'bloodhound_header' );
 
 	    $post = get_post( $item->object_id );
-		$in_one_page = get_post_meta( $item->object_id, 'vg_add_post_to_one_page', true );	    
+		$in_one_page = get_post_meta( $item->object_id, 'bloodhound_add_post_to_one_page', true );	    
 
 	    $atts = array();
 	    $atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
@@ -340,11 +340,11 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 
 	    $item_output .= '<a'. $attributes .'>';
 	    if( $this->nav == 'splash' ){
-	    	$vg_nav_icon = '<span class="splash-nav-icon" style="background:'.$onepage['page-color'].';color:'.$onepage['title-color'].';">
+	    	$bloodhound_nav_icon = '<span class="splash-nav-icon" style="background:'.$onepage['page-color'].';color:'.$onepage['title-color'].';">
 	    		<i class="fa fa-fw '.$onepage['nav-icon'].'"></i>
 	    		</span>';
 	    	//insert nav icon
-	    	$item_output .= $vg_nav_icon;
+	    	$item_output .= $bloodhound_nav_icon;
 	    }
 	    /** This filter is documented in wp-includes/post-template.php */
 	    $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;

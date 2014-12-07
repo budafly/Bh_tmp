@@ -13,19 +13,19 @@
 
 <body <?php body_class('site'); ?>>
 
-<section id="home-splash" <?php vg_splash_classes_and_styles(); ?>>
+<section id="home-splash" <?php bloodhound_splash_classes_and_styles(); ?>>
 	<div class="container center">
 
-		<?php $splash = get_option( 'vg_splash' ); //Get Splash Home Options ?>
+		<?php $splash = get_option( 'bloodhound_splash' ); //Get Splash Home Options ?>
 		
 		<div class="splash-logo block center">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<img src="<?php echo $splash['logo'] ? $splash['logo'] : get_option('vg_logo'); ?>" class="inline-block responsive">
+				<img src="<?php echo $splash['logo'] ? $splash['logo'] : get_option('bloodhound_logo'); ?>" class="inline-block responsive">
 			</a>
 		</div>
 
 		<div class="home-splash-navigation block center">
-			<?php vg_do_nav( 1, 'splash' ); ?>
+			<?php bloodhound_do_nav( 1, 'splash' ); ?>
 		</div>
 
 		<?php if( $splash['tag-line'] ) : ?>
@@ -36,7 +36,7 @@
 
 		<?php if( $splash['cta'] ) : ?>
 			<div class="splash-cta block center">
-				<a href="<?php vg_splash_cta_url(); ?>" class="inline-block btn btn-round btn-splash-cta"><?php echo $splash['cta']; ?></a>
+				<a href="<?php bloodhound_splash_cta_url(); ?>" class="inline-block btn btn-round btn-splash-cta"><?php echo $splash['cta']; ?></a>
 			</div>
 		<?php endif; ?>
 		
@@ -50,13 +50,13 @@
 			<div class="inline">
 				<div class="span4 logo left">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<img src="<?php echo get_option('vg_logo'); ?>" class="responsive">
+						<img src="<?php echo get_option('bloodhound_logo'); ?>" class="responsive">
 					</a>
 				</div><!-- /logo -->
 				
 				<div class="span8 main-nav right">
 					
-					<?php vg_do_nav(); ?>
+					<?php bloodhound_do_nav(); ?>
 					
 				</div><!-- /nav -->
 			</div>

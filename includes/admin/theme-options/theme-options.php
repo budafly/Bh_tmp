@@ -4,8 +4,8 @@
 
 	<!-- Start Form -->
 	<form method="post" action="options.php" enctype="multipart/form-data">	
-		<?php settings_fields( 'vg_theme_options' ); ?>
-		<?php do_settings_sections( 'vg_theme_options' ); ?>
+		<?php settings_fields( 'bloodhound_theme_options' ); ?>
+		<?php do_settings_sections( 'bloodhound_theme_options' ); ?>
 
 		<!-- Submit button -->
 		<div class="vg-btn float-right">

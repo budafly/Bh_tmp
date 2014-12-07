@@ -10,15 +10,15 @@
 			<div class="field span8">
 				<label for="vg-favicon">Upload a Favicon <em>72x72 pixels</em></label>
 				<div class="file">
-					<input type="text" placeholder="Upload change or remove your favicon" name="vg_favicon" id="vg-favicon" value="<?php echo get_option('vg_favicon'); ?>" class="vg-file-url">
+					<input type="text" placeholder="Upload change or remove your favicon" name="bloodhound_favicon" id="vg-favicon" value="<?php echo get_option('bloodhound_favicon'); ?>" class="vg-file-url">
 					<button class="vg-btn btn-upload vg-upload-file">+</button>
 					<button class="vg-btn btn-remove vg-remove-file">-</button>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="block center" style="padding:20px;">
-					<?php if (get_option('vg_favicon')) { ?>
-						<img src="<?php echo get_option('vg_favicon'); ?>" class="responsive">
+					<?php if (get_option('bloodhound_favicon')) { ?>
+						<img src="<?php echo get_option('bloodhound_favicon'); ?>" class="responsive">
 					<?php } ?>
 				</div>
 			</div>
@@ -28,15 +28,15 @@
 			<div class="field span8">
 				<label for="vg-logo">Upload your Logo</label>
 				<div class="file">
-					<input type="text" placeholder="The logo will appear on your website" name="vg_logo" id="vg-logo" value="<?php echo get_option('vg_logo'); ?>" class="vg-file-url">
+					<input type="text" placeholder="The logo will appear on your website" name="bloodhound_logo" id="vg-logo" value="<?php echo get_option('bloodhound_logo'); ?>" class="vg-file-url">
 					<button class="vg-btn btn-upload vg-upload-file">+</button>
 					<button class="vg-btn btn-remove vg-remove-file">-</button>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="block center" style="padding:20px;">
-					<?php if (get_option('vg_logo')) { ?>
-						<img src="<?php echo get_option('vg_logo'); ?>" class="responsive">
+					<?php if (get_option('bloodhound_logo')) { ?>
+						<img src="<?php echo get_option('bloodhound_logo'); ?>" class="responsive">
 					<?php } ?>
 				</div>
 			</div>
@@ -46,15 +46,15 @@
 			<div class="field span8">
 				<label for="vg-admin-logo">Upload an Admin Logo</label>
 				<div class="file">
-					<input type="text" placeholder="This logo will appear on the admin page" name="vg_admin_logo" id="vg-admin-logo" value="<?php echo get_option('vg_admin_logo'); ?>" class="vg-file-url">
+					<input type="text" placeholder="This logo will appear on the admin page" name="bloodhound_admin_logo" id="vg-admin-logo" value="<?php echo get_option('bloodhound_admin_logo'); ?>" class="vg-file-url">
 					<button class="vg-btn btn-upload vg-upload-file">+</button>
 					<button class="vg-btn btn-remove vg-remove-file">-</button>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="block center" style="padding:20px;">
-					<?php if (get_option('vg_admin_logo')) { ?>
-						<img src="<?php echo get_option('vg_admin_logo'); ?>" class="responsive">
+					<?php if (get_option('bloodhound_admin_logo')) { ?>
+						<img src="<?php echo get_option('bloodhound_admin_logo'); ?>" class="responsive">
 					<?php } ?>
 				</div>
 			</div>
@@ -65,15 +65,15 @@
 				<label for="vg-icon-touch">Upload an Icon</label>
 				<i class="description">This will display in the Apple device as if it were an app.</i>
 				<div class="file">
-					<input type="text" placeholder="This icon is displayed in iphones or ipads" name="vg_icon_touch" id="vg-icon-touch" value="<?php echo get_option('vg_icon_touch'); ?>" class="vg-file-url">
+					<input type="text" placeholder="This icon is displayed in iphones or ipads" name="bloodhound_icon_touch" id="vg-icon-touch" value="<?php echo get_option('bloodhound_icon_touch'); ?>" class="vg-file-url">
 					<button class="vg-btn btn-upload vg-upload-file">+</button>
 					<button class="vg-btn btn-remove vg-remove-file">-</button>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="block center" style="padding:20px;">
-					<?php if (get_option('vg_icon_touch')) { ?>
-						<img src="<?php echo get_option('vg_icon_touch'); ?>" class="responsive">
+					<?php if (get_option('bloodhound_icon_touch')) { ?>
+						<img src="<?php echo get_option('bloodhound_icon_touch'); ?>" class="responsive">
 					<?php } ?>
 				</div>
 			</div>
@@ -84,15 +84,15 @@
 				<label for="vg-startup-image">Upload a Startup Image</label>
 				<i class="description">This will be displayed in the device while the app loads.</i>
 				<div class="file">
-					<input type="text" placeholder="This appears right before the page loads" name="vg_startup_image" id="vg-startup-image" value="<?php echo get_option('vg_startup_image'); ?>" class="vg-file-url">
+					<input type="text" placeholder="This appears right before the page loads" name="bloodhound_startup_image" id="vg-startup-image" value="<?php echo get_option('bloodhound_startup_image'); ?>" class="vg-file-url">
 					<button class="vg-btn btn-upload vg-upload-file">+</button>
 					<button class="vg-btn btn-remove vg-remove-file">-</button>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="block center" style="padding:20px;">
-					<?php if (get_option('vg_startup_image')) { ?>
-						<img src="<?php echo get_option('vg_startup_image'); ?>" class="responsive">
+					<?php if (get_option('bloodhound_startup_image')) { ?>
+						<img src="<?php echo get_option('bloodhound_startup_image'); ?>" class="responsive">
 					<?php } ?>
 				</div>
 			</div>
@@ -109,7 +109,7 @@
 				<label for="vg-fb">Facebook</label>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-facebook-square"></i></span>
-					<input name="vg_fb" id="vg-fb" type="text" placeholder="Enter your Facebook url" value="<?php echo get_option('vg_fb'); ?>">
+					<input name="bloodhound_fb" id="vg-fb" type="text" placeholder="Enter your Facebook url" value="<?php echo get_option('bloodhound_fb'); ?>">
 				</div>
 			</div>
 			
@@ -117,7 +117,7 @@
 				<label for="vg-tt">Twitter</label>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-twitter-square"></i></span>
-					<input name="vg_tt" id="vg-tt" type="text" placeholder="Enter your Twitter url" value="<?php echo get_option('vg_tt'); ?>">
+					<input name="bloodhound_tt" id="vg-tt" type="text" placeholder="Enter your Twitter url" value="<?php echo get_option('bloodhound_tt'); ?>">
 				</div>
 			</div>
 			
@@ -125,7 +125,7 @@
 				<label for="vg-gplus">Google +</label>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-google-plus-square"></i></span>
-					<input name="vg_gplus" id="vg-gplus" type="text" placeholder="Enter your Google+ url" value="<?php echo get_option('vg_gplus'); ?>">
+					<input name="bloodhound_gplus" id="vg-gplus" type="text" placeholder="Enter your Google+ url" value="<?php echo get_option('bloodhound_gplus'); ?>">
 				</div>
 			</div>
 			
@@ -133,7 +133,7 @@
 				<label for="vg-yt">YouTube</label>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-youtube-square"></i></span>
-					<input name="vg_yt" id="vg-yt" type="text" placeholder="Enter your YouTube url" value="<?php echo get_option('vg_yt'); ?>">
+					<input name="bloodhound_yt" id="vg-yt" type="text" placeholder="Enter your YouTube url" value="<?php echo get_option('bloodhound_yt'); ?>">
 				</div>
 			</div>
 			
@@ -141,7 +141,7 @@
 				<label for="vg-ig">Instagram</label>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-instagram"></i></span>
-					<input name="vg_ig" id="vg-ig" type="text" placeholder="Enter your Instagram url" value="<?php echo get_option('vg_ig'); ?>">
+					<input name="bloodhound_ig" id="vg-ig" type="text" placeholder="Enter your Instagram url" value="<?php echo get_option('bloodhound_ig'); ?>">
 				</div>
 			</div>
 			
@@ -149,7 +149,7 @@
 				<label for="vg-pt">Pinterest</label>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-pinterest-square"></i></span>
-					<input name="vg_pt" id="vg-pt" type="text" placeholder="Enter your Pinterest url" value="<?php echo get_option('vg_pt'); ?>">
+					<input name="bloodhound_pt" id="vg-pt" type="text" placeholder="Enter your Pinterest url" value="<?php echo get_option('bloodhound_pt'); ?>">
 				</div>
 			</div>
 		</div>
@@ -164,7 +164,7 @@
 				<i class="description">Enter a phone number to display in the header.</i>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-phone"></i></span>
-					<input name="vg_tel" id="vg-tel" type="text" placeholder="Enter your Phone Number" value="<?php echo get_option('tp_tel'); ?>">
+					<input name="bloodhound_tel" id="vg-tel" type="text" placeholder="Enter your Phone Number" value="<?php echo get_option('tp_tel'); ?>">
 				</div>
 			</div>
 			
@@ -173,7 +173,7 @@
 				<i class="description">Enter an email address to display in the header.</i>
 				<div class="icon-input">
 					<span class="icon-box-left"><i class="fa fa-fw fa-envelope"></i></span>
-					<input name="vg_email" id="vg-email" type="text" placeholder="Enter your Email Address" value="<?php echo get_option('tp_email'); ?>">
+					<input name="bloodhound_email" id="vg-email" type="text" placeholder="Enter your Email Address" value="<?php echo get_option('tp_email'); ?>">
 				</div>
 			</div>
 		</div>

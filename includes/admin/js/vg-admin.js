@@ -131,27 +131,27 @@ jQuery(function($) { //on document ready
  * @return {[type]}     [description]
  */
 function bloodhoundAddToOPN() {
-	var c = jQuery('#vg_add_post-checkbox'), s = jQuery('span.ajax-response'), data;
-	var vg_post_title     = jQuery( '#vg_post_title' ).val()
-	var vg_post_url       = jQuery( '#vg_post_url' ).val()
-	var vg_post_object_id = jQuery( '#vg_post_object_id' ).val()
-	var vg_post_object    = jQuery( '#vg_post_object' ).val()
+	var c = jQuery('#bloodhound_add_post-checkbox'), s = jQuery('span.ajax-response'), data;
+	var bloodhound_post_title     = jQuery( '#bloodhound_post_title' ).val()
+	var bloodhound_post_url       = jQuery( '#bloodhound_post_url' ).val()
+	var bloodhound_post_object_id = jQuery( '#bloodhound_post_object_id' ).val()
+	var bloodhound_post_object    = jQuery( '#bloodhound_post_object' ).val()
 	if( c.prop('checked') ){
 		data = {
-			'action': 'vg_update_this_post',
-			'vg_add_post_to_one_page': '1',
-			'vg_post_title': vg_post_title,
-			'vg_post_url': vg_post_url,
-			'vg_post_object_id': vg_post_object_id,
-			'vg_post_object': vg_post_object
+			'action': 'bloodhound_update_this_post',
+			'bloodhound_add_post_to_one_page': '1',
+			'bloodhound_post_title': bloodhound_post_title,
+			'bloodhound_post_url': bloodhound_post_url,
+			'bloodhound_post_object_id': bloodhound_post_object_id,
+			'bloodhound_post_object': bloodhound_post_object
 		}
 	}
 	else{
 		data = {
-			'action': 'vg_update_this_post',
-			'vg_add_post_to_one_page': '0',
-			'vg_post_object_id': vg_post_object_id,
-			'vg_post_object': vg_post_object
+			'action': 'bloodhound_update_this_post',
+			'bloodhound_add_post_to_one_page': '0',
+			'bloodhound_post_object_id': bloodhound_post_object_id,
+			'bloodhound_post_object': bloodhound_post_object
 		}
 	}
 	s.html( '<i class="fa fa-fw fa-spin fa-futbol"></i>' )

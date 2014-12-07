@@ -4,13 +4,13 @@ get_header( 'one-page' ); ?>
 
 <section id="vg-one-page-loop">
 	<?php
-	$onepage = get_option( 'vg_one_page_nav' );
+	$onepage = get_option( 'bloodhound_one_page_nav' );
 	$post_types = get_post_types( array( 'public' => true ), 'names' );
 	
-		$menu_items = vg_grab_menu_items_ids();
+		$menu_items = bloodhound_grab_menu_items_ids();
 		$args = array(
 			'post_type' => $post_types,
-			'meta_key' => 'vg_add_post_to_one_page',
+			'meta_key' => 'bloodhound_add_post_to_one_page',
 			'meta_value' => '1',
 			'orderby' => 'post__in',
 			'order' => 'ASC',
@@ -25,7 +25,7 @@ get_header( 'one-page' ); ?>
 		if ( $WP_Query->have_posts() ) :
 			
 			while ( $WP_Query->have_posts() ) : $WP_Query->the_post(); 
-				$nav = get_post_meta( $post->ID, 'vg_add_post', true );
+				$nav = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 				switch( $nav['style'] ){
 					case 'solid' :
 						$post_css = 'background:'.$nav['page-color'].';';
@@ -41,7 +41,7 @@ get_header( 'one-page' ); ?>
 				} ?>
 				
 				<article id="<?php echo $post->post_name; ?>" <?php post_class( 'one-page-section' ); echo 'style="'.$post_css.'"'; ?>>
-					<?php vg_the_title( $post ); ?>
+					<?php bloodhound_the_title( $post ); ?>
 					
 					<div class="container">
 

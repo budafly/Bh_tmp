@@ -15,7 +15,7 @@ function bloodhound_the_team_meber_info() {
 		return false;
 
 	$tm_info = get_post_meta( $post->ID, 'bloodhound_tmcpt_meta', true );
-	$page_meta = get_post_meta( $post->ID, 'vg_add_post', true );
+	$page_meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 
 	foreach ( $tm_info as $key => $value ) {
 		
@@ -57,7 +57,7 @@ function bloodhound_the_team_member_name() {
 	if( !$post )
 		return false;
 
-	$meta = get_post_meta( $post->ID, 'vg_add_post', true );
+	$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 
 	echo '<h3 class="relative" style="	background:	'.$meta['page-color'].';
 										color:		'.$meta['title-color'].';">
@@ -69,7 +69,7 @@ function bloodhound_the_team_member_excerpt( $i ) {
 	
 	if( $side_info[$i] ) {
 		global $post;
-		$meta = get_post_meta( $post->ID, 'vg_add_post', true );
+		$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 		echo '<h3 class="block" style="font-weight:700;color:'.$meta['page-color'].';">'.$side_info[$i]->post_title.'</h3>
 			  <span class="block">'.$side_info[$i]->post_excerpt.'</span>';
 	}

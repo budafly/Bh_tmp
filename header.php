@@ -20,13 +20,13 @@
 			<div class="inline">
 				<div class="span4 logo left">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<img src="<?php echo get_option('vg_logo'); ?>" class="responsive">
+						<img src="<?php echo get_option('bloodhound_logo'); ?>" class="responsive">
 					</a>
 				</div><!-- /logo -->
 
 				<div class="span8 main-nav right">
 					
-					<?php vg_do_nav(); ?>
+					<?php bloodhound_do_nav(); ?>
 					
 				</div><!-- /nav -->
 			</div>

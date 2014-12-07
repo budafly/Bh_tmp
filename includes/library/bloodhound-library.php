@@ -6,7 +6,7 @@
 
 function bloodhound_get_page_options() {
 	global $post;
-	return $page = get_post_meta( $post->ID, 'vg_add_post', true );
+	return $page = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 }
 
 function bloodhound_the_page_styles( $style = array() ) {
@@ -37,9 +37,9 @@ function bloodhound_the_page_styles( $style = array() ) {
  * @param  array  $my_styles  Additional styles to insert, i.e. ('display:block;', 'margin-bottom:20px;' )
  * @return echo               Will echo classes and styles to element
  */
-function vg_splash_classes_and_styles( $my_classes = '', $my_styles = '' ) {
-	vg_splash_classes( $my_classes );
-	vg_splash_styles( $my_styles );
+function bloodhound_splash_classes_and_styles( $my_classes = '', $my_styles = '' ) {
+	bloodhound_splash_classes( $my_classes );
+	bloodhound_splash_styles( $my_styles );
 }
 
 /**
@@ -47,8 +47,8 @@ function vg_splash_classes_and_styles( $my_classes = '', $my_styles = '' ) {
  * @param  string  $my_classes Additional classes to insert, i.e. ('one-class other-class')
  * @return echo                Will echo classes to element
  */
-function vg_splash_classes( $my_classes = '' ) {
-	$splash = get_option( 'vg_splash' );	
+function bloodhound_splash_classes( $my_classes = '' ) {
+	$splash = get_option( 'bloodhound_splash' );	
 	$classes = 'class="';
 
 	if( !empty( $my_classes ) )
@@ -62,13 +62,13 @@ function vg_splash_classes( $my_classes = '' ) {
 	echo $classes;
 }
 
-function vg_splash_styles( $my_styles = '' ) {
+function bloodhound_splash_styles( $my_styles = '' ) {
 	$styles = 'style="';
 
 	if( !empty( $my_styles ) )
 		$styles .= $my_styles;
 
-	$styles .= premise_the_background( 'vg_splash', false );
+	$styles .= premise_the_background( 'bloodhound_splash', false );
 
 	$styles .= '"';
 
@@ -76,54 +76,54 @@ function vg_splash_styles( $my_styles = '' ) {
 }
 
 //Team Members Page Functions
-function vg_team_member() {
+function bloodhound_team_member() {
 	//display team member avatar
-	if(get_option('vg_team_image')) {
-		vg_team_avatar();	
+	if(get_option('bloodhound_team_image')) {
+		bloodhound_team_avatar();	
 	}
 		
-	vg_team_name();
+	bloodhound_team_name();
 	
-	if(get_option('vg_team_phone')) :
+	if(get_option('bloodhound_team_phone')) :
 		?>
 		<div class="block vg-team-phone center">
-			<span class="vg-team-meta"><?php echo get_option('vg_team_phone'); ?></span>
+			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_phone'); ?></span>
 		</div>
 		<?php
 	endif;
 	
-	if(get_option('vg_team_email')) :
+	if(get_option('bloodhound_team_email')) :
 		?>
 		<div class="block vg-team-email center">
-			<span class="vg-team-meta"><?php echo get_option('vg_team_email'); ?></span>
+			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_email'); ?></span>
 		</div>
 		<?php
 	endif;
 	
-	if(get_option('vg_team_social')) :
+	if(get_option('bloodhound_team_social')) :
 		?>
 		<div class="block vg-team-social center">
-			<span class="vg-team-meta"><?php echo get_option('vg_team_social'); ?></span>
+			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_social'); ?></span>
 		</div>
 		<?php
 	endif;
 	
-	if(get_option('vg_team_desc')) :
+	if(get_option('bloodhound_team_desc')) :
 		?>
 		<div class="block vg-team-desc center">
-			<span class="vg-team-meta"><?php echo get_option('vg_team_desc'); ?></span>
+			<span class="vg-team-meta"><?php echo get_option('bloodhound_team_desc'); ?></span>
 		</div>
 		<?php
 	endif;
 }
 
 //display team member avatar
-function vg_team_avatar() {
-	if ( get_option('vg_team_link') ) {
+function bloodhound_team_avatar() {
+	if ( get_option('bloodhound_team_link') ) {
 		?>
 			<div class="block vg-team-image center">
 				<a href="<?php the_permalink(); ?>" class="block">
-					<img src="<?php echo get_option('vg_team_image'); ?>" class="responsive <?php echo get_option('vg_image_round'); ?>">
+					<img src="<?php echo get_option('bloodhound_team_image'); ?>" class="responsive <?php echo get_option('bloodhound_image_round'); ?>">
 				</a>
 			</div>
 		<?php
@@ -131,15 +131,15 @@ function vg_team_avatar() {
 	else{
 		?>
 			<div class="block vg-team-image center">
-				<img src="<?php echo get_option('vg_team_image'); ?>" class="responsive <?php echo get_option('vg_image_round'); ?>">
+				<img src="<?php echo get_option('bloodhound_team_image'); ?>" class="responsive <?php echo get_option('bloodhound_image_round'); ?>">
 			</div>
 		<?php
 	}
 }
 
 //display team member name
-function vg_team_name() {
-	if ( get_option('vg_team_link') ) {
+function bloodhound_team_name() {
+	if ( get_option('bloodhound_team_link') ) {
 		?>
 			<div class="block vg-team-name center">
 				<a href="<?php the_permalink(); ?>" class="block">
@@ -158,17 +158,17 @@ function vg_team_name() {
 }
 
 function bloodhound_header_classes_and_styles( $my_classes = '', $my_styles = '' ) {
-	vg_header_class( $my_classes );
-	vg_header_style( $my_styles );
+	bloodhound_header_class( $my_classes );
+	bloodhound_header_style( $my_styles );
 }
 
-function vg_header_class( $my_classes ='' ) {
-	$header = get_option( 'vg_header' );
+function bloodhound_header_class( $my_classes ='' ) {
+	$header = get_option( 'bloodhound_header' );
 	echo !empty( $header['sticky'] ) ? 'class="sticky '.$my_classes.'"' : 'class="'.$my_classes.'"';
 }
 
-function vg_header_style( $my_styles = '' ) {
-	echo 'style="'.premise_the_background( 'vg_header', false ) . $my_styles.'"';
+function bloodhound_header_style( $my_styles = '' ) {
+	echo 'style="'.premise_the_background( 'bloodhound_header', false ) . $my_styles.'"';
 }
 
 /**
@@ -177,9 +177,9 @@ function vg_header_style( $my_styles = '' ) {
  * @param  string  $nav   tells the function which nav to load. e.g. 'splash'
  * @return echo         echo the main nav
  */
-function vg_do_nav( $depth = 2, $nav = '' ) {
+function bloodhound_do_nav( $depth = 2, $nav = '' ) {
 	//get mobile nav options
-	$header = get_option( 'vg_header' );
+	$header = get_option( 'bloodhound_header' );
 	
 	$args = array(
 		'theme_location'  => 'primary',
@@ -199,7 +199,7 @@ function vg_do_nav( $depth = 2, $nav = '' ) {
 	echo "</div>";
 }
 
-function vg_grab_menu_items_ids() {
+function bloodhound_grab_menu_items_ids() {
 	$locations = get_nav_menu_locations();		
 	$menu_id = $locations['primary'];
 
@@ -218,10 +218,10 @@ function vg_grab_menu_items_ids() {
 }
 
 
-function vg_splash_cta_url() {
-	$splash = get_option( 'vg_splash' );
+function bloodhound_splash_cta_url() {
+	$splash = get_option( 'bloodhound_splash' );
 	$p = get_post( $splash['cta-link'] );
-	$post_in_onepage = get_post_meta( $p->ID, 'vg_add_post_to_one_page', true );
+	$post_in_onepage = get_post_meta( $p->ID, 'bloodhound_add_post_to_one_page', true );
 	
 	if( $post_in_onepage ) {		
 		$output = '#'.$p->post_name.'" onclick="bloodhound_ScrollToEl(this)';//Leave last double quote out.
@@ -232,8 +232,8 @@ function vg_splash_cta_url() {
 	echo $output;
 }
 
-function vg_the_title( $post, $span = true, $echo = true ) {
-	$page = get_post_meta( $post->ID, 'vg_add_post', true );
+function bloodhound_the_title( $post, $span = true, $echo = true ) {
+	$page = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 	
 	if( !$page['title-color'] )
 		$page['title-color'] = '#333333';

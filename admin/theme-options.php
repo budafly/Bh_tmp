@@ -1,14 +1,14 @@
 <div id="vg-theme-options-page" class="vg">
 	<!-- Start Form -->
 	<form method="post" action="options.php" enctype="multipart/form-data">	
-			<?php settings_fields( 'vg_theme_options' ); ?>
-			<?php do_settings_sections( 'vg_theme_options' ); ?>
+			<?php settings_fields( 'bloodhound_theme_options' ); ?>
+			<?php do_settings_sections( 'bloodhound_theme_options' ); ?>
 
 		<!-- Head -->
 		<div class="row">
 			<div class="span3 center vg-logo">
 				<a href="htvg://vallgroup.com" target="_blank" class="block">
-					<img src="<?php echo get_template_directory_uri(); ?>/admin/img/vg_icon100.png" class="responsive" alt="Vallgroup">
+					<img src="<?php echo get_template_directory_uri(); ?>/admin/img/bloodhound_icon100.png" class="responsive" alt="Vallgroup">
 				</a>
 			</div>
 			<div class="span9 vg-head">
@@ -96,11 +96,11 @@
 
 <?php
 //Register Settings
-function register_vg_settings () {
-	register_setting('vg_theme_options', 'vg_header');
-	register_setting('vg_theme_options', 'vg_header_bgcolor');
-	register_setting('vg_theme_options', 'vg_header_gradient');
-	register_setting('vg_theme_options', 'vg_header_pattern');
-	register_setting('vg_theme_options', 'vg_header_image');
-	register_setting('vg_theme_options', 'vg_header_border');
+function register_bloodhound_settings () {
+	register_setting('bloodhound_theme_options', 'bloodhound_header');
+	register_setting('bloodhound_theme_options', 'bloodhound_header_bgcolor');
+	register_setting('bloodhound_theme_options', 'bloodhound_header_gradient');
+	register_setting('bloodhound_theme_options', 'bloodhound_header_pattern');
+	register_setting('bloodhound_theme_options', 'bloodhound_header_image');
+	register_setting('bloodhound_theme_options', 'bloodhound_header_border');
 }

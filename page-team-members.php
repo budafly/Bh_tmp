@@ -3,11 +3,11 @@
 
 get_header();
 
-$title = vg_the_title( $post, false, false ); ?>
+$title = bloodhound_the_title( $post, false, false ); ?>
 
 <section id="bloodhound_team_members_page" class="block">
 
-	<?php vg_the_title( $post ); ?>
+	<?php bloodhound_the_title( $post ); ?>
 
 	<div class="clear"></div>
 
