@@ -44,46 +44,65 @@ class Bloodhoundteam_memberClass {
 	}
 
 	public function bloodhound_tmcpt_metabox_render( $post ) {
-		// Add an nonce field so we can check for it later.
 		wp_nonce_field( 'bloodhound_tmcpt_check_nonce', 'bloodhound_tmcpt_metabox_nonce' );
 
-		// Use get_post_meta to retrieve an existing value from the database.
 		$meta = get_post_meta( $post->ID, 'bloodhound_tmcpt_meta', true );
 		
 		echo '<div class="row"><div class="col2"><h2>Your Business Card</h2>';
-		$field_builder = array( array(  'type' 	  => 'text',		//title
-								   'name' 		  => 'bloodhound_tmcpt_meta[title]',
-								   'value' 	  	  => $meta['title'],
-								   'id' 		  => 'bh_tmcpt_title',
-								   'container' => true,
-								   'container_desc' => 'Enter your information here. It will be displayed on your profile.', ),
-								array(  'type' 	  => 'email',		//email
-								   'name' 		  => 'bloodhound_tmcpt_meta[email]',
-								   'value' 	  	  => $meta['email'],
-								   'id' 		  => 'bh_tmcpt_email', ),
-								array(  'type' 	  => 'tel',			//tel
-								   'name' 		  => 'bloodhound_tmcpt_meta[tel]',
-								   'value' 	  	  => $meta['tel'],
-								   'id' 		  => 'bh_tmcpt_tel', ),
-								array(  'type' 	  => 'tel',			//cell
-								   'name' 		  => 'bloodhound_tmcpt_meta[cell]',
-								   'value' 	  	  => $meta['cell'],
-								   'id' 		  => 'bh_tmcpt_cell', ),
-								array(  'type' 	  => 'text',		//url
-								   'name' 		  => 'bloodhound_tmcpt_meta[url]',
-								   'value' 	  	  => $meta['url'],
-								   'id' 		  => 'bh_tmcpt_url', ),
-								array(  'type' 	  => 'textarea',	//address
-								   'name' 		  => 'bloodhound_tmcpt_meta[address]',
-								   'value' 	  	  => $meta['address'],
-								   'id' 		  => 'bh_tmcpt_address', ), );
+
+		$field_builder = array( 
+			array(  
+				'type'           => 'text', 
+				'name'           => 'bloodhound_tmcpt_meta[title]',
+				'value'          => $meta['title'],
+				'placeholder'    => 'Title',
+				'id'             => 'bh_tmcpt_title',
+				'container'      => true,
+				'container_desc' => 'Enter your information here. It will be displayed on your profile.', 
+			),
+			array(  
+				'type'        => 'email', 
+				'name'        => 'bloodhound_tmcpt_meta[email]',
+				'value'       => $meta['email'],
+				'placeholder' => 'Email',
+				'id'          => 'bh_tmcpt_email', 
+			),
+			array(  
+				'type'        => 'tel', 
+				'name'        => 'bloodhound_tmcpt_meta[tel]',
+				'value'       => $meta['tel'],
+				'placeholder' => 'Tel',
+				'id'          => 'bh_tmcpt_tel', 
+			),
+			array(  
+				'type'        => 'tel', 
+				'name'        => 'bloodhound_tmcpt_meta[cell]',
+				'value'       => $meta['cell'],
+				'placeholder' => 'Cell',
+				'id'          => 'bh_tmcpt_cell', 
+			),
+			array(  
+				'type'        => 'text', 
+				'name'        => 'bloodhound_tmcpt_meta[url]',
+				'value'       => $meta['url'],
+				'placeholder' => 'Website',
+				'id'          => 'bh_tmcpt_url', 
+			),
+			array(  
+				'type'        => 'textarea', 
+				'name'        => 'bloodhound_tmcpt_meta[address]',
+				'value'       => $meta['address'],
+				'placeholder' => 'Address',
+				'id'          => 'bh_tmcpt_address', 
+			), 
+		);
+
 		premise_field( $field_builder );
 		echo '</div><div class="col2">';
 		//user info
 		echo '<div class="block center">';
 		if ( has_post_thumbnail() )
 			the_post_thumbnail( 'medium', array( 'class' => 'inline-block responsive' ) );
-		else echo '<img src="" class="inline-block responsive">';
 		echo '</div><div class="block center">';
 
 		foreach( $meta as $k => $m ) {

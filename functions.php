@@ -23,7 +23,7 @@ if ( !function_exists( 'bloodhound_theme_activation' ) ) {
 }
 add_action('switch_theme', 'bloodhound_theme_activation');
 
-add_theme_support('post-thumbnails', array( 'page', 'post', 'teammember' ) );
+add_theme_support('post-thumbnails', array( 'page', 'post', 'team_member' ) );
 register_nav_menu( 'primary', 'Bloodhound Menu' );
 
 add_action('wp_enqueue_scripts', 'bloodhound_enqueue_scripts');
@@ -46,6 +46,11 @@ $team_member = new PremiseCPT( array(
 	'plural'    => 'Team Members',
 	'slug'      => 'team-member',
 ) );
+
+if( is_admin() ){
+	add_action( 'load-post.php', 'call_Bloodhoundteam_memberClass' );
+	add_action( 'load-post-new.php', 'call_Bloodhoundteam_memberClass' );
+}
 
 
 /**
