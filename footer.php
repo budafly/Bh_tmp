@@ -6,15 +6,15 @@
 		<div class="row">
 		
 			<div class="col3 footer-a footer">
-				<?php dynamic_sidebar('vg-footer-a'); ?>
+				<?php dynamic_sidebar('bloodhound-footer-a'); ?>
 			</div>
 			
 			<div class="col3 footer-b footer">
-				<?php dynamic_sidebar('vg-footer-b'); ?>
+				<?php dynamic_sidebar('bloodhound-footer-b'); ?>
 			</div>
 			
 			<div class="col3 footer-c footer">
-				<?php dynamic_sidebar('vg-footer-c'); ?>
+				<?php dynamic_sidebar('bloodhound-footer-c'); ?>
 			</div>
 		
 		</div>

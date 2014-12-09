@@ -2,7 +2,7 @@
 /* Template Name: Home One Page */
 get_header( 'one-page' ); ?>
 
-<section id="vg-one-page-loop">
+<section id="bloodhound-one-page-loop">
 	<?php
 	$onepage = get_option( 'bloodhound_one_page_nav' );
 	$post_types = get_post_types( array( 'public' => true ), 'names' );

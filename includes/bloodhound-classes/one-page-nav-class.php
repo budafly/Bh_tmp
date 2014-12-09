@@ -79,7 +79,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	public function add_metabox() {
 		$post_types = get_post_types( array( 'public' => true ), 'names' );
 		foreach ($post_types as $post_type) {
-			add_meta_box( 'vg-one-page-nav', 'One Page Nav', array( $this, 'render_metabox' ), $post_type, 'side', 'high' );
+			add_meta_box( 'bloodhound-one-page-nav', 'One Page Nav', array( $this, 'render_metabox' ), $post_type, 'side', 'high' );
 		}
 	}
 

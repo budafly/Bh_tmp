@@ -7,6 +7,7 @@
 
 // Bloodhound Library
 include_once( 'library/bloodhound-library.php' );
+include_once( 'library/team-members-library.php' );
 // Bloodhound Classes
 include_once( 'bloodhound-classes/one-page-nav-class.php' );
 include_once( 'bloodhound-classes/team-members-cpt-class.php' );

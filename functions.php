@@ -1,4 +1,6 @@
 <?php
+
+require_once( TEMPLATEPATH . '/includes/admin/theme-options/theme-options.php' );
 /**
  * Upon theme activation
  */
@@ -28,9 +30,12 @@ register_nav_menu( 'primary', 'Bloodhound Menu' );
 
 add_action('wp_enqueue_scripts', 'bloodhound_enqueue_scripts');
 
-add_action('admin_menu', 'bloodhound_add_theme_options_page');
+add_action( 'admin_menu', array( Bloodhound_Theme_Options_Class::get_instance(), 'theme_page_init' ) );
 
 add_action( 'admin_enqueue_scripts', 'bloodhound_enqueue_admin_scripts' );
+
+//add_action( 'load-themes.php?page=bloodhound_theme_options', array( 'Bloodhound_Theme_Options_Class', 'theme_options' ) );
+
 
 $portfolio = new PremiseCPT( array(
 	'post_type' => 'portfolio',
@@ -74,14 +79,7 @@ if( !function_exists('bloodhound_enqueue_scripts') ) {
 }
 
 
-/**
- * Create theme options page
- */
-function bloodhound_add_theme_options_page() {
-	$bloodhound_theme_page = add_theme_page('Theme Options', 'Theme Options', 'edit_theme_options', 'bloodhound_theme_options', 'bloodhound_build_options_page');
-	add_action('admin_init', 'bloodhound_register_theme_settings');
-	//add_action('admiin_print_scripts-'.$bloodhound_theme_page, 'bloodhound_load_admin_scripts');
-}
+
 
 
 /**
@@ -91,10 +89,10 @@ if( !function_exists('bloodhound_enqueue_admin_scripts') ) {
 	function bloodhound_enqueue_admin_scripts() {
 		//register admin style
 		wp_register_style('minicolors-css', get_template_directory_uri().'/includes/admin/css/jquery.minicolors.css');
-		wp_register_style('bloodhound_admin_css', get_template_directory_uri().'/includes/admin/css/vg-admin.css', array('minicolors-css'));
+		wp_register_style('bloodhound_admin_css', get_template_directory_uri().'/includes/admin/css/bloodhound-admin.css', array('minicolors-css'));
 		//register scripts
 		wp_register_script('minicolors', get_template_directory_uri().'/includes/admin/js/jquery.minicolors.min.js');
-		wp_register_script('bloodhound_admin_js', get_template_directory_uri().'/includes/admin/js/vg-admin.js', array('jquery', 'minicolors' ) );
+		wp_register_script('bloodhound_admin_js', get_template_directory_uri().'/includes/admin/js/bloodhound-admin.js', array('jquery', 'minicolors' ) );
 		//enqueue admin style and script
 		if( is_admin()){
 			wp_enqueue_style('bloodhound_admin_css');	
@@ -120,20 +118,7 @@ function bloodhound_build_options_page() {
 	require_once( TEMPLATEPATH . '/includes/admin/theme-options/theme-options.php' );
 }
 
-/**
- * register theme settings
- */
-if ( !function_exists( 'bloodhound_register_theme_settings' ) ) {
-	function bloodhound_register_theme_settings () {
-		register_setting( 'bloodhound_theme_options', 'bloodhound_logo' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_header' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_home' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_one_page_nav' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_splash' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_footer' );
-		register_setting( 'bloodhound_theme_options', 'bloodhound_enable_one_page' );
-	}
-}
+
 
 /**
  * Includes

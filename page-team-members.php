@@ -3,7 +3,8 @@
 
 get_header();
 
-$title = bloodhound_the_title( $post, false, false ); ?>
+$title = bloodhound_the_title( $post, false, false );
+$team_members['accordion-height'] = get_option( 'bloodhound_team_members' ); ?>
 
 <section id="bloodhound_team_members_page" class="block">
 
@@ -16,7 +17,7 @@ $title = bloodhound_the_title( $post, false, false ); ?>
 		<section class="bloodhound-team-members-page border-box block">
 			<div class="row">
 				
-				<div class="bloodhound-team-member-excerpt span3 same-height right relative" data-height="450px" >
+				<div class="bloodhound-team-member-excerpt span3 same-height right relative" data-height="<?php echo $team_members['accordion-height']'bloodhound_team_members'; ?>">
 				 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
 				 		<?php bloodhound_the_team_member_excerpt( $post, '0' ); ?>
 				 	</div>
