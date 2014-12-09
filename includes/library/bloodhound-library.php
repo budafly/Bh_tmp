@@ -8,13 +8,12 @@
 
 /**
  * The Page Styles
- * 
+ *
+ * @param  object $post  current post object. 
  * @param  string $style additional styles you can pass  i.e. ('display:block; box-sizing:border-box;')
  * @return string        Output inline styles
  */
-function bloodhound_the_page_styles( $style = '' ) {
-	if( !is_array( $style ) )
-		return false;
+function bloodhound_the_page_styles( $post, $style = '' ) {
 	$_styles = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 	$html = 'style="';
 	switch ( $_styles['style'] ) {

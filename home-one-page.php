@@ -24,23 +24,9 @@ get_header( 'one-page' ); ?>
 		
 		if ( $WP_Query->have_posts() ) :
 			
-			while ( $WP_Query->have_posts() ) : $WP_Query->the_post(); 
-				$nav = get_post_meta( $post->ID, 'bloodhound_add_post', true );
-				switch( $nav['style'] ){
-					case 'solid' :
-						$post_css = 'background:'.$nav['page-color'].';';
-					break;
-
-					case 'top' :
-						$post_css = 'border-top: 20px solid '.$nav['page-color'].';';
-					break;
-
-					default :
-						$post_css = 'background:#fff;';
-					break;
-				} ?>
+			while ( $WP_Query->have_posts() ) : $WP_Query->the_post(); ?>
 				
-				<article id="<?php echo $post->post_name; ?>" <?php post_class( 'one-page-section' ); echo 'style="'.$post_css.'"'; ?>>
+				<article id="<?php echo $post->post_name; ?>" <?php post_class( 'one-page-section' ); bloodhound_the_page_styles( $post ); ?>>
 					<?php bloodhound_the_title( $post ); ?>
 					
 					<div class="container">

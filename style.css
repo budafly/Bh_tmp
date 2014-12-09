@@ -226,6 +226,7 @@ article.one-page-section {
     -ms-border-radius:0 0 0 0;
     -o-border-radius:0 0 0 0;
     cursor:pointer;
+    outline: 0;
 }
 .bloodhound-accordion h3:first-child {
     border-radius:25px 25px 0 0 !important;

@@ -23,7 +23,7 @@
 
 <div class="copyright">
 	<div class="container row">
-		<?php if( $footer['copyright'] = 'copyright'; ) : ?>
+		<?php if( $footer['copyright'] = 'copyright' ) : ?>
 			<span class="span6 left">&copy; Copyright <?php echo date('Y'), $footer['copyright']; ?></span>
 		<?php endif; ?>
 

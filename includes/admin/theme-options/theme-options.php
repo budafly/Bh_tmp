@@ -103,17 +103,22 @@ class Bloodhound_Theme_Options_Class {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		$this->get_options();
+
 	}
 
 
 
 	public function theme_options() {
+		
+		wp_enqueue_media();
+
 		echo '	<div id="bloodhound-theme-options-page" class="vg">
 					<h1 class="center">Bloodhound Settings</h1>
 					<!-- Start Form -->
 					<form method="post" action="options.php" enctype="multipart/form-data">';
 
 					settings_fields( $this->options_group );
+					do_settings_sections( $this->options_group );
 
 					submit_button( 'Save Changes', 'primary bh-btn float-right', '', false );
 
@@ -152,8 +157,8 @@ class Bloodhound_Theme_Options_Class {
 		echo '<div id="bloodhound-home" class="block theme-tab-content">';
 			
 		//get Home settings array
-		$home = $this->options['bloodhound_home'];
-		$onepage = $this->options['bloodhound_one_page_nav'];
+		$home    = $this->options['bloodhound_home'] 			? $this->options['bloodhound_home'] 		: array();
+		$onepage = $this->options['bloodhound_one_page_nav'] 	? $this->options['bloodhound_one_page_nav'] : array();
 
 		premise_field( array(
 			array(
@@ -166,7 +171,7 @@ class Bloodhound_Theme_Options_Class {
 				'id' => 'bloodhound_home-one-page',
 				'container' => true,
 				'container_title' => 'Home Settings',
-				'class' => 'span4 float-left'
+				'class' => 'span4 float-left',
 			),
 			array(
 				'type' => 'checkbox',
@@ -176,7 +181,7 @@ class Bloodhound_Theme_Options_Class {
 				'value_att' => '1',
 				'value' => $onepage['ignore-sticky'],
 				'id' => 'bloodhound_one_page_nav-ignore-sticky',
-				'class' => 'span4 float-left'
+				'class' => 'span4 float-left',
 			),
 		) );
 
@@ -221,7 +226,7 @@ class Bloodhound_Theme_Options_Class {
 				'name' => 'bloodhound_splash[cta]',
 				'id' => 'bloodhound_splash-cta',
 				'value' => $splash['cta'],
-				'class' => 'span6 float-left'
+				'class' => 'span6 float-left',
 			),
 			array(
 				'type' => 'wp_dropdown_pages',
@@ -231,7 +236,7 @@ class Bloodhound_Theme_Options_Class {
 				'id' => 'bloodhound_splash-cta-link',
 				'value' => $splash['cta-link'],
 				'show_option_none'=>'Please Select a Page',
-				'class' => 'span6 float-right'
+				'class' => 'span6 float-right',
 			),
 		) );
 
@@ -252,9 +257,8 @@ class Bloodhound_Theme_Options_Class {
 	public function header_settings() {
 		echo '<div id="bloodhound-header" class="block theme-tab-content" style="display:none;">';
 			
-			//get header options
-			$header = $this->options['bloodhound_header'];
-			//setup fields
+			$header = $this->options['bloodhound_header'] ? $this->options['bloodhound_header'] : array();
+			
 			premise_field( array(
 				array(
 					'type' => 'checkbox',
@@ -316,7 +320,28 @@ class Bloodhound_Theme_Options_Class {
 	 * team settings Tab
 	 */
 	public function team_settings() {
+		echo '<div id="bloodhound-team" class="block theme-tab-content" style="display:none;">';
 
+		$team = $this->options['bloodhound_team_members'] ? $this->options['bloodhound_team_members'] : array();
+
+		premise_field( array(
+			array(
+				'type' => 'text',
+				'id' => 'accordion-height',
+				'label' => 'Set Accordion Height',
+				'tooltip' => 'The Team Page Template displays an accordion with 4 Team Members per page. Set the height of the accordion here by entering it here in pixels',
+				'placeholder' => '450px - remember to enter "px"',
+				'container' => true,
+				'container_title' => 'Team Members Page Template Options',
+				'value' => $team['accordion-height'],
+				'name' => 'bloodhound_team_members[accordion-height]',
+			),
+			// array(),
+			// array(),
+			// array(),
+		) );
+
+		echo '</div>';
 	}
 
 
@@ -345,7 +370,7 @@ class Bloodhound_Theme_Options_Class {
 	 */
 	public function register_settings() {
 		foreach( $this->settings as $setting )
-			register_setting( $this->options_group, $settings );
+			register_setting( $this->options_group, $setting );
 	}
 }
 ?>

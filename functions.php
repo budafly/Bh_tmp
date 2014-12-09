@@ -1,6 +1,6 @@
 <?php
 
-require_once( TEMPLATEPATH . '/includes/admin/theme-options/theme-options.php' );
+
 /**
  * Upon theme activation
  */
@@ -26,15 +26,16 @@ if ( !function_exists( 'bloodhound_theme_activation' ) ) {
 add_action('switch_theme', 'bloodhound_theme_activation');
 
 add_theme_support('post-thumbnails', array( 'page', 'post', 'team_member' ) );
+
 register_nav_menu( 'primary', 'Bloodhound Menu' );
 
 add_action('wp_enqueue_scripts', 'bloodhound_enqueue_scripts');
 
+require_once( TEMPLATEPATH . '/includes/admin/theme-options/theme-options.php' );
+
 add_action( 'admin_menu', array( Bloodhound_Theme_Options_Class::get_instance(), 'theme_page_init' ) );
 
 add_action( 'admin_enqueue_scripts', 'bloodhound_enqueue_admin_scripts' );
-
-//add_action( 'load-themes.php?page=bloodhound_theme_options', array( 'Bloodhound_Theme_Options_Class', 'theme_options' ) );
 
 
 $portfolio = new PremiseCPT( array(
@@ -107,15 +108,6 @@ if( !function_exists('bloodhound_enqueue_admin_scripts') ) {
  */
 function bloodhound_load_admin_scripts() {
 	add_action('admin_enqueue_scripts', 'bloodhound_enqueue_admin_scripts');
-}
-
-/**
- * Build theme options page
- */
-function bloodhound_build_options_page() {
-	wp_enqueue_media();
-	//create theme options page
-	require_once( TEMPLATEPATH . '/includes/admin/theme-options/theme-options.php' );
 }
 
 
