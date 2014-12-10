@@ -13,6 +13,16 @@
 * Theme Options Class
 */
 class Bloodhound_Theme_Options_Class {
+
+
+
+	/**
+	 * Instance of this class
+	 * 	
+	 * @var object
+	 */
+	public static $instance = NULL;
+
 	
 	
 	/**
@@ -59,12 +69,43 @@ class Bloodhound_Theme_Options_Class {
 
 
 
+
+	public $submit_button = array(
+		'text'    => 'Update Theme',
+		'classes' => 'primary bh-btn float-right',
+		'name'    => 'bloodhound_update_theme',
+		'atts'    => array(
+			'onclick' => ''
+		),
+	);
+
+
+
 	/**
-	 * Instance of this class
-	 * 	
-	 * @var object
+	 * The defaults
+	 * 
+	 * @var array
 	 */
-	public static $instance = NULL;
+	public $defaults = array(
+		'bloodhound_logo' => BH_DIR .'/images/defaults/logo.png',
+		'bloodhound_one_page_nav' => 1,
+		'bloodhound_add_post_to_one_page' => 0,
+		'bloodhound_add_post' => array(
+			'page-color'  => '#FFFFFF',
+			'style'       => 'solid',
+			'nav-icon'    => '',
+			'title-color' => '#333333',
+		),
+		'bloodhound_one_page_nav' => array(
+			'ignore-sticky' => '1',
+		),
+		'bloodhound_splash' => array(
+			'logo' => BH_DIR .'/images/defaults/splash_logo.png',
+		),
+		'bloodhound_team_members' => array(
+			'accordion-height' => '450px',
+		),
+	);
 
 
 
@@ -102,6 +143,8 @@ class Bloodhound_Theme_Options_Class {
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
+		add_action( 'wp_ajax_bloodhound_update_theme', array( $this, 'update_options' ) );
+
 		$this->get_options();
 
 	}
@@ -113,29 +156,28 @@ class Bloodhound_Theme_Options_Class {
 		wp_enqueue_media();
 
 		echo '	<div id="bloodhound-theme-options-page" class="vg">
-					<h1 class="center">Bloodhound Settings</h1>
-					<!-- Start Form -->
-					<form method="post" action="options.php" enctype="multipart/form-data">';
+					<h1 class="">'.$this->theme_page['page_title'].'</h1>
+					<form method="post" action="options.php" enctype="multipart/form-data" id="bloodhound-theme-option-form">';
 
 					settings_fields( $this->options_group );
 					do_settings_sections( $this->options_group );
 
-					submit_button( 'Save Changes', 'primary bh-btn float-right', '', false );
+					$this->button();
 
 		echo '		<div class="clear"></div>
 						<div class="block">
-							<div class="span3 theme-options-nav float-left same-height inline-block border-box">
-								<div class="block theme-logo">
-									<img src="" class="block responsive">
+							<div class="width25 theme-options-nav float-left same-height inline-block border-box">
+								<div class="block theme-logo center">
+									<img src="'. BH_DIR .'/images/defaults/logo.png" class="inline-block responsive">
 								</div>
 								<div class="block theme-tabs">
-									<span class="theme-tab active"><a href="#bloodhound-home">Home</a></span>
-									<span class="theme-tab"><a href="#bloodhound-header">Header</a></span>
-									<span class="theme-tab"><a href="#bloodhound-team">Team Members</a></span>
-									<span class="theme-tab"><a href="#bloodhound-footer">Footer</a></span>
+									<span class="theme-tab block border-box active"><a class="block uppercase not-underline" href="#bloodhound-home">Home</a></span>
+									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-header">Header</a></span>
+									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-team">Team Members</a></span>
+									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-footer">Footer</a></span>
 								</div>
 							</div>
-							<div class="span9 theme-options-content float-left same-height inline-block border-box relative">';
+							<div class="width75 theme-options-content float-left same-height inline-block border-box relative">';
 
 								$this->home_settings();
 								$this->header_settings();
@@ -147,6 +189,7 @@ class Bloodhound_Theme_Options_Class {
 						<div class="clear"></div>
 					</form><!-- /Form -->		
 				</div><!-- /Theme Options Page -->';
+				$this->update_theme_ajax();
 	}
 
 
@@ -214,7 +257,7 @@ class Bloodhound_Theme_Options_Class {
 			array(
 				'type' => 'textarea',
 				'label' => 'Home Splash Tag Line',
-				'tooltip' => 'Type a tag line here. This field accepts HTML for ease of styling.',
+				'tooltip' => 'Type a tag line here. This field accepts HTML, so you can actually style as you like!',
 				'name' => 'bloodhound_splash[tag-line]',
 				'id' => 'bloodhound_splash-tag-line',
 				'value' => $splash['tag-line'],
@@ -222,7 +265,7 @@ class Bloodhound_Theme_Options_Class {
 			array(
 				'type' => 'text',
 				'label' => 'Call to Action text',
-				'tooltip' => 'This call to action appears at the bottom of your Home Splash screen',
+				'tooltip' => 'This call to action appears at the bottom of your Home Splash screen. Below the Tagline.',
 				'name' => 'bloodhound_splash[cta]',
 				'id' => 'bloodhound_splash-cta',
 				'value' => $splash['cta'],
@@ -231,7 +274,7 @@ class Bloodhound_Theme_Options_Class {
 			array(
 				'type' => 'wp_dropdown_pages',
 				'label' => 'Link Page to Call to Action',
-				'tooltip' => 'Select the page you would like the call  to action to point to.',
+				'tooltip' => 'Link your call to action to any page already created.',
 				'name' => 'bloodhound_splash[cta-link]',
 				'id' => 'bloodhound_splash-cta-link',
 				'value' => $splash['cta-link'],
@@ -244,7 +287,7 @@ class Bloodhound_Theme_Options_Class {
 
 		premise_save_background( 'bloodhound_splash' );
 
-		submit_button();
+		$this->button();
 
 		echo '</div>';
 	}
@@ -309,7 +352,7 @@ class Bloodhound_Theme_Options_Class {
 				),
 			) );
 
-			submit_button();
+			$this->button();
 
 		echo '</div>';
 	}
@@ -341,6 +384,8 @@ class Bloodhound_Theme_Options_Class {
 			// array(),
 		) );
 
+		$this->button();
+
 		echo '</div>';
 	}
 
@@ -351,6 +396,75 @@ class Bloodhound_Theme_Options_Class {
 	 */
 	public function footer_settings() {
 
+	}
+
+
+
+	public function update_options() {
+		//$_POST['form_data']
+		echo 'hello';
+
+		die();
+	}
+
+
+
+	/**
+	 * AJAX Save form
+	 * 
+	 */
+	public function update_theme_ajax() {
+		?>
+		<script type="text/javascript">
+
+			(function($) {
+
+				$( '#bloodhound-theme-option-form' ).on( 'submit', function( event ) {
+
+					event.preventDefault()
+
+					var form_data = $( this ).serializeArray()
+
+					console.log( form_data )
+
+					bloodhoundUpdateTheme( form_data )
+
+					return false;
+					
+				} )
+
+
+				function bloodhoundUpdateTheme( form_data ) {
+
+					data = {
+						'action': 'bloodhound_update_theme',
+						'form_data': form_data
+					}
+
+					console.log( ajaxurl )
+					$.post( ajaxurl, data, function( response ) {
+
+						console.log( response )
+
+					} )
+
+				}
+
+			} )( jQuery )
+
+		</script>
+		<?php
+	}
+
+
+
+	/**
+	 * Submit button helper
+	 * 	
+	 * @return stribg html for submit button
+	 */
+	public function button() {
+		return submit_button( $this->submit_button['text'], $this->submit_button['classes'], $this->submit_button['name'], true, $this->submit_button['atts'] );
 	}
 
 
@@ -371,6 +485,19 @@ class Bloodhound_Theme_Options_Class {
 	public function register_settings() {
 		foreach( $this->settings as $setting )
 			register_setting( $this->options_group, $setting );
+	}
+
+
+
+	/**
+	 * Runs The default theme options
+	 * 
+	 */
+	public function run_defaults() {
+		foreach ( $this->defaults as $key => $value ) {
+			if( !get_option( $key ) )
+				update_option( $key, $value );
+		}
 	}
 }
 ?>
