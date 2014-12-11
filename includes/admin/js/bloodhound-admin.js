@@ -122,6 +122,9 @@ jQuery(function($) { //on document ready
 			$('.fa-all-icons').hide('fast')
 		})
 	})
+
+
+
 	
 });
 
@@ -160,3 +163,32 @@ function bloodhoundAddToOPN() {
 		s.html(response.message)
 	})
 }
+
+
+
+
+function bloodhoundUpdateTheme(){
+event.preventDefault();
+
+console.log( ajaxurl )
+
+jQuery.post(
+    // see tip #1 for how we declare global javascript variables
+    ajaxurl,
+    {
+        // here we declare the parameters to send along with the request
+        // this means the following action hooks will be fired:
+        // wp_ajax_nopriv_myajax-submit and wp_ajax_myajax-submit
+        action : 'bloodhound_update_options',
+ 
+        // other parameters can be added along with "action"
+        postID : 'postID'
+    },
+    function( response ) {
+        alert( response );
+    }
+);
+
+}
+
+

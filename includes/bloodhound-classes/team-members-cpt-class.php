@@ -12,7 +12,7 @@ class Bloodhoundteam_memberClass {
 	public function bloodhound_tmcpt_metabox( $post_type ) {
         $post_types = array( 'team_member' );
         if ( in_array( $post_type, $post_types ) )
-        	add_meta_box( 'team-member-options', __( 'Team Member Info', 'bloodhound_textdomain' ), array( $this, 'bloodhound_tmcpt_metabox_render' ), $post_type, 'normal', 'high' );
+        	add_meta_box( 'team-member-options', __( 'Team Member Info', 'bloodhound_textdomain' ), array( $this, 'bloodhound_tmcpt_metabox_render' ), $post_type, 'normal', 'low' );
 	}
 
 	public function bloodhound_tmcpt_metabox_save( $post_id ) {

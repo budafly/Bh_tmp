@@ -1,10 +1,10 @@
 <?php
-
-$team_members = new WP_Query( array( 'post_type' => 'team_member' ) ); 
+$paged = get_query_var( 'paged' );
+$team_members = new WP_Query( array( 'post_type' => 'team_member', 'posts_per_page' => 4, 'paged' => $paged ) ); 
 $posts = $team_members->get_posts();
 $team_members = get_option( 'bloodhound_team_members' ); ?>
 
-<div class="bloodhound-accordion border-box" style="overflow:hidden;min-height:<?php echo $team_members['accordion-height']; ?>;" data-height="<?php echo $team_members['accordion-height']; ?>"><!-- Beigin Team Member -->
+<div class="bloodhound-accordion border-box" style="overflow:hidden;min-height:<?php echo $team_members['accordion-height']; ?>;"><!-- Beigin Team Member -->
 
 	<?php $all_posts = array_chunk( $posts, 4 );
 	foreach( $all_posts as $posts ) :
@@ -41,3 +41,11 @@ $team_members = get_option( 'bloodhound_team_members' ); ?>
 	endforeach; ?>
 
 </div>
+
+<?php 
+
+if ( $paged ) : 
+
+	echo 'nav';
+
+endif; ?>

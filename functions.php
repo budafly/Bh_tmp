@@ -39,7 +39,7 @@ add_theme_support('post-thumbnails', array( 'page', 'post', 'team_member' ) );
 
 register_nav_menu( 'primary', 'Bloodhound Menu' );
 
-
+echo Bloodhound_Theme_Options_Class::$Ajax['nonce'];
 
 
 /**
@@ -52,13 +52,7 @@ register_nav_menu( 'primary', 'Bloodhound Menu' );
  * 
  * @var object
  */
-$portfolio = new PremiseCPT( array(
-	'post_type' => 'portfolio',
-	'menu_name' => 'Portfolio',
-	'singular'  => 'Project',
-	'plural'    => 'Projects',
-	'slug'      => 'portfolio',
-) );
+$portfolio = new PremiseCPT( 'project' );
 
 
 
@@ -73,12 +67,7 @@ $portfolio = new PremiseCPT( array(
  * 
  * @var object
  */
-$team_member = new PremiseCPT( array( 
-	'post_type' => 'team_member',
-	'singular'  => 'Team Member',
-	'plural'    => 'Team Members',
-	'slug'      => 'team-member',
-) );
+$team_member = new PremiseCPT( 'team_member', array( 'supports' => array( 'title', 'thumbnail', 'excerpt', 'editor' ) ) );
 
 
 
@@ -109,6 +98,9 @@ function bloodhound_enqueue_scripts() {
 	
 
 	wp_register_script('bloodhound_main_js'    , BH_DIR . '/js/main.js', array( 'jquery', 'jquery-ui-accordion' ) );
+
+
+	//wp_localize_script( 'bloodhound_admin_js', Bloodhound_Theme_Options_Class::$Ajax, array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	
 
 	if( !is_admin() ) {
@@ -119,7 +111,6 @@ function bloodhound_enqueue_scripts() {
 }
 }
 add_action('wp_enqueue_scripts', 'bloodhound_enqueue_scripts');
-
 
 
 

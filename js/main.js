@@ -1,3 +1,16 @@
+var Bloodhound = {
+
+	header: null,
+	bump: jQuery('.header-bump'),
+	o: '',
+	t: ''
+
+};
+
+
+
+
+
 
 blodhound_init()
 
@@ -8,24 +21,33 @@ function bloodhound_ifHeaderSticky() {
 	if( !jQuery('#header').is('.sticky') )
 		return false;
 
-	var header = jQuery('#header.sticky'),
-		bump = jQuery('.header-bump'),
-		o = header.offset().top;
+	Bloodhound.header = jQuery('#header.sticky');
+	
+	Bloodhound.o = Bloodhound.header.offset().top;
+	
+	bloodhound_makeHeaderSticky()
 
-	jQuery(window).scroll(function(){
-		var t = jQuery(window).scrollTop()
+	jQuery(window).scroll(function() {
 		
-		if( o < t ){
-			bump.height( header.height() )
-			header.addClass('fixed')
-		}
-		else{
-			bump.height( '' )
-			header.removeClass('fixed')
-		}
-	})
+		bloodhound_makeHeaderSticky()
+
+	} )
 
 	return true
+}
+
+function bloodhound_makeHeaderSticky() {
+
+	Bloodhound.t = jQuery(window).scrollTop();
+		
+	if( Bloodhound.o < Bloodhound.t ){
+		Bloodhound.bump.height( Bloodhound.header.height() )
+		Bloodhound.header.addClass('fixed')
+	}
+	else{
+		Bloodhound.bump.height( Bloodhound.header.height() )
+		Bloodhound.header.removeClass('fixed')
+	}
 }
 
 /**
@@ -85,6 +107,8 @@ function blodhound_init(){
 function bloodhound_ready() {
 	bloodhound_setHomeSplashHeight()
 	bloodhound_fireAccordion()
+	bloodhound_ifHeaderSticky()
+
 	//run last
 	bloodhound_customJs()
 }

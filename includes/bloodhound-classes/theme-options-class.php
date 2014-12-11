@@ -23,6 +23,10 @@ class Bloodhound_Theme_Options_Class {
 	 */
 	public static $instance = NULL;
 
+
+
+	public static $Ajax;
+
 	
 	
 	/**
@@ -132,6 +136,14 @@ class Bloodhound_Theme_Options_Class {
 	 * Initiate theme options page
 	 */
 	public function theme_page_init() {
+
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+		self::$Ajax = new self;
+
+		add_action( 'admin_footer', array( $this, 'theme_ajax' ) );
+
+		add_action( 'wp_ajax_bloodhound_update_options', array( $this, 'update_options' ) );
 		
 		add_theme_page( 
 			$this->theme_page['page_title'], 
@@ -140,10 +152,6 @@ class Bloodhound_Theme_Options_Class {
 			$this->theme_page['slug'], 
 			array( $this, 'theme_options' ) 
 		);
-
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
-
-		add_action( 'wp_ajax_bloodhound_update_theme', array( $this, 'update_options' ) );
 
 		$this->get_options();
 
@@ -189,7 +197,7 @@ class Bloodhound_Theme_Options_Class {
 						<div class="clear"></div>
 					</form><!-- /Form -->		
 				</div><!-- /Theme Options Page -->';
-				$this->update_theme_ajax();
+
 	}
 
 
@@ -400,61 +408,74 @@ class Bloodhound_Theme_Options_Class {
 
 
 
-	public function update_options() {
-		//$_POST['form_data']
-		echo 'hello';
+	// public function update_options() {
 
-		die();
-	}
+	// 	//check_ajax_referer( 'bloodhound_ajax_nonce', 'security' );
 
+	// 	// $options = $_POST;
 
+	// 	// foreach ( $options as $key => $value ) {
+	// 	// 	update_option( $key, $value );
+	// 	// }
 
-	/**
-	 * AJAX Save form
-	 * 
-	 */
-	public function update_theme_ajax() {
-		?>
-		<script type="text/javascript">
+	// 	// die();
+		
 
-			(function($) {
-
-				$( '#bloodhound-theme-option-form' ).on( 'submit', function( event ) {
-
-					event.preventDefault()
-
-					var form_data = $( this ).serializeArray()
-
-					console.log( form_data )
-
-					bloodhoundUpdateTheme( form_data )
-
-					return false;
-					
-				} )
+	// 	$postID = $_POST['postID'];
+	 
+	//     // generate the response
+	//     $response = json_encode( array( 'success' => true ) );
+	 
+	//     // response output
+	//     header( "Content-Type: application/json" );
+	//     echo $response;
+	 
+	//     // IMPORTANT: don't forget to "exit"
+	//     exit;
 
 
-				function bloodhoundUpdateTheme( form_data ) {
+	// }
 
-					data = {
-						'action': 'bloodhound_update_theme',
-						'form_data': form_data
-					}
 
-					console.log( ajaxurl )
-					$.post( ajaxurl, data, function( response ) {
 
-						console.log( response )
+	// /**
+	//  * AJAX Save form
+	//  * 
+	//  */
+	// public function theme_ajax() {
+		
 
-					} )
+		
+		
+	// 	// echo '<script type="text/javascript">
 
-				}
+	// 	// 	function bloodhoundUpdateTheme() {
 
-			} )( jQuery )
+	// 	// 		event.preventDefault();
 
-		</script>
-		<?php
-	}
+	// 	// 		var form_data = jQuery( \'#bloodhound-theme-option-form\' ).serialize()
+
+	// 	// 		//console.log( form_data )
+
+	// 	// 		var data = {
+	// 	// 			\'action\': \'bloodhound_update_options\',
+	// 	// 			\'security\': \''.$ajax_nonce.'\',
+	// 	// 			\'form_data\': \'form_data\'
+	// 	// 		}
+
+	// 	// 		jQuery.post( ajaxurl, data, function( response ) {
+
+	// 	// 			alert( response )
+
+	// 	// 		} )
+
+	// 	// 		return false;
+
+	// 	// 	}
+
+	// 	// </script>';
+
+	// }
 
 
 
@@ -464,6 +485,7 @@ class Bloodhound_Theme_Options_Class {
 	 * @return stribg html for submit button
 	 */
 	public function button() {
+		//echo '<button class="button-primary" onclick="bloodhoundUpdateTheme();">Update Theme</button>';
 		return submit_button( $this->submit_button['text'], $this->submit_button['classes'], $this->submit_button['name'], true, $this->submit_button['atts'] );
 	}
 
@@ -499,5 +521,9 @@ class Bloodhound_Theme_Options_Class {
 				update_option( $key, $value );
 		}
 	}
+
+
 }
+//add_action( 'wp_ajax_bloodhound_update_options', 'update_options' );
+
 ?>

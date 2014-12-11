@@ -217,4 +217,19 @@ function bloodhound_the_title( $post, $span = true, $echo = true ) {
 function call_Bloodhoundteam_memberClass() {
 	new Bloodhoundteam_memberClass();
 }
+
+
+
+function bloodhound_load_page_template() {
+	$page_template = basename( get_page_template() );
+
+	$page_template_name = current( explode( '.php', $page_template ) );
+
+	premise_print( $page_template_name );
+
+	if ( 'page' == $page_template_name )
+		return false;
+
+	return get_template_part( $page_template_name );
+}
 ?>

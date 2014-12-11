@@ -32,13 +32,13 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 			'message'         => 'This Page/Post is now in your home page and main navigation. <br><b>NOTE:</b> This <b>does not save other changes</b> you have made. Rememeber to save your changes by updating the post or page.',
 			'type'            => 'success', ),
 		'failure-add-post'    => array(
-			'message'         => 'Seems like this Page/Post is already in your navigation. Make sure to update to add to your home page as well.',
+			'message'         => 'Seems like this Page/Post is already in your navigation. Make sure to save your changes to add to your home page as well.',
 			'type'            => 'warning', ),
 		'success-delete-post' => array(
 			'message'         => 'This Page/Post is no longer in your home page or main navigation.',
 			'type'            => 'success', ),
 		'failure-delete-post' => array(
-			'message'         => 'Seems like this Page/Post was already removed from your navigation, make sure you update to remove it from your home page as well.',
+			'message'         => 'Seems like this Page/Post was already removed from your navigation, make sure to save your changes to remove it from your home page as well.',
 			'type'            => 'warning', ),
 		'no-menu'             => array(
 			'message'         => 'Error: This will only add this Page/Post to your home page. To add it to your Navigation as well you must create a Wordpress menu (with at least one item) and set the theme location to <em>Bloodhound Menu</em>.',

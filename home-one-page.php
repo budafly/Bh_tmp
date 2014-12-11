@@ -1,6 +1,6 @@
 <?php
 /* Template Name: Home One Page */
-get_header( 'one-page' ); ?>
+get_header(  ); ?>
 
 <section id="bloodhound-one-page-loop">
 	<?php
@@ -25,27 +25,49 @@ get_header( 'one-page' ); ?>
 		if ( $WP_Query->have_posts() ) :
 			
 			while ( $WP_Query->have_posts() ) : $WP_Query->the_post(); ?>
-				
-				<article id="<?php echo $post->post_name; ?>" <?php post_class( 'one-page-section' ); bloodhound_the_page_styles( $post ); ?>>
-					<?php bloodhound_the_title( $post ); ?>
+
+				<section id="<?php echo $post->post_name; ?>" <?php post_class( 'one-page-section bloodhound-section' ); bloodhound_the_page_styles( $post ); ?>>
 					
-					<div class="container">
+					<?php 
 
-						<div class="main">
+					bloodhound_the_title( $post );
+
+					if ( 'page' == get_post_type() ) :
+						
+							$page_template = basename( get_page_template() );
 							
-							<?php if( has_post_thumbnail() ) : ?>
-								<div class="post-thumbnail span4 float-left">
-									<?php the_post_thumbnail( 'full', array( 'class' => 'responsive' ) ); ?>
-								</div>
-							<?php endif; ?>
+							$page_template_name = current( explode( '.php', $page_template, 2 ) );
 
-							<?php the_content(); ?>
+						if ( 'page' !== $page_template_name ) :
 
-						</div>
 
-					</div>
-					<div class="clear"></div>
-				</article>
+							$page_template_name = explode( 'page-', $page_template_name, 2 );
+
+						
+
+
+							get_template_part( 'content', $page_template_name[1] );
+
+
+						else : 
+							
+						
+							get_template_part( 'content', 'page' );
+
+						
+						endif;
+
+					else :
+
+
+						get_template_part( 'content', 'single' );
+
+
+					endif;
+
+					?>
+
+				</section>
 
 			<?php endwhile;
 

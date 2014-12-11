@@ -13,6 +13,10 @@
 
 <body <?php body_class('site'); ?>>
 
+<?php if ( ( is_home() || is_front_page() ) && get_option( 'bloodhound_enable_one_page' ) ) {
+	get_template_part( 'content', 'splash' );
+} ?>
+
 <header id="header" <?php bloodhound_header_classes_and_styles( 'block' ); ?>>
 	<div class="header-inner">
 		<div class="container">

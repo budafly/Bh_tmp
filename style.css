@@ -112,7 +112,7 @@ article.one-page-section {
     position:relative;
 }
 .post-title .title-bar {
-    width:70%;
+    /* width:70%; */
     height:2px;
     margin:10px 0 10px 10px;
 }
@@ -121,7 +121,7 @@ article.one-page-section {
 .post-title .title-bar {
     display:inline-block;
     vertical-align:middle;
-    float:right;
+    /* float:right; */
 }
 .post-title h1,
 .post-title h2 {
@@ -159,9 +159,10 @@ article.one-page-section {
 .home-splash-navigation .nav li{    
     list-style:none;
     display:inline-block;
+    vertical-align:top;
     margin:10px;
     text-align:center;
-    min-width:90px
+    width:100px;
 }
 .home-splash-navigation .nav li a {
     position:relative;
@@ -170,9 +171,10 @@ article.one-page-section {
     pointer-events:none;
 }
 .home-splash-navigation .nav li span.splash-nav-icon {
-    display:block;
+    display: block;
     height:90px;
     width:90px;
+    margin:5px auto;
     line-height:90px;
     border-radius:45px;
     -webkit-border-radius:45px;
@@ -193,6 +195,14 @@ article.one-page-section {
     font-size:inherit;
     border:1px solid #fff;
     border-radius:30px;    
+}
+
+/* Posts and Pages */
+.bloodhound-section {
+    margin-bottom:80px;
+}
+.bloodhound-section .post-title {
+    margin-top:80px;
 }
 
 /* Team Members */

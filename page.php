@@ -1,6 +1,6 @@
 <?php get_header(); ?>
-<div class="clear" style="margin-bottom:80px;"></div>
-<section id="content">
+
+<section id="content" class="bloodhound-section">
 
 <div class="container">
 
@@ -12,11 +12,7 @@
 		
 		</div>
 		
-		<article <?php post_class(); ?>>
-		
-			<?php the_content(); ?>
-		
-		</article>
+		<?php get_template_part( 'content', 'page' ); ?>
 	
 	<?php endwhile; ?>
 
