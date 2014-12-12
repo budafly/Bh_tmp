@@ -76,7 +76,7 @@ class Bloodhound_Theme_Options_Class {
 
 	public $submit_button = array(
 		'text'    => 'Update Theme',
-		'classes' => 'primary bh-btn float-right',
+		'classes' => 'primary bloodhound-primary float-right',
 		'name'    => 'bloodhound_update_theme',
 		'atts'    => array(
 			'onclick' => ''

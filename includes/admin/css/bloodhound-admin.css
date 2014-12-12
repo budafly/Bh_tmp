@@ -36,9 +36,24 @@
     text-shadow: -1px 0px 3px #ddd;
 }
 
-
-
-
+#bloodhound-theme-options-page .bloodhound-primary.button-primary {
+    margin:10px 0 20px 0;
+    border:1px solid #aaa;
+    border-radius:0;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    -ms-border-radius:0;
+    -o-border-radius:0;
+    background:#fff;
+    box-shadow:none;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    -ms-box-shadow:none;
+    -o-box-shadow:none;
+    color:#444;
+    text-transform:uppercase;
+    outline:0;
+}
 
 
 
