@@ -5,6 +5,10 @@
     padding: 40px 40px 40px 0;
 }
 
+#bloodhound-theme-option-form {
+    max-width:1500px;
+}
+
 #bloodhound-theme-options-page .theme-logo {
     padding:20px;
 }

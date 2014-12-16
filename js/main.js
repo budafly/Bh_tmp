@@ -133,10 +133,12 @@ function bloodhound_ToggleNav() {
 function bloodhound_ScrollToEl(el,o) {
 	event.preventDefault();
 	el = typeof el === 'object' ? el : '.menu-item a'
-	o = bloodhound_ifHeaderSticky() ? jQuery('#header.sticky').height() : 0
+	o = jQuery('#header.sticky').height()
 
-	var a = jQuery(el).attr('href')
+	var a = el.attr('href')
 	a = a.substr( a.indexOf('#') )//get the #link
+
+	console.log(a)
 
 	jQuery('body').animate({
 		scrollTop: jQuery(a).offset().top - o

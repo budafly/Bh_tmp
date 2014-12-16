@@ -199,10 +199,8 @@ article.one-page-section {
 
 /* Posts and Pages */
 .bloodhound-section {
-    margin-bottom:80px;
-}
-.bloodhound-section .post-title {
-    margin-top:80px;
+    padding-top:80px;
+    padding-bottom:80px;
 }
 
 /* Team Members */
