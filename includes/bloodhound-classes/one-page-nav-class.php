@@ -296,7 +296,7 @@ class BloodhoundOnePageNavClass extends Walker_Nav_Menu {
 	    $atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
 	    $atts['href']   = ( ! empty( $item->url ) && !$in_one_page )       ? $item->url       : '/#'.$post->post_name;
 
-	    if( $in_one_page ){
+	    if( $in_one_page && ( is_home() || is_front_page() ) ) {
 	    	$atts['onclick'] = ! empty( $item->object_id )  ? 'bloodhound_ScrollToEl(this);' : '';
 	    }
 	    

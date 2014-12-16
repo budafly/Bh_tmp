@@ -1,11 +1,18 @@
 <?php
 /**
  * Team Member Function Library
- * @package Team Member
+ * 
+ * @package 	Bloodhound
+ * @subpackage 	Team Member
+ * @subpackage 	Library
  */
+
+
+
 
 /**
  * Team Member info
+ * 
  * @return string team member's info
  */
 function bloodhound_the_team_meber_info() {
@@ -51,24 +58,33 @@ function bloodhound_the_team_meber_info() {
 	}
 }
 
-function bloodhound_the_team_member_name() {
-	global $post;
 
-	if( !$post )
-		return false;
 
+
+/**
+ * Displays the excerpt for each team member
+ * Must be used within the team members loop.
+ * 	
+ * @param  object $post the post for each team member custom post type
+ * @return string       html output to display excerpt and team member title
+ */
+function bloodhound_the_team_member_excerpt( $post ) {
 	$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
-
-	echo '<h3 class="relative" style="background:'.$meta['page-color'].';color:'.$meta['title-color'].';">'.get_the_title().'<i class="absolute fa fa-fw '.$meta['nav-icon'].'" style="top:5px;right:5px;"></i></h3>';
+	echo '<h3 class="block" style="font-weight:700;color:'.$meta['page-color'].';">'.$post->post_title.'</h3><span class="block">'.$post->post_excerpt.'</span>';
 }
 
-function bloodhound_the_team_member_excerpt( $post, $i ) {
-	$side_info = get_posts( 'post_type=team_member&numberposts=4' );
-	
-	if( $side_info[$i] ) {
-		$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
-		echo '<h3 class="block" style="font-weight:700;color:'.$meta['page-color'].';">'.$side_info[$i]->post_title.'</h3><span class="block">'.$side_info[$i]->post_excerpt.'</span>';
-	}
+
+
+
+
+/**
+ * Return the accordion height
+ * 	
+ * @return var returns height to be used for the accordion
+ */
+function bloodhound_accordion_height() {
+	$team_members = get_option( 'bloodhound_team_members' );
+	return $team_members['accordion-height'];
 }
 
 ?>

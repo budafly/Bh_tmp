@@ -2,7 +2,7 @@
 
 <!-- Content Team Members -->
 <section class="bloodhound-team-members-page border-box block">
-	<div class="row">
+	<div class="container">
 		
 		<?php get_template_part( 'loop', 'team-members' ); ?>
 

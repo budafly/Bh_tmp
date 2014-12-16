@@ -1,7 +1,7 @@
 var Bloodhound = {
 
 	header: null,
-	bump: jQuery('.header-bump'),
+	bump: null,
 	o: '',
 	t: ''
 
@@ -22,6 +22,7 @@ function bloodhound_ifHeaderSticky() {
 		return false;
 
 	Bloodhound.header = jQuery('#header.sticky');
+	Bloodhound.bump = jQuery('.header-bump')
 	
 	Bloodhound.o = Bloodhound.header.offset().top;
 	
@@ -41,11 +42,11 @@ function bloodhound_makeHeaderSticky() {
 	Bloodhound.t = jQuery(window).scrollTop();
 		
 	if( Bloodhound.o < Bloodhound.t ){
-		Bloodhound.bump.height( Bloodhound.header.height() )
+		Bloodhound.bump.css( 'min-height', Bloodhound.header.height() )
 		Bloodhound.header.addClass('fixed')
 	}
 	else{
-		Bloodhound.bump.height( Bloodhound.header.height() )
+		Bloodhound.bump.css( 'min-height', '' )
 		Bloodhound.header.removeClass('fixed')
 	}
 }
@@ -87,6 +88,7 @@ function bloodhound_fireAccordion(){
 function bloodhound_customJs() {
 
 	// additional custom JS here
+	jQuery('.bxslider').bxSlider();
 
 	console.log( 'Bloodhound custom JS: Successful' )
 }
@@ -127,18 +129,17 @@ function bloodhound_ToggleNav() {
 
 /**
  * Scroll to element in one page nav
+ * 
  * @param  {object} el anchor element to be passed in onclick attribute
  * @return {false}    the page will scroll to the element in href attr of anchor element
  */
 function bloodhound_ScrollToEl(el,o) {
 	event.preventDefault();
-	el = typeof el === 'object' ? el : '.menu-item a'
+	el = typeof el === 'object' ? jQuery(el) : '#primary-nav a'
 	o = jQuery('#header.sticky').height()
-
+	
 	var a = el.attr('href')
-	a = a.substr( a.indexOf('#') )//get the #link
-
-	console.log(a)
+	a = a.substr( a.indexOf('#') )
 
 	jQuery('body').animate({
 		scrollTop: jQuery(a).offset().top - o

@@ -392,6 +392,8 @@ class Bloodhound_Theme_Options_Class {
 			// array(),
 		) );
 
+		premise_save_background( 'bloodhound_team_members' );
+
 		$this->button();
 
 		echo '</div>';

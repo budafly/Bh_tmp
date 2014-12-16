@@ -93,11 +93,13 @@ function bloodhound_enqueue_scripts() {
 	
 	wp_register_style( 'jquery_ui'             , '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css' );
 	wp_register_style( 'googlefonts'           , 'http://fonts.googleapis.com/css?family=Oswald:400,300,700|Nunito:400,300,700', array( 'jquery_ui' ) );
-	wp_register_style( 'bloodhound_style'      , BH_DIR . '/style.css' );
+	wp_register_style( 'bxslider_css'          , BH_DIR . '/css/jquery.bxslider.css' );
+	wp_register_style( 'bloodhound_style'      , BH_DIR . '/style.css', array( 'bxslider_css' ) );
 	wp_register_style( 'bloodhound_responsive' , BH_DIR . '/css/responsive.css', array( 'bloodhound_style' ) );
 	
 
-	wp_register_script('bloodhound_main_js'    , BH_DIR . '/js/main.js', array( 'jquery', 'jquery-ui-accordion' ) );
+	wp_register_script('bxslider_js'           , BH_DIR . '/js/jquery.bxslider.min.js' );
+	wp_register_script('bloodhound_main_js'    , BH_DIR . '/js/main.js', array( 'jquery', 'jquery-ui-accordion', 'bxslider_js' ) );
 
 
 	//wp_localize_script( 'bloodhound_admin_js', Bloodhound_Theme_Options_Class::$Ajax, array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );

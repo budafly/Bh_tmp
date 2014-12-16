@@ -33,4 +33,12 @@
 	</div>
 </div>
 
+
+
+<?php if( is_home() || is_front_page() ) : ?>
+
+
+
+<?php endif; ?>
+
 <?php wp_footer(); ?>
