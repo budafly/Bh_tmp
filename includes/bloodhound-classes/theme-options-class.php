@@ -43,6 +43,7 @@ class Bloodhound_Theme_Options_Class {
 		'bloodhound_footer',
 		'bloodhound_enable_one_page',
 		'bloodhound_team_members',
+		'bloodhound_projects',
 	);
 
 
@@ -182,6 +183,7 @@ class Bloodhound_Theme_Options_Class {
 									<span class="theme-tab block border-box active"><a class="block uppercase not-underline" href="#bloodhound-home">Home</a></span>
 									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-header">Header</a></span>
 									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-team">Team Members</a></span>
+									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-projects">Projects</a></span>
 									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-footer">Footer</a></span>
 								</div>
 							</div>
@@ -190,6 +192,7 @@ class Bloodhound_Theme_Options_Class {
 								$this->home_settings();
 								$this->header_settings();
 								$this->team_settings();
+								$this->projects_settings();
 								$this->footer_settings();
 
 		echo '				</div>
@@ -387,12 +390,45 @@ class Bloodhound_Theme_Options_Class {
 				'value' => $team['accordion-height'],
 				'name' => 'bloodhound_team_members[accordion-height]',
 			),
+		) );
+
+		premise_save_background( 'bloodhound_team_members' );
+
+		$this->button();
+
+		echo '</div>';
+	}
+
+
+
+
+	/**
+	 * projects settings Tab
+	 */
+	public function projects_settings() {
+		echo '<div id="bloodhound-projects" class="block theme-tab-content" style="display:none;">';
+
+		$projects = $this->options['bloodhound_projects'] ? $this->options['bloodhound_projects'] : array();
+
+		premise_field( array(
+			array(
+				'type' => 'select',
+				'id' => 'projects-permalink',
+				'label' => 'Choose how to open projects',
+				'placeholder' => 'Open Projects in..',
+				'container' => true,
+				'container_title' => 'Projects Page Template Options',
+				'value' => $projects['permalink'],
+				'name' => 'bloodhound_projects[permalink]',
+				'options' => array(
+					'A new page' => 'permalink',
+					'A Popup window' => 'popup',
+				),
+			),
 			// array(),
 			// array(),
 			// array(),
 		) );
-
-		premise_save_background( 'bloodhound_team_members' );
 
 		$this->button();
 

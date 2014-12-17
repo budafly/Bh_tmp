@@ -35,7 +35,7 @@ add_action('switch_theme', array( Bloodhound_Theme_Options_Class::get_instance()
 
 add_action( 'admin_menu', array( Bloodhound_Theme_Options_Class::get_instance(), 'theme_page_init' ) );
 
-add_theme_support('post-thumbnails', array( 'page', 'post', 'team_member' ) );
+add_theme_support('post-thumbnails', array( 'page', 'post', 'team_member', 'project' ) );
 
 register_nav_menu( 'primary', 'Bloodhound Menu' );
 
@@ -52,7 +52,13 @@ echo Bloodhound_Theme_Options_Class::$Ajax['nonce'];
  * 
  * @var object
  */
-$portfolio = new PremiseCPT( 'project' );
+$portfolio = new PremiseCPT( 'project', array( 'supports' => array( 'title', 'thumbnail', 'excerpt', 'editor' ) ) );
+$portfolio->register_taxonomy(array(
+    'taxonomy_name' => 'project_category',
+    'singular' => 'Project Category',
+    'plural' => 'Project Categories',
+    'slug' => 'project-category',
+));
 
 
 

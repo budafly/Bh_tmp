@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<section id="content" class="bloodhound-section">
+<section id="page" class="bloodhound-section">
 
 <div class="container">
 

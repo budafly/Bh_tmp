@@ -84,7 +84,26 @@ function bloodhound_the_team_member_excerpt( $post ) {
  */
 function bloodhound_accordion_height() {
 	$team_members = get_option( 'bloodhound_team_members' );
-	return $team_members['accordion-height'];
+	echo $team_members['accordion-height'];
 }
+
+
+
+
+/**
+ * Team Memeber WP Query
+ * 
+ * @return array array of objects for each post from team members custom post types
+ */
+function bloodhound_team_members_WP_Query() {
+	$team_members = new WP_Query( array( 'post_type' => 'team_member' ) );
+	return array_chunk( $team_members->get_posts(), 4 );
+}
+
+
+
+
+
+
 
 ?>

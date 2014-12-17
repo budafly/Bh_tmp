@@ -14,6 +14,7 @@
  */
 require_once( TEMPLATEPATH . '/includes/library/bloodhound-library.php' );
 require_once( TEMPLATEPATH . '/includes/library/team-members-library.php' );
+require_once( TEMPLATEPATH . '/includes/library/projects-library.php' );
 
 
 

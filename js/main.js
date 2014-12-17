@@ -147,3 +147,56 @@ function bloodhound_ScrollToEl(el,o) {
 
 	return false;
 }
+
+
+
+function bloodhoundProjectPopup(el) {
+	event.preventDefault();
+
+	el = 'object' === typeof el ? jQuery(el) : null
+
+	var url  = el.attr('href'),
+	icon     = jQuery('#bloodhound-ajax-loading'),
+	overlay  = jQuery('#bloodhound-ajax-overlay'),
+	dialog   = jQuery('#bloodhound-ajax-dialog'),
+	close    = jQuery('#bloodhound-ajax-close');
+
+	overlay.fadeIn( 'fast' )
+	icon.fadeIn( 'fast' )
+	close.fadeIn( 'fast' )
+
+	url     = url + ' #content';
+
+	dialog.load( url, function( resp ) {
+		dialog.fadeIn('fast')
+		icon.fadeOut( 'fast' )
+	})
+
+
+		
+
+}
+
+
+
+/**
+ * Close Ajax dialog and empty it.
+ * 	
+ * @return {bool} false. This function does not return anything
+ */
+function bloodhoundAjaxClose() {
+	var icon = jQuery('#bloodhound-ajax-loading'),
+	overlay  = jQuery('#bloodhound-ajax-overlay'),
+	dialog   = jQuery('#bloodhound-ajax-dialog'),
+	close    = jQuery('#bloodhound-ajax-close');
+
+	icon.fadeOut(    ' fast' )
+	overlay.fadeOut( ' fast' )
+	dialog.fadeOut(  ' fast' )
+	close.fadeOut(   ' fast' )
+
+	dialog.empty()
+
+	return false
+}
+

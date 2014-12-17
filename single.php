@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<section id="content">
+<section id="single-post">
 
 <div class="container">
 

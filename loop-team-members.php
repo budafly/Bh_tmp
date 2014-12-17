@@ -1,93 +1,85 @@
 <?php
-//$paged = get_query_var( 'paged' );
 
+$all_posts = bloodhound_team_members_WP_Query(); ?>
 
-$team_members = new WP_Query( array( 'post_type' => 'team_member' ) ); 
-$all_posts = $team_members->get_posts();
+<div class="bxslider">
 
-$every_four = array_chunk( $all_posts, 4 );
+<?php
+foreach ( $all_posts as $posts ) : ?>
 
-echo '<div class="bxslider">';
+<section id="bloodhound-team-members-section"><div class="row">
 
-foreach ( $every_four as $posts ) :
-
-echo '<section id="bloodhound-team-members-section"><div class="row">';
-
-echo '<div class="bloodhound-team-member-excerpt span3 same-height right relative" data-height="'.bloodhound_accordion_height().'">
- 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">';
- 		bloodhound_the_team_member_excerpt( $posts[0] );
-echo' 	</div>
- 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">';
- 		bloodhound_the_team_member_excerpt( $posts[1] );
-echo' 	</div>
+<div class="bloodhound-team-member-excerpt span3 same-height right relative" data-height="<?php bloodhound_accordion_height(); ?>">
+ 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
+ 		<?php bloodhound_the_team_member_excerpt( $posts[0] ); ?>
+</div>
+ 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
+ 		<?php bloodhound_the_team_member_excerpt( $posts[1] ); ?>
+</div>
  </div>
 		
 <div class="span6 relative same-height">
 
-	<div class="bloodhound-accordion border-box" style="overflow:hidden;min-height:'.bloodhound_accordion_height().';'.premise_the_background( 'bloodhound_team_members', false ).'"><!-- Beigin Team Member -->';
+	<div class="bloodhound-accordion border-box" style="overflow:hidden;min-height:<?php bloodhound_accordion_height(); premise_the_background( 'bloodhound_team_members', false ); ?>"><!-- Beigin Team Member -->
 		
+		<?php 
 		foreach ( $posts as $post ) :
-			setup_postdata( $post );
-			
-			$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true );
-			echo '<h3 class="relative" style="background:'.$meta['page-color'].';color:'.$meta['title-color'].';">'.get_the_title().'<i class="absolute fa fa-fw '.$meta['nav-icon'].'" style="top:5px;right:5px;"></i></h3>';
+		setup_postdata( $post );
 		
-			echo '<article ';
-				post_class( 'bloodhound-team-member inline-block' ); 
-				bloodhound_the_page_styles( $post );
-				echo '>';
+		$meta = get_post_meta( $post->ID, 'bloodhound_add_post', true ); ?>
+		<h3 class="relative" style="background:<?php echo $meta['page-color']; ?>;color:<?php echo $meta['title-color']; ?>;"><?php echo get_the_title(); ?><i class="absolute fa fa-fw <?php echo $meta['nav-icon']; ?>" style="top:5px;right:5px;"></i></h3>
+	
+		<article <?php post_class( 'bloodhound-team-member inline-block' ); bloodhound_the_page_styles( $post ); ?>>
 
-				echo '<div class="block">';
-					if( has_post_thumbnail() ) :
-						
-						echo '<div class="span4 float-left inline-block border-box" style="padding:0 20px 10px 0;">';
-							the_post_thumbnail( 'medium', array( 'class' => 'inline-block responsive' ) );
-						echo '</div>';
-						
-						$span = 'span8'; 
+			<div class="block">
+				<?php if( has_post_thumbnail() ) : ?>
+					
+					<div class="span4 float-left inline-block border-box" style="padding:0 20px 10px 0;">
+						<?php the_post_thumbnail( 'medium', array( 'class' => 'inline-block responsive' ) ); ?>
+					</div>
+					
+				<?php	$span = 'span8';
 
-					else : 
+				else : 
 
-						$span = 'block';
+					$span = 'block';
 
-					endif;
+				endif; ?>
 
-					echo '<div class="bloodhound-team-member-info float-left '.$span.'">';
-						bloodhound_the_team_meber_info();
-					echo '</div>
-
-					<div class="clear"></div>
-
-					<div class="block justify">';
-						the_content();
-					echo '</div>
+				<div class="bloodhound-team-member-info float-left <?php echo $span; ?>">
+					<?php bloodhound_the_team_meber_info(); ?>
 				</div>
 
-			</article>';
+				<div class="clear"></div>
 
-			wp_reset_postdata();
-		endforeach;
+				<div class="block justify">
+					<?php the_content(); ?>
+				</div>
+			</div>
 
-	echo '</div>
+		</article>
+
+		<?php wp_reset_postdata();
+	endforeach; ?>
+
+	</div>
 
 </div><!-- ./Middle Column -->
 		
 
 <div class="bloodhound-team-member-excerpt span3 same-height left relative">
-	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">';
-		bloodhound_the_team_member_excerpt( $posts[2] );
-echo '	</div>
-	<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">';
-		bloodhound_the_team_member_excerpt( $posts[3] );
-echo'	</div>
-</div>';
+	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
+		<?php bloodhound_the_team_member_excerpt( $posts[2] ); ?>
+	</div>
+	<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
+		<?php bloodhound_the_team_member_excerpt( $posts[3] ); ?>
+</div>
+</div>
 
-echo '</div></section>';
+</div></section>
 
-endforeach;
+<?php endforeach; ?>
 
-echo '</div>';
+</div>
 
- ?>
-
-
+?>

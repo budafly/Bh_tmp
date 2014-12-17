@@ -1,3 +1,6 @@
+</section>
+<!-- End of content -->
+
 <?php $footer = get_option( 'bloodhound_footer' ); ?>
 
 <section id="footer">
@@ -32,13 +35,5 @@
 		<?php endif; ?>
 	</div>
 </div>
-
-
-
-<?php if( is_home() || is_front_page() ) : ?>
-
-
-
-<?php endif; ?>
 
 <?php wp_footer(); ?>
