@@ -6,7 +6,7 @@ get_header(  );
 $title = bloodhound_the_title( $post, false, false ); ?>
 
 
-<section id="bloodhound_team_members_page" class="block">
+<section id="bloodhound_team_members_page" class="block bloodhound-section">
 
 	<?php bloodhound_the_title( $post ); ?>
 

@@ -40,14 +40,16 @@ function bloodhound_ifHeaderSticky() {
 function bloodhound_makeHeaderSticky() {
 
 	Bloodhound.t = jQuery(window).scrollTop();
+
+	console.log( Bloodhound.o)
 		
 	if( Bloodhound.o < Bloodhound.t ){
 		Bloodhound.bump.css( 'min-height', Bloodhound.header.height() )
-		Bloodhound.header.addClass('fixed')
+		Bloodhound.header.addClass('premise-fixed')
 	}
 	else{
 		Bloodhound.bump.css( 'min-height', '' )
-		Bloodhound.header.removeClass('fixed')
+		Bloodhound.header.removeClass('premise-fixed')
 	}
 }
 
