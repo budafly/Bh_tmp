@@ -194,7 +194,10 @@ function bloodhound_splash_cta_url() {
 function bloodhound_the_title( $post, $span = true, $echo = true ) {
 	$page = get_post_meta( $post->ID, 'bloodhound_add_post', true );
 	
-	if( !$page['title-color'] )
+	if( !$page['page-color'] )
+		$page['page-color'] = '#FFFFFF';
+
+	if( !$page['title-color'] || ( 'top' == $page['style'] && '#ffffff' == $page['title-color'] ) )
 		$page['title-color'] = '#333333';
 	
 	$html = '<div class="post-title">';

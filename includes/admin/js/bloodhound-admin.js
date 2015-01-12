@@ -15,7 +15,7 @@ jQuery(function($) { //on document ready
 	})
 
 	//set up minicolors
-	$('.field .color input[type="text"], input.color-field').minicolors();
+	//$('.field .color input[type="text"], input.color-field').minicolors();
 	
 	//vg theme options nav
 	$('.bloodhound-nav a').click(function() {

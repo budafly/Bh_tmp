@@ -175,7 +175,7 @@ class Bloodhound_Theme_Options_Class {
 
 		echo '		<div class="clear"></div>
 						<div class="block">
-							<div class="width25 theme-options-nav float-left same-height inline-block border-box">
+							<div class="width25 theme-options-nav float-left premise-same-height inline-block border-box">
 								<div class="block theme-logo center">
 									<img src="'. BH_DIR .'/images/defaults/logo.png" class="inline-block responsive">
 								</div>
@@ -187,7 +187,7 @@ class Bloodhound_Theme_Options_Class {
 									<span class="theme-tab block border-box"><a class="block uppercase not-underline" href="#bloodhound-footer">Footer</a></span>
 								</div>
 							</div>
-							<div class="width75 theme-options-content float-left same-height inline-block border-box relative">';
+							<div class="width75 theme-options-content float-left premise-same-height inline-block border-box relative">';
 
 								$this->home_settings();
 								$this->header_settings();

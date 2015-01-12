@@ -16,7 +16,7 @@
 			
 				<?php if( has_post_thumbnail() ) : ?>
 				
-					<div <?php post_class('span4 relative same-height'); ?> style="margin-top:0;margin-left:0;">
+					<div <?php post_class('span4 relative premise-same-height'); ?> style="margin-top:0;margin-left:0;">
 						
 						<a href="<?php the_permalink(); ?>" class="block">
 							<?php the_post_thumbnail('full', array('class' => 'responsive')); ?>
@@ -36,7 +36,7 @@
 				
 				<?php else : ?>
 				
-					<div <?php post_class('span4 relative same-height'); ?> style="margin-top:0;margin-left:0;">
+					<div <?php post_class('span4 relative premise-same-height'); ?> style="margin-top:0;margin-left:0;">
 						
 						<a href="<?php the_permalink(); ?>" class="block">
 							<img src="" class="resopnsive">
@@ -70,13 +70,13 @@ jQuery(function($){
 	$(window).load(function(){
 	//set same height for elements were needed
 	var currentTallest = 0;
-	$('.same-height').each(function(){
+	$('.premise-same-height').each(function(){
 		if ($(this).height() > currentTallest) { 
 			currentTallest = $(this).height(); 
 		}
 	});
 	//set tallest as min-height
-	$('.same-height').css({'min-height': currentTallest});	
+	$('.premise-same-height').css({'min-height': currentTallest});	
 	});
 });
 

@@ -24,7 +24,7 @@ $all_posts = bloodhound_projects_WP_Query(); ?>
 						<?php endif; ?>
 
 					
-						<article <?php post_class( 'bloodhound-project-anchor same-height center relative' ); bloodhound_the_page_styles( $post ); ?>>
+						<article <?php post_class( 'bloodhound-project-anchor center relative' ); bloodhound_the_page_styles( $post ); ?>>
 
 							<h3 style="color:<?php echo $meta['title-color']; ?>;"><?php the_title(); ?></h3>
 

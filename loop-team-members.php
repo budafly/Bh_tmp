@@ -9,16 +9,16 @@ foreach ( $all_posts as $posts ) : ?>
 
 <section id="bloodhound-team-members-section"><div class="row">
 
-<div class="bloodhound-team-member-excerpt span3 same-height right relative" data-height="<?php bloodhound_accordion_height(); ?>">
+<div class="bloodhound-team-member-excerpt span3 premise-same-height right relative" data-height="<?php bloodhound_accordion_height(); ?>">
  	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
  		<?php bloodhound_the_team_member_excerpt( $posts[0] ); ?>
-</div>
+	</div>
  	<div class="bloodhound-team-member-excerpt block border-box absolute" style="bottom:0; right:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
  		<?php bloodhound_the_team_member_excerpt( $posts[1] ); ?>
+	</div>
 </div>
- </div>
-		
-<div class="span6 relative same-height">
+
+<div class="span6 relative premise-same-height">
 
 	<div class="bloodhound-accordion border-box" style="overflow:hidden;min-height:<?php bloodhound_accordion_height(); premise_the_background( 'bloodhound_team_members', false ); ?>"><!-- Beigin Team Member -->
 		
@@ -60,14 +60,14 @@ foreach ( $all_posts as $posts ) : ?>
 		</article>
 
 		<?php wp_reset_postdata();
-	endforeach; ?>
+		endforeach; ?>
 
 	</div>
 
 </div><!-- ./Middle Column -->
 		
 
-<div class="bloodhound-team-member-excerpt span3 same-height left relative">
+<div class="bloodhound-team-member-excerpt span3 premise-same-height left relative">
 	<div class="bloodhound-team-member-excerpt block border-box absolute" style="top:0; left:0; width:100%; height:45%; overflow:hidden; margin-bottom:5%;">
 		<?php bloodhound_the_team_member_excerpt( $posts[2] ); ?>
 	</div>
@@ -81,5 +81,3 @@ foreach ( $all_posts as $posts ) : ?>
 <?php endforeach; ?>
 
 </div>
-
-?>

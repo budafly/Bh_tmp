@@ -41,8 +41,6 @@ function bloodhound_makeHeaderSticky() {
 
 	Bloodhound.t = jQuery(window).scrollTop();
 
-	console.log( Bloodhound.o)
-		
 	if( Bloodhound.o < Bloodhound.t ){
 		Bloodhound.bump.css( 'min-height', Bloodhound.header.height() )
 		Bloodhound.header.addClass('premise-fixed')
@@ -87,10 +85,18 @@ function bloodhound_fireAccordion(){
     })
 }
 
+/**
+ * Process any additional JS
+ */
 function bloodhound_customJs() {
 
 	// additional custom JS here
-	jQuery('.bxslider').bxSlider();
+	jQuery('.bxslider').bxSlider({
+		pager: false
+	});
+
+	// Set projects excerpt same height
+	premiseSameHeight('.bloodhound-project-excerpt');
 
 	console.log( 'Bloodhound custom JS: Successful' )
 }
