@@ -39,7 +39,7 @@ add_theme_support('post-thumbnails', array( 'page', 'post', 'team_member', 'proj
 
 register_nav_menu( 'primary', 'Bloodhound Menu' );
 
-echo Bloodhound_Theme_Options_Class::$Ajax['nonce'];
+
 
 
 /**

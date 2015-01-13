@@ -4,31 +4,36 @@
 
 <div class="container">
 
-	<?php while( have_posts() ) : the_post(); ?>
-	
-		<div class="page-title">
+	<?php 
+	/**
+	 * Check if there are any posts
+	 */
+	if( have_posts() ) :
+
+		/**
+		 * Start the loop
+		 */
+		while( have_posts() ) : the_post(); ?>
 		
-			<h2><?php the_title(); ?></h2>
-		
-		</div>
-		
-		<article <?php post_class(); ?>>
-		
-			<?php if( has_post_thumbnail() ) : ?>
+			<div class="page-title">
 			
-				<div class="span4 float-left" style="margin-top:0;margin-left:0;">
-				
-					<?php the_post_thumbnail('full', array('class' => 'responsive')); ?>
-				
-				</div>
+				<h2><?php the_title(); ?></h2>
 			
-			<?php endif; ?>
+			</div>
+			
+			<?php 
+			/**
+			 * Get the template part that corresponds to this content
+			 */
+			get_template_part( 'content', 'single' ); ?>
 		
-			<?php the_content(); ?>
-		
-		</article>
-	
-	<?php endwhile; ?>
+		<?php endwhile;
+
+	else :
+
+		get_template_part( 'content', 'none' );
+
+	endif; ?>
 
 </div>
 

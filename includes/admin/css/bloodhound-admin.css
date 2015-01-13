@@ -417,10 +417,10 @@
 }
 
 /* Color fields */
-.field .text .minicolors-input {
+.field .color .minicolors-input {
     padding-left:30px;
 }
-.field .text .minicolors-input, .field .text .minicolors {
+.field .color .minicolors-input, .field .color .minicolors {
     width: 100% !important;
     height: auto !important;
 }

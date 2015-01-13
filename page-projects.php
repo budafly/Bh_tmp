@@ -14,7 +14,7 @@ get_header(  );
 
 	<div class="container">
 
-		<?php get_template_part( 'content', 'projects' ); ?>
+		<?php get_template_part( 'loop', 'projects' ); ?>
 
 	</div>
 

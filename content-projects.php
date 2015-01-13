@@ -1,10 +1,18 @@
 <?php  ?>
 
 <!-- Content Project -->
-<section class="bloodhound-projects-page border-box block">
-	<div class="container">
+<article <?php post_class(); ?>>
 		
-		<?php get_template_part( 'loop', 'projects' ); ?>
+	<?php if( has_post_thumbnail() ) : ?>
 
-	</div>
-</section>
+		<div class="span4 float-left" style="margin-top:0;margin-left:0;">
+		
+			<?php the_post_thumbnail('full', array('class' => 'responsive')); ?>
+		
+		</div>
+
+	<?php endif; ?>
+
+	<?php the_content(); ?>
+
+</article>
