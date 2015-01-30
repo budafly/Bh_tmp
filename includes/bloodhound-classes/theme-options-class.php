@@ -142,7 +142,7 @@ class Bloodhound_Theme_Options_Class {
 
 		self::$Ajax = new self;
 
-		add_action( 'admin_footer', array( $this, 'theme_ajax' ) );
+		//add_action( 'admin_footer', array( $this, 'theme_ajax' ) );
 
 		add_action( 'wp_ajax_bloodhound_update_options', array( $this, 'update_options' ) );
 		
@@ -480,7 +480,7 @@ class Bloodhound_Theme_Options_Class {
 	//  * AJAX Save form
 	//  * 
 	//  */
-	// public function theme_ajax() {
+	//// public function theme_ajax() {
 		
 
 		
