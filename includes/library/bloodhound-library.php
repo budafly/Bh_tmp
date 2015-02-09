@@ -235,4 +235,57 @@ function bloodhound_load_page_template() {
 
 	return get_template_part( $page_template_name );
 }
+
+
+
+function bloodhound_one_page_loop_query() {
+	$onepage = (array) get_option( 'bloodhound_one_page_nav' );
+	$post_types = get_post_types( array( 'public' => true ), 'names' );
+	
+	$menu_items = bloodhound_grab_menu_items_ids();
+	
+	$args = array(
+		'post_type' => $post_types,
+		'meta_key' => 'bloodhound_add_post_to_one_page',
+		'meta_value' => '1',
+		'orderby' => 'post__in',
+		'order' => 'ASC',
+		'post__in' => $menu_items,
+	);
+
+	if( $onepage['ignore-sticky'] )
+		$args['post__not_in'] = get_option( 'sticky_posts' );
+	
+	return new WP_Query( $args );
+}
+
+
+/**
+ * get the name of the page template assigned to the current page in the loop
+ *
+ * This return the name of the page template (without the extensions '.php') or page
+ * if no page template is assigned
+ * 
+ * @return string the name of the page template
+ */
+function bloodhound_get_page_template_name() {
+	$page_template = basename( get_page_template() );
+	$page_template_name = current( explode( '.php', $page_template, 2 ) );
+	return $page_template_name;
+}
+
+
+
+/**
+ * returns the name of the template to display
+ *
+ * useful when calling a page template. i.e. get_page_template( 'content', bloodhound_get_content_template() )
+ * 
+ * @return string the name of the content template
+ */
+function bloodhound_get_content_template() {
+	$page_template_name = bloodhound_get_page_template_name();
+	$page_template_name = explode( 'page-', $page_template_name, 2 );
+	return $page_template_name[1];
+}
 ?>
